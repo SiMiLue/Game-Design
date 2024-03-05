@@ -65,7 +65,11 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		CMovingBitmap logo;								// csie的logo
+		CMovingBitmap background;		// csie的logo
+		CMovingBitmap StartGame;
+		CMovingBitmap brand;
+		void load_background();
+		void draw_text();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -88,7 +92,15 @@ namespace game_framework {
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 	protected:
 		void OnMove();									// 移動遊戲元素
-		void OnShow();									// 顯示這個狀態的遊戲畫面
+		void OnShow();			                        // 顯示這個狀態的遊戲畫面
+	private:
+		int phase = 1;
+		int sub_phase = 1;
+		CMovingBitmap background;
+		CMovingBitmap character;
+		CMovingBitmap chest_and_key;
+		void show_image_by_phase();
+		void show_text_by_phase();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
