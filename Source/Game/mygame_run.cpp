@@ -77,8 +77,5 @@ void CGameStateRun::show_image_by_phase() {
 	background.ShowBitmap();
 }
 void CGameStateRun::show_text_by_phase() {
-	CDC *pDC = CDDraw::GetBackCDC();
-
-	CTextDraw::ChangeFontLog(pDC, 21, "·L³n¥¿¶ÂÅé", RGB(0, 0, 0), 800);
-
+	
 }
