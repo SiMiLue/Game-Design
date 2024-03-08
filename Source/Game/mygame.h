@@ -97,11 +97,19 @@ namespace game_framework {
 	private:
 		int phase = 1;
 		int sub_phase = 1;
+		bool showinfo = false;
 		CMovingBitmap background;
-		CMovingBitmap character;
-		CMovingBitmap chest_and_key;
+		CMovingBitmap infobox;
+		CMovingBitmap apple;
+		CMovingBitmap honey;
+		CMovingBitmap pill;
+		CMovingBitmap cupcake;
+		CMovingBitmap meatbone;
+		CMovingBitmap salad;
+		CMovingBitmap garlic;
 		void show_image_by_phase();
 		void show_text_by_phase();
+		void show_food();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
