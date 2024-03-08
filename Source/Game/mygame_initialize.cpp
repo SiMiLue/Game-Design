@@ -23,9 +23,12 @@ void CGameStateInit::OnInit()
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
 	ShowInitProgress(0, "Start Initialize...");	// 一開始的loading進度為0%
+	
 	//
 	// 開始載入資料
 	//
+	CAudio::Instance()->Load(0, "Sounds/mains.mp3");
+	CAudio::Instance()->Play(0, true);
 	load_background();
 	Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
@@ -66,6 +69,7 @@ void CGameStateInit::load_background() {
 
 	StartGame.LoadBitmapByString({ "resources/StartGame.bmp" });
 	StartGame.SetTopLeft(400, 420);
+	
 }
 
 void CGameStateInit::draw_text() {

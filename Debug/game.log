@@ -1,3 +1,2 @@
-﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  mygame_run.cpp
+﻿Pets.obj : warning LNK4075: 忽略 '/EDITANDCONTINUE'，由於 '/SAFESEH' 規格
   game.vcxproj -> D:\Alan_Game-Design\.\Debug\game.exe
