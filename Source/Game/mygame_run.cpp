@@ -32,16 +32,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	background.LoadBitmapByString({"Resources/character_info.bmp" });
+	background.LoadBitmapByString({"Resources/initialize_background.bmp" });
 	background.SetTopLeft(0, 0);
 
-	infobox.LoadBitmapByString({"Resources/info_block.bmp"});
-	infobox.SetTopLeft(0, 400);
-
-	apple.LoadBitmapByString({ "resources/Apple.bmp " });
-	apple.SetTopLeft(900, 35);
-	honey.LoadBitmapByString({ "resources/Honey.bmp " });
-	honey.SetTopLeft(1000, 35);
 
 	/*
 	pill.LoadBitmapByString({ "resources/Sleeping_Pill.bmp " });
@@ -80,12 +73,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 	
-	if (point.x > apple.GetLeft() && point.x < apple.GetLeft() + apple.GetWidth() && point.y > apple.GetTop() && point.y < apple.GetTop() + apple.GetHeight()) {
-		showinfo = true;
-	}
-	else {
-		showinfo = false;
-	}
+	
 
 }
 
@@ -99,28 +87,12 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnShow()
 {
-	show_image_by_phase();
-	//show_text_by_phase();
-	show_food();
+	background.ShowBitmap();
+	
 }
 
-void CGameStateRun::show_image_by_phase() {
-	background.ShowBitmap();
-	if (showinfo == true) {
-		infobox.ShowBitmap();
-	}
-}
-void CGameStateRun::show_food() {
-	apple.ShowBitmap();
-	honey.ShowBitmap();
-	/*
-	garlic.ShowBitmap();
-	pill.ShowBitmap();
-	cupcake.ShowBitmap();
-	salad.ShowBitmap();
-	meatbone.ShowBitmap();
-	*/
-}
+
+
 void CGameStateRun::show_text_by_phase() {
 	CDC *pDC = CDDraw::GetBackCDC();
 	CTextDraw::ChangeFontLog(pDC, 36, "微軟正黑體", RGB(255, 255, 255));

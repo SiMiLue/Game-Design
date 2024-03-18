@@ -63,14 +63,61 @@ namespace game_framework {
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnKeyUp(UINT, UINT, UINT); 				// 處理鍵盤Up的動作
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
+		void OnMouseMove(UINT nFlags, CPoint point);
+		void OnKeyDown(UINT, UINT, UINT);
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		CMovingBitmap background;		// csie的logo
 		CMovingBitmap StartGame;
 		CMovingBitmap brand;
+		CMovingBitmap Pets_Button;
+		bool showinfo = false;
+		bool food_Button = false;
+		bool food_load = false;
+		string food_info;
+		CMovingBitmap check_food;
+		CMovingBitmap apple;
+		CMovingBitmap apple_info;
+		CMovingBitmap honey;
+		CMovingBitmap honey_info;
+		CMovingBitmap pill;
+		CMovingBitmap pill_info;
+		CMovingBitmap meatbone;
+		CMovingBitmap meatbone_info;
+		CMovingBitmap cupcake;
+		CMovingBitmap cupcake_info;
+		CMovingBitmap salad;
+		CMovingBitmap salad_info;
+		CMovingBitmap garlic;
+		CMovingBitmap garlic_info;
+		CMovingBitmap Canned;
+		CMovingBitmap Canned_info;
+		CMovingBitmap Pear;
+		CMovingBitmap Pear_info;
+		CMovingBitmap Chili;
+		CMovingBitmap Chili_info;
+		CMovingBitmap Chocolate;
+		CMovingBitmap Chocolate_info;
+		CMovingBitmap Sushi;
+		CMovingBitmap Sushi_info;
+		CMovingBitmap Steak;
+		CMovingBitmap Steak_info;
+		CMovingBitmap Melon;
+		CMovingBitmap Melon_info;
+		CMovingBitmap Mushroom;
+		CMovingBitmap Mushroom_info;
+		CMovingBitmap Pizza;
+		CMovingBitmap Pizza_info;
 		void load_background();
+		void load_food();
+		void load_food_info();
 		void draw_text();
+		void show_food();
+		void show_image_by_phase();
+		void show_food_info();
+		vector<CMovingBitmap> food_array;
+		vector<CMovingBitmap> food_info_array;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -97,19 +144,10 @@ namespace game_framework {
 	private:
 		int phase = 1;
 		int sub_phase = 1;
-		bool showinfo = false;
 		CMovingBitmap background;
-		CMovingBitmap infobox;
-		CMovingBitmap apple;
-		CMovingBitmap honey;
-		CMovingBitmap pill;
-		CMovingBitmap cupcake;
-		CMovingBitmap meatbone;
-		CMovingBitmap salad;
-		CMovingBitmap garlic;
-		void show_image_by_phase();
+		//void show_image_by_phase();
 		void show_text_by_phase();
-		void show_food();
+		
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
