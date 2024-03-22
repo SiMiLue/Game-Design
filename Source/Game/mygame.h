@@ -109,15 +109,50 @@ namespace game_framework {
 		CMovingBitmap Mushroom_info;
 		CMovingBitmap Pizza;
 		CMovingBitmap Pizza_info;
+
+		CMovingBitmap Duck;
+		CMovingBitmap Beaver;
+		CMovingBitmap Pigeon;
+		CMovingBitmap Otter;
+		CMovingBitmap Pig;
+		CMovingBitmap Ant;
+		CMovingBitmap Mosquito;
+		CMovingBitmap Fish;
+		CMovingBitmap Cricket;
+		CMovingBitmap Horse;
+
+		CMovingBitmap Snail;
+		CMovingBitmap Crab;
+		CMovingBitmap Swan;
+		CMovingBitmap Rat;
+		CMovingBitmap Hedgehog;
+		CMovingBitmap Peacock;
+		CMovingBitmap Flamingo;
+		CMovingBitmap Worm;
+		CMovingBitmap Kangaroo;
+		CMovingBitmap Spider;
+
+		CMovingBitmap Dodo;
+		CMovingBitmap Badger;
+		CMovingBitmap Dolphin;
+		CMovingBitmap Giraffe;
+		CMovingBitmap Elephant;
+		CMovingBitmap Camel;
+		CMovingBitmap Rabbit;
+		CMovingBitmap Ox;
+		CMovingBitmap Dog;
+		CMovingBitmap Sheep;
 		void load_background();
 		void load_food();
 		void load_food_info();
+		void load_pet();
 		void draw_text();
 		void show_food();
+		void show_pet();
 		void show_image_by_phase();
 		void show_food_info();
 		vector<CMovingBitmap> food_array;
-		vector<CMovingBitmap> food_info_array;
+		vector<CMovingBitmap> pets_array;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
