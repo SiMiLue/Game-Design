@@ -236,7 +236,9 @@
     <None Include="Resources\GAME.RC2" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Beaver.cpp" />
     <ClCompile Include="Pets.cpp" />
+    <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Source\Core\game.cpp" />
     <ClCompile Include="Source\Core\gameDoc.cpp" />
     <ClCompile Include="Source\Core\gameView.cpp" />
@@ -252,6 +254,8 @@
     <ClCompile Include="Source\Library\gameutil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Beaver.h" />
+    <ClInclude Include="Duck.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pets.h" />
     <ClInclude Include="Shop.h" />
@@ -266,6 +270,7 @@
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
     <ClInclude Include="Source\Library\gameutil.h" />
+    <ClInclude Include="team.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc" />

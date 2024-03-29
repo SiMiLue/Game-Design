@@ -55,76 +55,25 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point) 
 {
 	if (food_load == true) {
-			if (point.x > apple.GetLeft() && point.x < apple.GetLeft() + apple.GetWidth() && point.y > apple.GetTop() && point.y < apple.GetTop() + apple.GetHeight()) {
+		bool foundFood = false; 
+		for (size_t i = 0; i < food_array.size(); i++ ) {
+			if (point.x > food_array[i].GetLeft() && point.x < food_array[i].GetLeft() + food_array[i].GetWidth() && point.y > food_array[i].GetTop() && point.y < food_array[i].GetTop() + food_array[i].GetHeight()) {
 				showinfo = true;
-				food_info = "apple";
+				food_info = i; 
+				foundFood = true;
 			}
-			else if (point.x > honey.GetLeft() && point.x < honey.GetLeft() + honey.GetWidth() && point.y > honey.GetTop() && point.y < honey.GetTop() + honey.GetHeight()) {
-				showinfo = true;
-				food_info = "honey";
+		}
+		for (size_t j = 0; j < pets_array.size(); j++) {
+			if (point.x > pets_array[j].GetLeft() && point.x < pets_array[j].GetLeft() + pets_array[j].GetWidth() && point.y > pets_array[j].GetTop() && point.y < pets_array[j].GetTop() + pets_array[j].GetHeight()) {
+				showpetinfo = true;
+				pet_info = j;
+				foundFood = true;
 			}
-			else if (point.x > pill.GetLeft() && point.x < pill.GetLeft() + pill.GetWidth() && point.y > pill.GetTop() && point.y < pill.GetTop() + pill.GetHeight()) {
-				showinfo = true;
-				food_info = "pill";
-			}
-			else if (point.x > meatbone.GetLeft() && point.x < meatbone.GetLeft() + meatbone.GetWidth() && point.y > meatbone.GetTop() && point.y < meatbone.GetTop() + meatbone.GetHeight()) {
-				showinfo = true;
-				food_info = "meatbone";
-			}
-			else if (point.x > cupcake.GetLeft() && point.x < cupcake.GetLeft() + cupcake.GetWidth() && point.y > cupcake.GetTop() && point.y < cupcake.GetTop() + cupcake.GetHeight()) {
-				showinfo = true;
-				food_info = "cupcake";
-			}
-			else if (point.x > salad.GetLeft() && point.x < salad.GetLeft() + salad.GetWidth() && point.y > salad.GetTop() && point.y < salad.GetTop() + salad.GetHeight()) {
-				showinfo = true;
-				food_info = "salad";
-			}
-			else if (point.x > garlic.GetLeft() && point.x < garlic.GetLeft() + garlic.GetWidth() && point.y > garlic.GetTop() && point.y < garlic.GetTop() + garlic.GetHeight()) {
-				showinfo = true;
-				food_info = "garlic";
-			}
-			else if (point.x > Canned.GetLeft() && point.x < Canned.GetLeft() + Canned.GetWidth() && point.y > Canned.GetTop() && point.y < Canned.GetTop() + Canned.GetHeight()) {
-				showinfo = true;
-				food_info = "Canned";
-			}
-			else if (point.x > Pear.GetLeft() && point.x < Pear.GetLeft() + Pear.GetWidth() && point.y > Pear.GetTop() && point.y < Pear.GetTop() + Pear.GetHeight()) {
-				showinfo = true;
-				food_info = "Pear";
-			}
-			else if (point.x > Chili.GetLeft() && point.x < Chili.GetLeft() + Chili.GetWidth() && point.y > Chili.GetTop() && point.y < Chili.GetTop() + Chili.GetHeight()) {
-				showinfo = true;
-				food_info = "Chili";
-			}
-			else if (point.x > Chocolate.GetLeft() && point.x < Chocolate.GetLeft() + Chocolate.GetWidth() && point.y > Chocolate.GetTop() && point.y < Chocolate.GetTop() + Chocolate.GetHeight()) {
-				showinfo = true;
-				food_info = "Chocolate";
-			}
-			else if (point.x > Sushi.GetLeft() && point.x < Sushi.GetLeft() + Sushi.GetWidth() && point.y > Sushi.GetTop() && point.y < Sushi.GetTop() + Sushi.GetHeight()) {
-				showinfo = true;
-				food_info = "Sushi";
-			}
-			else if (point.x > Steak.GetLeft() && point.x < Steak.GetLeft() + Steak.GetWidth() && point.y > Steak.GetTop() && point.y < Steak.GetTop() + Steak.GetHeight()) {
-				showinfo = true;
-				food_info = "Steak";
-			}
-			else if (point.x > Melon.GetLeft() && point.x < Melon.GetLeft() + Melon.GetWidth() && point.y > Melon.GetTop() && point.y < Melon.GetTop() + Melon.GetHeight()) {
-				showinfo = true;
-				food_info = "Melon";
-			}
-			else if (point.x > Mushroom.GetLeft() && point.x < Mushroom.GetLeft() + Mushroom.GetWidth() && point.y > Mushroom.GetTop() && point.y < Mushroom.GetTop() + Mushroom.GetHeight()) {
-				showinfo = true;
-				food_info = "Mushroom";
-			}
-			else if (point.x > Pizza.GetLeft() && point.x < Pizza.GetLeft() + Pizza.GetWidth() && point.y > Pizza.GetTop() && point.y < Pizza.GetTop() + Pizza.GetHeight()) {
-				showinfo = true;
-				food_info = "Pizza";
-			}
-			else {
-				showinfo = false;
-			}
-
-	
-
+		}
+		if (!foundFood ) {
+			showinfo = false;
+			showpetinfo = false;
+		}
 
 	}
 	
@@ -146,7 +95,7 @@ void CGameStateInit::OnShow()
 	show_food();
 	show_pet();
 	show_food_info();
-	
+	show_pet_info();
 }
 void CGameStateInit::load_background() {
 	background.LoadBitmapByString({"resources/back3.bmp","resources/character_info.bmp"});
@@ -274,6 +223,11 @@ void CGameStateInit::load_pet() {
 	Spider.LoadBitmapByString({ "resources/pets/Spider.bmp" }, RGB(255, 255, 255));
 	Spider.SetTopLeft(680, 155);
 	pets_array.push_back(Spider);
+	Fir.LoadBitmapByString({ "resources/pets_info/Duck_info.bmp" , "resources/pets_info/Beaver_info.bmp" , "resources/pets_info/Pigeon_info.bmp" ,"resources/pets_info/Otter_info.bmp"
+		,"resources/pets_info/Pig_info.bmp","resources/pets_info/Ant_info.bmp" ,"resources/pets_info/Mosquito_info.bmp","resources/pets_info/Fish_info.bmp" ,"resources/pets_info/Cricket_info.bmp" 
+		,"resources/pets_info/Horse_info.bmp"});
+	Fir.SetTopLeft(20, 510);
+
 
 	Dodo.LoadBitmapByString({ "resources/pets/Dodo.bmp" }, RGB(255, 255, 255));
 	Dodo.SetTopLeft(140, 275);
@@ -305,44 +259,169 @@ void CGameStateInit::load_pet() {
 	Sheep.LoadBitmapByString({ "resources/pets/Sheep.bmp" }, RGB(255, 255, 255));
 	Sheep.SetTopLeft(680, 275);
 	pets_array.push_back(Sheep);
+	Sec.LoadBitmapByString({ "resources/pets_info/Snail_info.bmp" , "resources/pets_info/Crab_info.bmp" , "resources/pets_info/Swan_info.bmp" ,"resources/pets_info/Rat_info.bmp"
+		,"resources/pets_info/Hedgehog_info.bmp","resources/pets_info/Peacock_info.bmp" ,"resources/pets_info/Flamigo_info.bmp","resources/pets_info/Worm_info.bmp" ,"resources/pets_info/Kangaroo_info.bmp"
+		,"resources/pets_info/Spider_info.bmp" });
+	Sec.SetTopLeft(20, 510);
 
-
-
+	Thr.LoadBitmapByString({ "resources/pets_info/Dodo_info.bmp" , "resources/pets_info/Badger_info.bmp" , "resources/pets_info/Dolphin_info.bmp" ,"resources/pets_info/Giraffe_info.bmp"
+		,"resources/pets_info/Elephant_info.bmp","resources/pets_info/Camel_info.bmp" ,"resources/pets_info/Rabbit_info.bmp","resources/pets_info/Ox_info.bmp" ,"resources/pets_info/Dog_info.bmp"
+		,"resources/pets_info/Sheep_info.bmp" });
+	Thr.SetTopLeft(20, 510);
+	Skunk.LoadBitmapByString({ "resources/pets/Skunk.bmp" }, RGB(255, 255, 255));
+	Skunk.SetTopLeft(140, 395);
+	pets_array.push_back(Skunk);
+	Hippo.LoadBitmapByString({ "resources/pets/Hippo.bmp" }, RGB(255, 255, 255));
+	Hippo.SetTopLeft(200, 395);
+	pets_array.push_back(Hippo);
+	Bison.LoadBitmapByString({ "resources/pets/Bison.bmp" }, RGB(255, 255, 255));
+	Bison.SetTopLeft(260, 395);
+	pets_array.push_back(Bison);
+	Blowfish.LoadBitmapByString({ "resources/pets/Blowfish.bmp" }, RGB(255, 255, 255));
+	Blowfish.SetTopLeft(320, 395);
+	pets_array.push_back(Blowfish);
+	Turtle.LoadBitmapByString({ "resources/pets/Turtle.bmp" }, RGB(255, 255, 255));
+	Turtle.SetTopLeft(380, 395);
+	pets_array.push_back(Turtle);
+	Squirrel.LoadBitmapByString({ "resources/pets/Squirrel.bmp" }, RGB(255, 255, 255));
+	Squirrel.SetTopLeft(440, 395);
+	pets_array.push_back(Squirrel);
+	Penguin.LoadBitmapByString({ "resources/pets/Penguin.bmp" }, RGB(255, 255, 255));
+	Penguin.SetTopLeft(500, 395);
+	pets_array.push_back(Penguin);
+	Deer.LoadBitmapByString({ "resources/pets/Deer.bmp" }, RGB(255, 255, 255));
+	Deer.SetTopLeft(560, 395);
+	pets_array.push_back(Deer);
+	Whale.LoadBitmapByString({ "resources/pets/Whale.bmp" }, RGB(255, 255, 255));
+	Whale.SetTopLeft(620, 395);
+	pets_array.push_back(Whale);
+	Parrot.LoadBitmapByString({ "resources/pets/Parrot.bmp" }, RGB(255, 255, 255));
+	Parrot.SetTopLeft(680, 395);
+	pets_array.push_back(Parrot);
+	For.LoadBitmapByString({ "resources/pets_info/Skunk_info.bmp" , "resources/pets_info/Hippo_info.bmp" , "resources/pets_info/Bison_info.bmp" ,"resources/pets_info/Blowfish_info.bmp"
+		,"resources/pets_info/Turtle_info.bmp","resources/pets_info/Squirrel_info.bmp" ,"resources/pets_info/Penguin_info.bmp","resources/pets_info/Deer_info.bmp" ,"resources/pets_info/Whale_info.bmp"
+		,"resources/pets_info/Parrot_info.bmp" });
+	For.SetTopLeft(20, 0);
+	Scorpion.LoadBitmapByString({ "resources/pets/Scorpion.bmp" }, RGB(255, 255, 255));
+	Scorpion.SetTopLeft(140, 515);
+	pets_array.push_back(Scorpion);
+	Crocodile.LoadBitmapByString({ "resources/pets/Crocodile.bmp" }, RGB(255, 255, 255));
+	Crocodile.SetTopLeft(200, 515);
+	pets_array.push_back(Crocodile);
+	Rhino.LoadBitmapByString({ "resources/pets/Rhino.bmp" }, RGB(255, 255, 255));
+	Rhino.SetTopLeft(260, 515);
+	pets_array.push_back(Rhino);
+	Monkey.LoadBitmapByString({ "resources/pets/Monkey.bmp" }, RGB(255, 255, 255));
+	Monkey.SetTopLeft(320, 515);
+	pets_array.push_back(Monkey);
+	Armadillo.LoadBitmapByString({ "resources/pets/Armadillo.bmp" }, RGB(255, 255, 255));
+	Armadillo.SetTopLeft(380, 515);
+	pets_array.push_back(Armadillo);
+	Cow.LoadBitmapByString({ "resources/pets/Cow.bmp" }, RGB(255, 255, 255));
+	Cow.SetTopLeft(440, 515);
+	pets_array.push_back(Cow);
+	Seal.LoadBitmapByString({ "resources/pets/Seal.bmp" }, RGB(255, 255, 255));
+	Seal.SetTopLeft(500, 515);
+	pets_array.push_back(Seal);
+	Rooster.LoadBitmapByString({ "resources/pets/Rooster.bmp" }, RGB(255, 255, 255));
+	Rooster.SetTopLeft(560, 515);
+	pets_array.push_back(Rooster);
+	Shark.LoadBitmapByString({ "resources/pets/Shark.bmp" }, RGB(255, 255, 255));
+	Shark.SetTopLeft(620, 515);
+	pets_array.push_back(Shark);
+	Turkey.LoadBitmapByString({ "resources/pets/Turkey.bmp" }, RGB(255, 255, 255));
+	Turkey.SetTopLeft(680, 515);
+	pets_array.push_back(Turkey);
+	Fiv.LoadBitmapByString({ "resources/pets_info/Scorpion_info.bmp" , "resources/pets_info/Crocodile_info.bmp" , "resources/pets_info/Rhino_info.bmp" ,"resources/pets_info/Monkey_info.bmp"
+		,"resources/pets_info/Armadillo_info.bmp","resources/pets_info/Cow_info.bmp" ,"resources/pets_info/Seal_info.bmp","resources/pets_info/Rooster_info.bmp" ,"resources/pets_info/Shark_info.bmp"
+		,"resources/pets_info/Turkey_info.bmp" });
+	Fiv.SetTopLeft(20, 0);
+	Leopard.LoadBitmapByString({ "resources/pets/Leopard.bmp" }, RGB(255, 255, 255));
+	Leopard.SetTopLeft(140, 610);
+	pets_array.push_back(Leopard);
+	Boar.LoadBitmapByString({ "resources/pets/Boar.bmp" }, RGB(255, 255, 255));
+	Boar.SetTopLeft(200, 610);
+	pets_array.push_back(Boar);
+	Tiger.LoadBitmapByString({ "resources/pets/Tiger.bmp" }, RGB(255, 255, 255));
+	Tiger.SetTopLeft(260, 610);
+	pets_array.push_back(Tiger);
+	Wolverine.LoadBitmapByString({ "resources/pets/Wolverine.bmp" }, RGB(255, 255, 255));
+	Wolverine.SetTopLeft(320, 610);
+	pets_array.push_back(Wolverine);
+	Gorilla.LoadBitmapByString({ "resources/pets/Gorilla.bmp" }, RGB(255, 255, 255));
+	Gorilla.SetTopLeft(380, 610);
+	pets_array.push_back(Gorilla);
+	Dragon.LoadBitmapByString({ "resources/pets/Dragon.bmp" }, RGB(255, 255, 255));
+	Dragon.SetTopLeft(440, 610);
+	pets_array.push_back(Dragon);
+	Mammoth.LoadBitmapByString({ "resources/pets/Mammoth.bmp" }, RGB(255, 255, 255));
+	Mammoth.SetTopLeft(500, 610);
+	pets_array.push_back(Mammoth);
+	Cat.LoadBitmapByString({ "resources/pets/Cat.bmp" }, RGB(255, 255, 255));
+	Cat.SetTopLeft(560, 610);
+	pets_array.push_back(Cat);
+	Snake.LoadBitmapByString({ "resources/pets/Snake.bmp" }, RGB(255, 255, 255));
+	Snake.SetTopLeft(620, 610);
+	pets_array.push_back(Snake);
+	Fly.LoadBitmapByString({ "resources/pets/Fly.bmp" }, RGB(255, 255, 255));
+	Fly.SetTopLeft(680, 610);
+	pets_array.push_back(Fly);
+	Six.LoadBitmapByString({ "resources/pets_info/Leopard_info.bmp" , "resources/pets_info/Boar_info.bmp" , "resources/pets_info/Tiger_info.bmp" ,"resources/pets_info/Wolverine_info.bmp"
+		,"resources/pets_info/Gorilla_info.bmp","resources/pets_info/Dragon_info.bmp" ,"resources/pets_info/Mammoth_info.bmp","resources/pets_info/Cat_info.bmp" ,"resources/pets_info/Snake_info.bmp"
+		,"resources/pets_info/Fly_info.bmp" });
+	Six.SetTopLeft(20, 0);
 }
 void CGameStateInit::load_food_info() {
 	apple_info.LoadBitmapByString({ "resources/food_info/Apple_info.bmp " });
 	apple_info.SetTopLeft(20, 510);
+	food_info_array.push_back(apple_info);
 	honey_info.LoadBitmapByString({ "resources/food_info/Honey_info.bmp " });
 	honey_info.SetTopLeft(20, 510);
+	food_info_array.push_back(honey_info);
 	pill_info.LoadBitmapByString({ "resources/food_info/Pill_info.bmp" });
 	pill_info.SetTopLeft(20, 510);
+	food_info_array.push_back(pill_info);
 	meatbone_info.LoadBitmapByString({ "resources/food_info/Meat_info.bmp" });
 	meatbone_info.SetTopLeft(20, 510);
+	food_info_array.push_back(meatbone_info);
 	cupcake_info.LoadBitmapByString({ "resources/food_info/Cupcake_info.bmp" });
 	cupcake_info.SetTopLeft(20, 510);
+	food_info_array.push_back(cupcake_info);
 	salad_info.LoadBitmapByString({ "resources/food_info/Salad_info.bmp" });
 	salad_info.SetTopLeft(20, 510);
+	food_info_array.push_back(salad_info);
 	garlic_info.LoadBitmapByString({ "resources/food_info/Garlic_info.bmp" });
 	garlic_info.SetTopLeft(20, 510);
+	food_info_array.push_back(garlic_info);
 	Canned_info.LoadBitmapByString({ "resources/food_info/Canned_info.bmp" });
 	Canned_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Canned_info);
 	Pear_info.LoadBitmapByString({ "resources/food_info/Pear_info.bmp" });
 	Pear_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Pear_info);
 	Chili_info.LoadBitmapByString({ "resources/food_info/Chili_info.bmp" });
 	Chili_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Chili_info);
 	Chocolate_info.LoadBitmapByString({ "resources/food_info/Chocolat_info.bmp" });
 	Chocolate_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Chocolate_info);
 	Sushi_info.LoadBitmapByString({ "resources/food_info/Sushi_info.bmp" });
 	Sushi_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Sushi_info);
 	Steak_info.LoadBitmapByString({ "resources/food_info/Steak_info.bmp" });
 	Steak_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Steak_info);
 	Melon_info.LoadBitmapByString({ "resources/food_info/Melon_info.bmp" });
 	Melon_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Melon_info);
 	Mushroom_info.LoadBitmapByString({ "resources/food_info/Mushroom_info.bmp" });
 	Mushroom_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Mushroom_info);
 	Pizza_info.LoadBitmapByString({ "resources/food_info/Pizza_info.bmp" });
 	Pizza_info.SetTopLeft(20, 0);
+	food_info_array.push_back(Pizza_info);
 }
+
 
 void CGameStateInit::show_food() {
 	if (food_Button == true ) {
@@ -375,60 +454,39 @@ void CGameStateInit::show_image_by_phase() {
 }
 void CGameStateInit::show_food_info() {
 	if (food_Button == true && showinfo == true) {
-			if ( food_info == "apple" ) {
-				apple_info.ShowBitmap();
-			}
-			else if (food_info == "honey") {
-				honey_info.ShowBitmap();
-			}
-			else if (food_info == "pill") {
-				pill_info.ShowBitmap();
-			}
-			else if (food_info == "meatbone") {
-				meatbone_info.ShowBitmap();
-			}
-			else if (food_info == "cupcake") {
-				cupcake_info.ShowBitmap();
-			}
-			else if (food_info == "salad") {
-				salad_info.ShowBitmap();
-			}
-			else if (food_info == "garlic") {
-				garlic_info.ShowBitmap();
-			}
-			else if (food_info == "Canned") {
-				Canned_info.ShowBitmap();
-			}
-			else if (food_info == "Pear") {
-				Pear_info.ShowBitmap();
-			}
-			else if (food_info == "Chili") {
-				Chili_info.ShowBitmap();
-			}
-			else if (food_info == "Chocolate") {
-				Chocolate_info.ShowBitmap();
-			}
-			else if (food_info == "Sushi") {
-				Sushi_info.ShowBitmap();
-			}
-			else if (food_info == "Steak") {
-				Steak_info.ShowBitmap();
-			}
-			else if (food_info == "Melon") {
-				Melon_info.ShowBitmap();
-			}
-			else if (food_info == "Mushroom") {
-				Mushroom_info.ShowBitmap();
-			}
-			else if (food_info == "Pizza") {
-				Pizza_info.ShowBitmap();
-			}
-		
-		
-
+		food_info_array[food_info].ShowBitmap();
 	}
-	
-	
+}
+void CGameStateInit::show_pet_info() {
+	if (food_Button == true && showpetinfo == true) {
+		if (pet_info < 10) {
+			Fir.SetFrameIndexOfBitmap(pet_info);
+			Fir.ShowBitmap();
+		}
+		else if (pet_info < 20) {
+			Sec.SetFrameIndexOfBitmap(pet_info-10);
+			Sec.ShowBitmap();
+		}
+		else if (pet_info < 30) {
+			Thr.SetFrameIndexOfBitmap(pet_info - 20);
+			Thr.ShowBitmap();
+		}
+		else if (pet_info < 40) {
+			For.SetFrameIndexOfBitmap(pet_info - 30);
+			For.ShowBitmap();
+		}
+		else if (pet_info < 50) {
+			Fiv.SetFrameIndexOfBitmap(pet_info - 40);
+			Fiv.ShowBitmap();
+		}
+		else if (pet_info < 60) {
+			Six.SetFrameIndexOfBitmap(pet_info - 50);
+			Six.ShowBitmap();
+		}
+		
+	}
+
+
 }
 void CGameStateInit::draw_text() {
 	CDC *pDC = CDDraw::GetBackCDC();

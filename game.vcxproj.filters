@@ -14,6 +14,9 @@
     <Filter Include="MyGame">
       <UniqueIdentifier>{0c798913-b7d2-4e26-8241-0f83266cd626}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\pets">
+      <UniqueIdentifier>{7d16b33b-b77a-4666-921b-9c968932fac5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gamecurs.cur">
@@ -60,6 +63,12 @@
     <ClCompile Include="Pets.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Duck.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Beaver.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -102,6 +111,15 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Pets.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Duck.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Beaver.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="team.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

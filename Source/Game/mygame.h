@@ -73,9 +73,11 @@ namespace game_framework {
 		CMovingBitmap brand;
 		CMovingBitmap Pets_Button;
 		bool showinfo = false;
+		bool showpetinfo = false;
 		bool food_Button = false;
 		bool food_load = false;
-		string food_info;
+		int food_info;
+		unsigned int pet_info;
 		CMovingBitmap check_food;
 		CMovingBitmap apple;
 		CMovingBitmap apple_info;
@@ -120,6 +122,7 @@ namespace game_framework {
 		CMovingBitmap Fish;
 		CMovingBitmap Cricket;
 		CMovingBitmap Horse;
+		CMovingBitmap Fir;
 
 		CMovingBitmap Snail;
 		CMovingBitmap Crab;
@@ -131,6 +134,7 @@ namespace game_framework {
 		CMovingBitmap Worm;
 		CMovingBitmap Kangaroo;
 		CMovingBitmap Spider;
+		CMovingBitmap Sec;
 
 		CMovingBitmap Dodo;
 		CMovingBitmap Badger;
@@ -142,6 +146,43 @@ namespace game_framework {
 		CMovingBitmap Ox;
 		CMovingBitmap Dog;
 		CMovingBitmap Sheep;
+		CMovingBitmap Thr;
+
+		CMovingBitmap Skunk;
+		CMovingBitmap Hippo;
+		CMovingBitmap Bison;
+		CMovingBitmap Blowfish;
+		CMovingBitmap Turtle;
+		CMovingBitmap Squirrel;
+		CMovingBitmap Penguin;
+		CMovingBitmap Deer;
+		CMovingBitmap Whale;
+		CMovingBitmap Parrot;
+		CMovingBitmap For;
+
+		CMovingBitmap Scorpion;
+		CMovingBitmap Crocodile;
+		CMovingBitmap Rhino;
+		CMovingBitmap Monkey;
+		CMovingBitmap Armadillo;
+		CMovingBitmap Cow;
+		CMovingBitmap Seal;
+		CMovingBitmap Rooster;
+		CMovingBitmap Shark;
+		CMovingBitmap Turkey;
+		CMovingBitmap Fiv;
+
+		CMovingBitmap Leopard;
+		CMovingBitmap Boar;
+		CMovingBitmap Tiger;
+		CMovingBitmap Wolverine;
+		CMovingBitmap Gorilla;
+		CMovingBitmap Dragon;
+		CMovingBitmap Mammoth;
+		CMovingBitmap Cat;
+		CMovingBitmap Snake;
+		CMovingBitmap Fly;
+		CMovingBitmap Six;
 		void load_background();
 		void load_food();
 		void load_food_info();
@@ -151,8 +192,11 @@ namespace game_framework {
 		void show_pet();
 		void show_image_by_phase();
 		void show_food_info();
+		void show_pet_info();
 		vector<CMovingBitmap> food_array;
+		vector<CMovingBitmap> food_info_array;
 		vector<CMovingBitmap> pets_array;
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
