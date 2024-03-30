@@ -63,10 +63,184 @@
     <ClCompile Include="Pets.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Duck.cpp">
+    <ClCompile Include="Beaver.cpp">
       <Filter>MyGame\pets</Filter>
     </ClCompile>
-    <ClCompile Include="Beaver.cpp">
+    <ClCompile Include="Pigeon.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Otter.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Pig.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Ant.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Mosquito.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="FISH.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="team.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Cricket.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Horse.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Snail.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Crab.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Swan.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Rat.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Hedgehog.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Peacock.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Flamingo.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Kangaroo.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Dodo.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Badger.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Dolphin.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Giraffe.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Elephant.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Camel.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Rabbit.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Ox.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Dog.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Skunk.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Sheep.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Hippo.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Bison.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Blowfish.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Squirrel.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Penguin.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Deer.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Whale.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Parrot.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Scorpion.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Crocodile.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Rhino.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Monkey.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Armadillo.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Cow.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Seal.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Rooster.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Shark.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Turkey.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Leopard.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Boar.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Tiger.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Gorilla.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Wolverine.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Mammoth.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Cat.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
+      <Filter>MyGame\pets</Filter>
+    </ClCompile>
+    <ClCompile Include="Fly.cpp">
       <Filter>MyGame\pets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,14 +287,185 @@
     <ClInclude Include="Pets.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Duck.h">
-      <Filter>MyGame\pets</Filter>
-    </ClInclude>
     <ClInclude Include="Beaver.h">
       <Filter>MyGame\pets</Filter>
     </ClInclude>
     <ClInclude Include="team.h">
       <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Pigeon.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Otter.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Pig.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Ant.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Mosquito.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Fish.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Cricket.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Horse.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Snail.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Crab.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Swan.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Rat.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Hedgehog.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Peacock.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Flamingo.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Kangaroo.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Spider.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Dodo.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Badger.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Dolphin.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Giraffe.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Elephant.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Camel.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Rabbit.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Ox.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Dog.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Sheep.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Skunk.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Hippo.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bison.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Blowfish.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Turtle.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Squirrel.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Penguin.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Deer.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Whale.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Parrot.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Scorpion.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Crocodile.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Rhino.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Monkey.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Armadillo.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Cow.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Seal.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Rooster.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Shark.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Turkey.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Leopard.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Boar.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Tiger.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Gorilla.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Wolverine.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Mammoth.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Cat.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>MyGame\pets</Filter>
+    </ClInclude>
+    <ClInclude Include="Fly.h">
+      <Filter>MyGame\pets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

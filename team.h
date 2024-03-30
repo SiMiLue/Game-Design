@@ -7,19 +7,14 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
 #include "Pets.h"
+class Team;
+
 
 class Team {
 	public:
-		Team();
-		Team();
+		Team(Team const& team);
 		~Team();
-
-
-
-
-
 
 	private:
 

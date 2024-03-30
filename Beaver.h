@@ -10,7 +10,7 @@
 class Beaver : public Pet {
 public:
 	Beaver(Team* team, Shop* shop);
-	~Beaver() override;
+	
 
 	//void on_sell() override;
 };

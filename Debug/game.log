@@ -1,30 +1,4 @@
 ﻿cl : 命令列 warning D9035: 選項 'Gm' 已被取代，在未來的發行版本中將會移除
-  Duck.cpp
-d:\game-design\duck.cpp(3): error C2653: 'Duck': 不是類別或命名空間名稱
-d:\game-design\duck.cpp(3): error C2065: 'Team': 未宣告的識別項
-d:\game-design\duck.cpp(3): error C2065: 'team': 未宣告的識別項
-d:\game-design\duck.cpp(3): error C2065: 'Shop': 未宣告的識別項
-d:\game-design\duck.cpp(3): error C2065: 'shop': 未宣告的識別項
-d:\game-design\duck.cpp(3): error C4430: 遺漏類型規範 - 假設為 int。注意: C++ 不支援 default-int
-d:\game-design\duck.cpp(3): error C2448: 'Duck': 函式樣式初始設定式似乎是函式定義
-d:\game-design\duck.cpp(3): error C2059: 語法錯誤: ':'
-d:\game-design\duck.cpp(3): error C2448: 'Pet': 函式樣式初始設定式似乎是函式定義
-d:\game-design\duck.cpp(11): error C2825: 'Duck': 後面接 '::' 時必須是類別或命名空間
-d:\game-design\duck.cpp(11): error C2510: 'Duck': '::' 的左邊必須是類別/結構/等位
-d:\game-design\duck.cpp(11): error C4430: 遺漏類型規範 - 假設為 int。注意: C++ 不支援 default-int
-d:\game-design\duck.cpp(14): warning C4508: '{dtor}': 函式應傳回值; 假定 'void' 傳回類型
-  Beaver.cpp
-d:\game-design\beaver.cpp(3): error C2653: 'Beaver': 不是類別或命名空間名稱
-d:\game-design\beaver.cpp(3): error C2065: 'Team': 未宣告的識別項
-d:\game-design\beaver.cpp(3): error C2065: 'team': 未宣告的識別項
-d:\game-design\beaver.cpp(3): error C2065: 'Shop': 未宣告的識別項
-d:\game-design\beaver.cpp(3): error C2065: 'shop': 未宣告的識別項
-d:\game-design\beaver.cpp(3): error C4430: 遺漏類型規範 - 假設為 int。注意: C++ 不支援 default-int
-d:\game-design\beaver.cpp(3): error C2448: 'Beaver': 函式樣式初始設定式似乎是函式定義
-d:\game-design\beaver.cpp(3): error C2059: 語法錯誤: ':'
-d:\game-design\beaver.cpp(3): error C2448: 'Pet': 函式樣式初始設定式似乎是函式定義
-d:\game-design\beaver.cpp(11): error C2825: 'Beaver': 後面接 '::' 時必須是類別或命名空間
-d:\game-design\beaver.cpp(11): error C2510: 'Beaver': '::' 的左邊必須是類別/結構/等位
-d:\game-design\beaver.cpp(11): error C4430: 遺漏類型規範 - 假設為 int。注意: C++ 不支援 default-int
-d:\game-design\beaver.cpp(14): warning C4508: '{dtor}': 函式應傳回值; 假定 'void' 傳回類型
-  正在產生程式碼...
+  Fly.cpp
+Ant.obj : warning LNK4075: 忽略 '/EDITANDCONTINUE'，由於 '/SAFESEH' 規格
+  game.vcxproj -> D:\Game-Design\.\Debug\game.exe
