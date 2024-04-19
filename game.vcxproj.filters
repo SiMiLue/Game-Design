@@ -57,9 +57,6 @@
     <ClCompile Include="Source\Game\mygame_run.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Pets.cpp">
-      <Filter>MyGame</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -98,10 +95,19 @@
     <ClInclude Include="Object.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Shop.h">
+    <ClInclude Include="shop_system.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Pets.h">
+    <ClInclude Include="Source\Game\Pets.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Shop.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\attackCell.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\atkSystem.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

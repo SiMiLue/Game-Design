@@ -37,7 +37,9 @@
  *      2. Replace the demonstration of animation as a new bouncing ball.
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
-
+#include "attackCell.h"
+#include "Shop.h"
+#include "atkSystem.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -49,6 +51,11 @@ namespace game_framework {
 		AUDIO_DING,				// 0
 		AUDIO_LAKE,				// 1
 		AUDIO_NTUT				// 2
+	};
+	enum PHASE {
+		INTROPHASE,
+		BUYPHASE,
+		ATKPHASE,
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -73,9 +80,11 @@ namespace game_framework {
 		CMovingBitmap brand;
 		CMovingBitmap Pets_Button;
 		bool showinfo = false;
+		bool showpetinfo = false;
 		bool food_Button = false;
 		bool food_load = false;
-		string food_info;
+		int food_info;
+		unsigned int pet_info;
 		CMovingBitmap check_food;
 		CMovingBitmap apple;
 		CMovingBitmap apple_info;
@@ -109,15 +118,92 @@ namespace game_framework {
 		CMovingBitmap Mushroom_info;
 		CMovingBitmap Pizza;
 		CMovingBitmap Pizza_info;
+
+		CMovingBitmap Duck;
+		CMovingBitmap Beaver;
+		CMovingBitmap Pigeon;
+		CMovingBitmap Otter;
+		CMovingBitmap Pig;
+		CMovingBitmap Ant;
+		CMovingBitmap Mosquito;
+		CMovingBitmap Fish;
+		CMovingBitmap Cricket;
+		CMovingBitmap Horse;
+		CMovingBitmap Fir;
+
+		CMovingBitmap Snail;
+		CMovingBitmap Crab;
+		CMovingBitmap Swan;
+		CMovingBitmap Rat;
+		CMovingBitmap Hedgehog;
+		CMovingBitmap Peacock;
+		CMovingBitmap Flamingo;
+		CMovingBitmap Worm;
+		CMovingBitmap Kangaroo;
+		CMovingBitmap Spider;
+		CMovingBitmap Sec;
+
+		CMovingBitmap Dodo;
+		CMovingBitmap Badger;
+		CMovingBitmap Dolphin;
+		CMovingBitmap Giraffe;
+		CMovingBitmap Elephant;
+		CMovingBitmap Camel;
+		CMovingBitmap Rabbit;
+		CMovingBitmap Ox;
+		CMovingBitmap Dog;
+		CMovingBitmap Sheep;
+		CMovingBitmap Thr;
+
+		CMovingBitmap Skunk;
+		CMovingBitmap Hippo;
+		CMovingBitmap Bison;
+		CMovingBitmap Blowfish;
+		CMovingBitmap Turtle;
+		CMovingBitmap Squirrel;
+		CMovingBitmap Penguin;
+		CMovingBitmap Deer;
+		CMovingBitmap Whale;
+		CMovingBitmap Parrot;
+		CMovingBitmap For;
+
+		CMovingBitmap Scorpion;
+		CMovingBitmap Crocodile;
+		CMovingBitmap Rhino;
+		CMovingBitmap Monkey;
+		CMovingBitmap Armadillo;
+		CMovingBitmap Cow;
+		CMovingBitmap Seal;
+		CMovingBitmap Rooster;
+		CMovingBitmap Shark;
+		CMovingBitmap Turkey;
+		CMovingBitmap Fiv;
+
+		CMovingBitmap Leopard;
+		CMovingBitmap Boar;
+		CMovingBitmap Tiger;
+		CMovingBitmap Wolverine;
+		CMovingBitmap Gorilla;
+		CMovingBitmap Dragon;
+		CMovingBitmap Mammoth;
+		CMovingBitmap Cat;
+		CMovingBitmap Snake;
+		CMovingBitmap Fly;
+		CMovingBitmap Six;
 		void load_background();
 		void load_food();
 		void load_food_info();
+		void load_pet();
 		void draw_text();
 		void show_food();
+		void show_pet();
 		void show_image_by_phase();
 		void show_food_info();
+		void show_pet_info();
 		vector<CMovingBitmap> food_array;
 		vector<CMovingBitmap> food_info_array;
+		vector<CMovingBitmap> pets_array;
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -144,9 +230,43 @@ namespace game_framework {
 	private:
 		int phase = 1;
 		int sub_phase = 1;
+		int current_money = 10;
+		int current_heart = 5;
+		int current_round = 1;
+		int current_win = 0;
+		int current_pets = 0;
+		int selected = 0;
+		
+		CMovingBitmap resume;
 		CMovingBitmap background;
-		//void show_image_by_phase();
+		CMovingBitmap money;
+		CMovingBitmap heart;
+		CMovingBitmap win;
+		CMovingBitmap round;
+		CMovingBitmap Cfreeze;
+		CMovingBitmap Csell;
+		CMovingBitmap roundEnd;
+		CMovingBitmap drawDice;
+		PHASE phases{BUYPHASE};
+		AttackCell atkcell;
+		Atksystem atksystem;
+		bool isdrag = false;
+		bool draw_clicked=false;
+		void show_image_by_phase();
 		void show_text_by_phase();
+
+		void show_money_text();
+		void show_heart_text(int test);
+		void show_wins_text();
+		void show_round_text(int test);
+	
+		int test=0;
+		int test1 = 0;
+		Ant ant;
+		
+
+		Shop shop;
+		vector<shared_ptr<Pet>> tst;
 		
 	};
 

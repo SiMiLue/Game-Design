@@ -236,7 +236,6 @@
     <None Include="Resources\GAME.RC2" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Pets.cpp" />
     <ClCompile Include="Source\Core\game.cpp" />
     <ClCompile Include="Source\Core\gameDoc.cpp" />
     <ClCompile Include="Source\Core\gameView.cpp" />
@@ -253,16 +252,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Pets.h" />
-    <ClInclude Include="Shop.h" />
+    <ClInclude Include="shop_system.h" />
     <ClInclude Include="Source\Core\Game.h" />
     <ClInclude Include="Source\Core\gameDoc.h" />
     <ClInclude Include="Source\Core\gameView.h" />
     <ClInclude Include="Source\Core\MainFrm.h" />
     <ClInclude Include="Source\Core\Resource.h" />
     <ClInclude Include="Source\Core\StdAfx.h" />
+    <ClInclude Include="Source\Game\atkSystem.h" />
+    <ClInclude Include="Source\Game\attackCell.h" />
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\mygame.h" />
+    <ClInclude Include="Source\Game\Pets.h" />
+    <ClInclude Include="Source\Game\Shop.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
     <ClInclude Include="Source\Library\gameutil.h" />
