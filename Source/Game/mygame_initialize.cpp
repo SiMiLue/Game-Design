@@ -55,6 +55,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point)
 {
 	if (food_load == true) {
+<<<<<<< HEAD
 		bool foundFood = false;
 		for (size_t i = 0; i < food_array.size(); i++) {
 			if (point.x > food_array[i].GetLeft() && point.x < food_array[i].GetLeft() + food_array[i].GetWidth() && point.y > food_array[i].GetTop() && point.y < food_array[i].GetTop() + food_array[i].GetHeight()) {
@@ -74,6 +75,78 @@ void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point)
 			showinfo = false;
 			showpetinfo = false;
 		}
+=======
+			if (point.x > apple.GetLeft() && point.x < apple.GetLeft() + apple.GetWidth() && point.y > apple.GetTop() && point.y < apple.GetTop() + apple.GetHeight()) {
+				showinfo = true;
+				food_info = "apple";
+			}
+			else if (point.x > honey.GetLeft() && point.x < honey.GetLeft() + honey.GetWidth() && point.y > honey.GetTop() && point.y < honey.GetTop() + honey.GetHeight()) {
+				showinfo = true;
+				food_info = "honey";
+			}
+			else if (point.x > pill.GetLeft() && point.x < pill.GetLeft() + pill.GetWidth() && point.y > pill.GetTop() && point.y < pill.GetTop() + pill.GetHeight()) {
+				showinfo = true;
+				food_info = "pill";
+			}
+			else if (point.x > meatbone.GetLeft() && point.x < meatbone.GetLeft() + meatbone.GetWidth() && point.y > meatbone.GetTop() && point.y < meatbone.GetTop() + meatbone.GetHeight()) {
+				showinfo = true;
+				food_info = "meatbone";
+			}
+			else if (point.x > cupcake.GetLeft() && point.x < cupcake.GetLeft() + cupcake.GetWidth() && point.y > cupcake.GetTop() && point.y < cupcake.GetTop() + cupcake.GetHeight()) {
+				showinfo = true;
+				food_info = "cupcake";
+			}
+			else if (point.x > salad.GetLeft() && point.x < salad.GetLeft() + salad.GetWidth() && point.y > salad.GetTop() && point.y < salad.GetTop() + salad.GetHeight()) {
+				showinfo = true;
+				food_info = "salad";
+			}
+			else if (point.x > garlic.GetLeft() && point.x < garlic.GetLeft() + garlic.GetWidth() && point.y > garlic.GetTop() && point.y < garlic.GetTop() + garlic.GetHeight()) {
+				showinfo = true;
+				food_info = "garlic";
+			}
+			else if (point.x > Canned.GetLeft() && point.x < Canned.GetLeft() + Canned.GetWidth() && point.y > Canned.GetTop() && point.y < Canned.GetTop() + Canned.GetHeight()) {
+				showinfo = true;
+				food_info = "Canned";
+			}
+			else if (point.x > Pear.GetLeft() && point.x < Pear.GetLeft() + Pear.GetWidth() && point.y > Pear.GetTop() && point.y < Pear.GetTop() + Pear.GetHeight()) {
+				showinfo = true;
+				food_info = "Pear";
+			}
+			else if (point.x > Chili.GetLeft() && point.x < Chili.GetLeft() + Chili.GetWidth() && point.y > Chili.GetTop() && point.y < Chili.GetTop() + Chili.GetHeight()) {
+				showinfo = true;
+				food_info = "Chili";
+			}
+			else if (point.x > Chocolate.GetLeft() && point.x < Chocolate.GetLeft() + Chocolate.GetWidth() && point.y > Chocolate.GetTop() && point.y < Chocolate.GetTop() + Chocolate.GetHeight()) {
+				showinfo = true;
+				food_info = "Chocolate";
+			}
+			else if (point.x > Sushi.GetLeft() && point.x < Sushi.GetLeft() + Sushi.GetWidth() && point.y > Sushi.GetTop() && point.y < Sushi.GetTop() + Sushi.GetHeight()) {
+				showinfo = true;
+				food_info = "Sushi";
+			}
+			else if (point.x > Steak.GetLeft() && point.x < Steak.GetLeft() + Steak.GetWidth() && point.y > Steak.GetTop() && point.y < Steak.GetTop() + Steak.GetHeight()) {
+				showinfo = true;
+				food_info = "Steak";
+			}
+			else if (point.x > Melon.GetLeft() && point.x < Melon.GetLeft() + Melon.GetWidth() && point.y > Melon.GetTop() && point.y < Melon.GetTop() + Melon.GetHeight()) {
+				showinfo = true;
+				food_info = "Melon";
+			}
+			else if (point.x > Mushroom.GetLeft() && point.x < Mushroom.GetLeft() + Mushroom.GetWidth() && point.y > Mushroom.GetTop() && point.y < Mushroom.GetTop() + Mushroom.GetHeight()) {
+				showinfo = true;
+				food_info = "Mushroom";
+			}
+			else if (point.x > Pizza.GetLeft() && point.x < Pizza.GetLeft() + Pizza.GetWidth() && point.y > Pizza.GetTop() && point.y < Pizza.GetTop() + Pizza.GetHeight()) {
+				showinfo = true;
+				food_info = "Pizza";
+			}
+			else {
+				showinfo = false;
+			}
+
+	
+
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 
 	}
 
@@ -95,7 +168,11 @@ void CGameStateInit::OnShow()
 	show_food();
 	show_pet();
 	show_food_info();
+<<<<<<< HEAD
 	show_pet_info();
+=======
+	
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 }
 void CGameStateInit::load_background() {
 	background.LoadBitmapByString({ "resources/back3.bmp","resources/character_info.bmp" });
@@ -223,11 +300,14 @@ void CGameStateInit::load_pet() {
 	Spider.LoadBitmapByString({ "resources/pets/Spider.bmp" }, RGB(255, 255, 255));
 	Spider.SetTopLeft(680, 155);
 	pets_array.push_back(Spider);
+<<<<<<< HEAD
 	Fir.LoadBitmapByString({ "resources/pets_info/Duck_info.bmp" , "resources/pets_info/Beaver_info.bmp" , "resources/pets_info/Pigeon_info.bmp" ,"resources/pets_info/Otter_info.bmp"
 		,"resources/pets_info/Pig_info.bmp","resources/pets_info/Ant_info.bmp" ,"resources/pets_info/Mosquito_info.bmp","resources/pets_info/Fish_info.bmp" ,"resources/pets_info/Cricket_info.bmp"
 		,"resources/pets_info/Horse_info.bmp" });
 	Fir.SetTopLeft(20, 510);
 
+=======
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 
 	Dodo.LoadBitmapByString({ "resources/pets/Dodo.bmp" }, RGB(255, 255, 255));
 	Dodo.SetTopLeft(140, 275);
@@ -259,6 +339,7 @@ void CGameStateInit::load_pet() {
 	Sheep.LoadBitmapByString({ "resources/pets/Sheep.bmp" }, RGB(255, 255, 255));
 	Sheep.SetTopLeft(680, 275);
 	pets_array.push_back(Sheep);
+<<<<<<< HEAD
 	Sec.LoadBitmapByString({ "resources/pets_info/Snail_info.bmp" , "resources/pets_info/Crab_info.bmp" , "resources/pets_info/Swan_info.bmp" ,"resources/pets_info/Rat_info.bmp"
 		,"resources/pets_info/Hedgehog_info.bmp","resources/pets_info/Peacock_info.bmp" ,"resources/pets_info/Flamigo_info.bmp","resources/pets_info/Worm_info.bmp" ,"resources/pets_info/Kangaroo_info.bmp"
 		,"resources/pets_info/Spider_info.bmp" });
@@ -370,6 +451,11 @@ void CGameStateInit::load_pet() {
 		,"resources/pets_info/Gorilla_info.bmp","resources/pets_info/Dragon_info.bmp" ,"resources/pets_info/Mammoth_info.bmp","resources/pets_info/Cat_info.bmp" ,"resources/pets_info/Snake_info.bmp"
 		,"resources/pets_info/Fly_info.bmp" });
 	Six.SetTopLeft(20, 0);
+=======
+
+
+
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 }
 void CGameStateInit::load_food_info() {
 	apple_info.LoadBitmapByString({ "resources/food_info/Apple_info.bmp " });
@@ -392,6 +478,7 @@ void CGameStateInit::load_food_info() {
 	food_info_array.push_back(salad_info);
 	garlic_info.LoadBitmapByString({ "resources/food_info/Garlic_info.bmp" });
 	garlic_info.SetTopLeft(20, 510);
+<<<<<<< HEAD
 	food_info_array.push_back(garlic_info);
 	Canned_info.LoadBitmapByString({ "resources/food_info/Canned_info.bmp" });
 	Canned_info.SetTopLeft(20, 0);
@@ -420,11 +507,35 @@ void CGameStateInit::load_food_info() {
 	Pizza_info.LoadBitmapByString({ "resources/food_info/Pizza_info.bmp" });
 	Pizza_info.SetTopLeft(20, 0);
 	food_info_array.push_back(Pizza_info);
+=======
+	Canned_info.LoadBitmapByString({ "resources/food_info/Canned_info.bmp" });
+	Canned_info.SetTopLeft(20, 0);
+	Pear_info.LoadBitmapByString({ "resources/food_info/Pear_info.bmp" });
+	Pear_info.SetTopLeft(20, 0);
+	Chili_info.LoadBitmapByString({ "resources/food_info/Chili_info.bmp" });
+	Chili_info.SetTopLeft(20, 0);
+	Chocolate_info.LoadBitmapByString({ "resources/food_info/Chocolat_info.bmp" });
+	Chocolate_info.SetTopLeft(20, 0);
+	Sushi_info.LoadBitmapByString({ "resources/food_info/Sushi_info.bmp" });
+	Sushi_info.SetTopLeft(20, 0);
+	Steak_info.LoadBitmapByString({ "resources/food_info/Steak_info.bmp" });
+	Steak_info.SetTopLeft(20, 0);
+	Melon_info.LoadBitmapByString({ "resources/food_info/Melon_info.bmp" });
+	Melon_info.SetTopLeft(20, 0);
+	Mushroom_info.LoadBitmapByString({ "resources/food_info/Mushroom_info.bmp" });
+	Mushroom_info.SetTopLeft(20, 0);
+	Pizza_info.LoadBitmapByString({ "resources/food_info/Pizza_info.bmp" });
+	Pizza_info.SetTopLeft(20, 0);
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 }
 
 
 void CGameStateInit::show_food() {
+<<<<<<< HEAD
 	if (food_Button == true) {
+=======
+	if (food_Button == true ) {
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 		for (auto &v : food_array) {
 			v.ShowBitmap();
 		}
@@ -454,6 +565,7 @@ void CGameStateInit::show_image_by_phase() {
 }
 void CGameStateInit::show_food_info() {
 	if (food_Button == true && showinfo == true) {
+<<<<<<< HEAD
 		food_info_array[food_info].ShowBitmap();
 	}
 }
@@ -483,6 +595,58 @@ void CGameStateInit::show_pet_info() {
 			Six.SetFrameIndexOfBitmap(pet_info - 50);
 			Six.ShowBitmap();
 		}
+=======
+			if ( food_info == "apple" ) {
+				apple_info.ShowBitmap();
+			}
+			else if (food_info == "honey") {
+				honey_info.ShowBitmap();
+			}
+			else if (food_info == "pill") {
+				pill_info.ShowBitmap();
+			}
+			else if (food_info == "meatbone") {
+				meatbone_info.ShowBitmap();
+			}
+			else if (food_info == "cupcake") {
+				cupcake_info.ShowBitmap();
+			}
+			else if (food_info == "salad") {
+				salad_info.ShowBitmap();
+			}
+			else if (food_info == "garlic") {
+				garlic_info.ShowBitmap();
+			}
+			else if (food_info == "Canned") {
+				Canned_info.ShowBitmap();
+			}
+			else if (food_info == "Pear") {
+				Pear_info.ShowBitmap();
+			}
+			else if (food_info == "Chili") {
+				Chili_info.ShowBitmap();
+			}
+			else if (food_info == "Chocolate") {
+				Chocolate_info.ShowBitmap();
+			}
+			else if (food_info == "Sushi") {
+				Sushi_info.ShowBitmap();
+			}
+			else if (food_info == "Steak") {
+				Steak_info.ShowBitmap();
+			}
+			else if (food_info == "Melon") {
+				Melon_info.ShowBitmap();
+			}
+			else if (food_info == "Mushroom") {
+				Mushroom_info.ShowBitmap();
+			}
+			else if (food_info == "Pizza") {
+				Pizza_info.ShowBitmap();
+			}
+		
+		
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 
 	}
 

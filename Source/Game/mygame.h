@@ -129,7 +129,10 @@ namespace game_framework {
 		CMovingBitmap Fish;
 		CMovingBitmap Cricket;
 		CMovingBitmap Horse;
+<<<<<<< HEAD
 		CMovingBitmap Fir;
+=======
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 
 		CMovingBitmap Snail;
 		CMovingBitmap Crab;
@@ -141,7 +144,10 @@ namespace game_framework {
 		CMovingBitmap Worm;
 		CMovingBitmap Kangaroo;
 		CMovingBitmap Spider;
+<<<<<<< HEAD
 		CMovingBitmap Sec;
+=======
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 
 		CMovingBitmap Dodo;
 		CMovingBitmap Badger;
@@ -153,6 +159,7 @@ namespace game_framework {
 		CMovingBitmap Ox;
 		CMovingBitmap Dog;
 		CMovingBitmap Sheep;
+<<<<<<< HEAD
 		CMovingBitmap Thr;
 
 		CMovingBitmap Skunk;
@@ -190,6 +197,8 @@ namespace game_framework {
 		CMovingBitmap Snake;
 		CMovingBitmap Fly;
 		CMovingBitmap Six;
+=======
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 		void load_background();
 		void load_food();
 		void load_food_info();
@@ -201,9 +210,13 @@ namespace game_framework {
 		void show_food_info();
 		void show_pet_info();
 		vector<CMovingBitmap> food_array;
+<<<<<<< HEAD
 		vector<CMovingBitmap> food_info_array;
 		vector<CMovingBitmap> pets_array;
 
+=======
+		vector<CMovingBitmap> pets_array;
+>>>>>>> f06f29f32e7fade658744e7f0b6f0710929e4e44
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
