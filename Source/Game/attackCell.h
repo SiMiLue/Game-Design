@@ -30,8 +30,9 @@ namespace game_framework {
 			}
 			
 		}
-		int sell_by_index(int index) {
+		int sell_by_index(int index, int  sell_item_level) {
 			shared_ptr<Pet> test;
+
 			atkcells[index] = test;
 			return 1;
 		}

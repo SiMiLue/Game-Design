@@ -157,7 +157,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 			if (atk[i] != nullptr) {
 				
 				if (CMovingBitmap::IsOverlap(atk[i]->get_img(), Csell)) {
-					int money=atkcell.sell_by_index(i);
+					int money=atkcell.sell_by_index(i,2);
 				}
 				else {
 					atk[i]->set_locate(atkcell.get_cordinate(i, "x"), atkcell.get_cordinate(i, "y"));
