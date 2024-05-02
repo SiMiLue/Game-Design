@@ -12,13 +12,16 @@
 namespace game_framework {
 	class Pet{
 	public:
-		Pet(vector<string> img, string name, int id, int tier, int attack, int life) :s_img(img), m_name(name), m_id(id), m_tier(tier), m_attack(attack), m_life(life) {
+		Pet(vector<string> info,vector<string> img, string name, int id, int tier, int attack, int life) :s_info(info),s_img(img), m_name(name), m_id(id), m_tier(tier), m_attack(attack), m_life(life) {
 		}
 		virtual~Pet() {
 		}
 		
 		CMovingBitmap get_img() {
 			return m_img;
+		}
+		CMovingBitmap get_info() {
+			return pet_info;
 		}
 		void set_img(vector<string> s_img) {
 			m_img.LoadBitmapByString(s_img);
@@ -46,6 +49,7 @@ namespace game_framework {
 			return m_name;
 		}
 		void Load_img() {
+			pet_info.LoadBitmapByString(s_info);
 			m_img.LoadBitmapByString(s_img, RGB(255, 255, 255));
 			status.LoadBitmapByString({ "resources/Stats.bmp" }, RGB(255, 255, 255));
 			tiers.LoadBitmapByString({ "resources/Tier1.bmp","resources/Tier2.bmp","resources/Tier3.bmp","resources/Tier4.bmp","resources/Tier5.bmp", "resources/Tier6.bmp" });
@@ -53,6 +57,9 @@ namespace game_framework {
 		}
 		void set_locate(int x, int y) {
 			m_img.SetTopLeft(x, y);
+		}
+		void setinfo_locate(int x, int y) {
+			pet_info.SetTopLeft(x, y);
 		}
 		void set_atk(int atk) {
 			m_attack = atk;
@@ -78,7 +85,9 @@ namespace game_framework {
 		virtual shared_ptr<Pet> clone() = 0;
 	private:
 		string m_name;
+		vector<string> s_info;
 		vector<string> s_img;
+		CMovingBitmap pet_info;
 		CMovingBitmap m_img;
 		CMovingBitmap status;
 		CMovingBitmap tiers;
@@ -91,7 +100,7 @@ namespace game_framework {
 	};
 	class Ant :public Pet {
 	public:
-		Ant() :Pet({"resources/pets/Ant.bmp"}, "Ant", 6, 1, 2, 2) {
+		Ant() :Pet({ "resources/pets_info/Ant_info.bmp" }, {"resources/pets/Ant.bmp"}, "Ant", 6, 1, 2, 2) {
 			
 		}
 		~Ant() override {
@@ -106,7 +115,7 @@ namespace game_framework {
 	
 	class Armadillo:public Pet{
 	public:
-		Armadillo() :Pet({ "resources/pets/Armadillo.bmp" },"Armadillo",45, 5, 2, 6) {
+		Armadillo() :Pet({ "resources/pets_info/Armadillo_info.bmp" } ,{ "resources/pets/Armadillo.bmp" },"Armadillo",45, 5, 2, 6) {
 		}
 		~Armadillo() override {
 		}
@@ -119,8 +128,9 @@ namespace game_framework {
 	};
 	class Badger:public Pet{
 	public:
-		Badger() :Pet({ "resources/pets/Badger.bmp" },"Badger",22, 3, 6, 3) {
+		Badger() :Pet({ "resources/pets_info/Badger_info.bmp" }, { "resources/pets/Badger.bmp" }, "Badger", 22, 3, 6, 3) {
 		}
+
 		~Badger()override {
 		}
 		shared_ptr<Pet> clone() { return make_shared<Badger>(); }
@@ -132,7 +142,7 @@ namespace game_framework {
 	};
 	class Beaver :public Pet {
 	public:
-		Beaver() :Pet({ "resources/pets/Beaver.bmp" },"Beaver",2, 1, 3, 2) {
+		Beaver() :Pet({ "resources/pets_info/Beaver_info.bmp" } ,{ "resources/pets/Beaver.bmp" },"Beaver",2, 1, 3, 2) {
 		}
 		~Beaver()override {
 		}
@@ -145,7 +155,7 @@ namespace game_framework {
 	};
 	class Bison :public Pet {
 	public:
-		Bison() :Pet({ "resources/pets/Bison.bmp" },"Bison", 33, 4, 4, 4) {
+		Bison() :Pet({ "resources/pets_info/Bison_info.bmp" } ,{ "resources/pets/Bison.bmp" },"Bison", 33, 4, 4, 4) {
 		}
 		~Bison()override {
 		}
@@ -158,7 +168,7 @@ namespace game_framework {
 	};
 	class Blowfish :public Pet {
 	public:
-		Blowfish():Pet({ "resources/pets/Blowfish.bmp" },"Blowfish", 34, 4, 3, 6) {
+		Blowfish():Pet({ "resources/pets_info/Blowfish_info.bmp" }, { "resources/pets/Blowfish.bmp" },"Blowfish", 34, 4, 3, 6) {
 		}
 		~Blowfish()override {
 		}
@@ -171,7 +181,7 @@ namespace game_framework {
 	};
 	class Boar :public Pet {
 	public:
-		Boar() :Pet({ "resources/pets/Boar.bmp" },"Boar", 52, 6, 10, 6) {
+		Boar() :Pet({ "resources/pets_info/Boar_info.bmp" }, { "resources/pets/Boar.bmp" },"Boar", 52, 6, 10, 6) {
 		}
 		~Boar()override {
 		}
@@ -184,7 +194,7 @@ namespace game_framework {
 	};
 	class Camel :public Pet {
 	public:
-		Camel() :Pet({ "resources/pets/Camel.bmp" },"Camel", 26, 3, 3, 4) {
+		Camel() :Pet({ "resources/pets_info/Camel_info.bmp" }, { "resources/pets/Camel.bmp" },"Camel", 26, 3, 3, 4) {
 		}
 		~Camel()override {
 		}
@@ -197,7 +207,7 @@ namespace game_framework {
 	};
 	class Cat :public Pet {
 	public:
-		Cat() :Pet({ "resources/pets/Cat.bmp" },"Cat", 58, 6, 4, 5) {
+		Cat() :Pet({ "resources/pets_info/Cat_info.bmp" }, { "resources/pets/Cat.bmp" },"Cat", 58, 6, 4, 5) {
 		}
 		~Cat()override {
 		}
@@ -210,7 +220,7 @@ namespace game_framework {
 	};
 	class Cow :public Pet {
 	public:
-		Cow() :Pet({ "resources/pets/Cow.bmp" },"Cow", 46, 5, 4, 6) {
+		Cow() :Pet({ "resources/pets_info/Cow_info.bmp" }, { "resources/pets/Cow.bmp" },"Cow", 46, 5, 4, 6) {
 		}
 		~Cow()override {
 		}
@@ -223,7 +233,7 @@ namespace game_framework {
 	};
 	class Crab :public Pet {
 	public:
-		Crab() :Pet({ "resources/pets/Crab.bmp" },"Crab", 12, 2, 4, 1) {
+		Crab() :Pet({ "resources/pets_info/Crab_info.bmp" }, { "resources/pets/Crab.bmp" },"Crab", 12, 2, 4, 1) {
 		}
 		~Crab()override {
 		}
@@ -236,7 +246,7 @@ namespace game_framework {
 	};
 	class Cricket :public Pet {
 	public:
-		Cricket() :Pet({ "resources/pets/Cricket.bmp" },"Cricket", 9, 1, 1, 3) {
+		Cricket() :Pet({ "resources/pets_info/Cricket_info.bmp" }, { "resources/pets/Cricket.bmp" },"Cricket", 9, 1, 1, 3) {
 		}
 		~Cricket()override {
 		}
@@ -249,7 +259,7 @@ namespace game_framework {
 	};
 	class Crocodile :public Pet {
 	public:
-		Crocodile() :Pet({ "resources/pets/Crocodile.bmp" },"Crocodile", 42, 5, 8, 4) {
+		Crocodile() :Pet({ "resources/pets_info/Crocodile_info.bmp" }, { "resources/pets/Crocodile.bmp" },"Crocodile", 42, 5, 8, 4) {
 		}
 		~Crocodile()override {
 		}
@@ -262,7 +272,7 @@ namespace game_framework {
 	};
 	class Deer :public Pet {
 	public:
-		Deer() :Pet({ "resources/pets/Deer.bmp" },"Deer", 38, 4, 1, 1) {
+		Deer() :Pet({ "resources/pets_info/Deer_info.bmp" }, { "resources/pets/Deer.bmp" },"Deer", 38, 4, 1, 1) {
 		}
 		~Deer()override {
 		}
@@ -275,7 +285,7 @@ namespace game_framework {
 	};
 	class Dodo :public Pet {
 	public:
-		Dodo() :Pet({ "resources/pets/Dodo.bmp" },"Dodo", 21, 3, 4, 2) {
+		Dodo() :Pet({ "resources/pets_info/Dodo_info.bmp" }, { "resources/pets/Dodo.bmp" },"Dodo", 21, 3, 4, 2) {
 		}
 		~Dodo()override {
 		}
@@ -288,7 +298,7 @@ namespace game_framework {
 	};
 	class Dog :public Pet {
 	public:
-		Dog() :Pet({ "resources/pets/Dog.bmp" },"Dog", 29, 3, 3, 2) {
+		Dog() :Pet({ "resources/pets_info/Dog_info.bmp" }, { "resources/pets/Dog.bmp" },"Dog", 29, 3, 3, 2) {
 		}
 		~Dog()override {
 		}
@@ -301,7 +311,7 @@ namespace game_framework {
 	};
 	class Dolphin :public Pet {
 	public:
-		Dolphin() :Pet({ "resources/pets/Dolphin.bmp" },"Dolphin", 23, 3, 4, 3) {
+		Dolphin() :Pet({ "resources/pets_info/Dolphin_info.bmp" }, { "resources/pets/Dolphin.bmp" },"Dolphin", 23, 3, 4, 3) {
 		}
 		~Dolphin()override {
 		}
@@ -314,7 +324,7 @@ namespace game_framework {
 	};
 	class Dragon :public Pet {
 	public:
-		Dragon() :Pet({ "resources/pets/Dragon.bmp" },"Dragon", 56, 6, 6, 8) {
+		Dragon() :Pet({ "resources/pets_info/Dragon_info.bmp" }, { "resources/pets/Dragon.bmp" },"Dragon", 56, 6, 6, 8) {
 		}
 		~Dragon()override {
 		}
@@ -327,7 +337,7 @@ namespace game_framework {
 	};
 	class Duck :public Pet {
 	public:
-		Duck() :Pet({ "resources/pets/Duck.bmp" },"Duck", 1, 1, 2, 3) {
+		Duck() :Pet({ "resources/pets_info/Duck_info.bmp" }, { "resources/pets/Duck.bmp" },"Duck", 1, 1, 2, 3) {
 		}
 		~Duck()override {
 		}
@@ -340,7 +350,7 @@ namespace game_framework {
 	};
 	class Elephant :public Pet {
 	public:
-		Elephant() :Pet({ "resources/pets/Elephant.bmp" },"Elephant", 25, 3, 3, 7) {
+		Elephant() :Pet({ "resources/pets_info/Elephant_info.bmp" }, { "resources/pets/Elephant.bmp" },"Elephant", 25, 3, 3, 7) {
 		}
 		~Elephant()override {
 		}
@@ -353,7 +363,7 @@ namespace game_framework {
 	};
 	class Fish :public Pet {
 	public:
-		Fish() :Pet({ "resources/pets/Fish.bmp" },"Fish", 8, 1, 2, 3) {
+		Fish() :Pet({ "resources/pets_info/Fish_info.bmp" }, { "resources/pets/Fish.bmp" },"Fish", 8, 1, 2, 3) {
 		}
 		~Fish()override {
 		}
@@ -366,7 +376,7 @@ namespace game_framework {
 	};
 	class Flamingo :public Pet {
 	public:
-		Flamingo() :Pet({ "resources/pets/Flamingo.bmp" },"Flamingo", 17, 2, 3, 2) {
+		Flamingo() :Pet({"resources/pets_info/Flamigo_info.bmp" }, { "resources/pets/Flamingo.bmp" },"Flamingo", 17, 2, 3, 2) {
 		}
 		~Flamingo()override {
 		}
@@ -379,7 +389,7 @@ namespace game_framework {
 	};
 	class Fly :public Pet {
 	public:
-		Fly() :Pet({ "resources/pets/Fly.bmp" },"Fly", 60, 5, 5, 5) {
+		Fly() :Pet({ "resources/pets_info/Fly_info.bmp" }, { "resources/pets/Fly.bmp" },"Fly", 60, 5, 5, 5) {
 		}
 		~Fly()override {
 		}
@@ -392,7 +402,7 @@ namespace game_framework {
 	};
 	class Giraffe :public Pet {
 	public:
-		Giraffe() :Pet({ "resources/pets/Giraffe.bmp" },"Giraffe", 24, 3, 1, 2) {
+		Giraffe() :Pet({ "resources/pets_info/Giraffe_info.bmp" }, { "resources/pets/Giraffe.bmp" },"Giraffe", 24, 3, 1, 2) {
 		}
 		~Giraffe()override {
 		}
@@ -405,7 +415,7 @@ namespace game_framework {
 	};
 	class Gorilla :public Pet {
 	public:
-		Gorilla() :Pet({ "resources/pets/Gorilla.bmp" },"Gorilla", 54, 6, 7, 10) {
+		Gorilla() :Pet({ "resources/pets_info/Gorilla_info.bmp" }, { "resources/pets/Gorilla.bmp" },"Gorilla", 54, 6, 7, 10) {
 		}
 		~Gorilla()override {
 		}
@@ -418,7 +428,7 @@ namespace game_framework {
 	};
 	class Hedgehog :public Pet {
 	public:
-		Hedgehog() :Pet({ "resources/pets/Hedgehog.bmp" },"Hedgehog", 15, 2, 4, 2) {
+		Hedgehog() :Pet({ "resources/pets_info/Hedgehog_info.bmp" }, { "resources/pets/Hedgehog.bmp" },"Hedgehog", 15, 2, 4, 2) {
 		}
 		~Hedgehog()override {
 		}
@@ -431,7 +441,7 @@ namespace game_framework {
 	};
 	class Hippo :public Pet {
 	public:
-		Hippo() :Pet({ "resources/pets/Hippo.bmp" },"Hippo", 32, 4, 4, 7) {
+		Hippo() :Pet({ "resources/pets_info/Hippo_info.bmp" }, { "resources/pets/Hippo.bmp" },"Hippo", 32, 4, 4, 7) {
 		}
 		~Hippo()override {
 		}
@@ -444,7 +454,7 @@ namespace game_framework {
 	};
 	class Horse :public Pet {
 	public:
-		Horse() :Pet({ "resources/pets/Horse.bmp" },"Horse", 10, 1, 2, 1) {
+		Horse() :Pet({ "resources/pets_info/Horse_info.bmp" }, { "resources/pets/Horse.bmp" },"Horse", 10, 1, 2, 1) {
 		}
 		~Horse()override {
 		}
@@ -457,7 +467,7 @@ namespace game_framework {
 	};
 	class Kangaroo :public Pet {
 	public:
-		Kangaroo() :Pet({ "resources/pets/Kangaroo.bmp" },"Kangaroo", 19, 2, 2, 3) {
+		Kangaroo() :Pet({ "resources/pets_info/Kangaroo_info.bmp" }, { "resources/pets/Kangaroo.bmp" },"Kangaroo", 19, 2, 2, 3) {
 		}
 		~Kangaroo()override {
 		}
@@ -470,7 +480,7 @@ namespace game_framework {
 	};
 	class Leopard :public Pet {
 	public:
-		Leopard() :Pet({ "resources/pets/Leopard.bmp" },"Leopard", 51, 6, 10, 4) {
+		Leopard() :Pet({ "resources/pets_info/Leopard_info.bmp" }, { "resources/pets/Leopard.bmp" },"Leopard", 51, 6, 10, 4) {
 		}
 		~Leopard()override {
 		}
@@ -483,7 +493,7 @@ namespace game_framework {
 	};
 	class Mammoth :public Pet {
 	public:
-		Mammoth() :Pet({ "resources/pets/Mammoth.bmp" },"Mammoth", 57, 6, 4 ,12) {
+		Mammoth() :Pet({ "resources/pets_info/Mammoth_info.bmp" }, { "resources/pets/Mammoth.bmp" },"Mammoth", 57, 6, 4 ,12) {
 		}
 		~Mammoth()override {
 		}
@@ -496,7 +506,7 @@ namespace game_framework {
 	};
 	class Monkey :public Pet {
 	public:
-		Monkey() :Pet({ "resources/pets/Monkey.bmp" },"Monkey", 44, 5, 1, 2) {
+		Monkey() :Pet({ "resources/pets_info/Monkey_info.bmp" }, { "resources/pets/Monkey.bmp" },"Monkey", 44, 5, 1, 2) {
 		}
 		~Monkey()override {
 		}
@@ -509,7 +519,7 @@ namespace game_framework {
 	};
 	class Mosquito :public Pet {
 	public:
-		Mosquito() :Pet({ "resources/pets/Mosquito.bmp" },"Mosquito", 7, 1, 2, 2) {
+		Mosquito() :Pet({ "resources/pets_info/Mosquito_info.bmp" }, { "resources/pets/Mosquito.bmp" },"Mosquito", 7, 1, 2, 2) {
 		}
 		~Mosquito()override {
 		}
@@ -522,7 +532,7 @@ namespace game_framework {
 	};
 	class Otter :public Pet {
 	public:
-		Otter() :Pet({ "resources/pets/Otter.bmp" },"Otter", 4, 1, 1, 3) {
+		Otter() :Pet({ "resources/pets_info/Otter_info.bmp" }, { "resources/pets/Otter.bmp" },"Otter", 4, 1, 1, 3) {
 		}
 		~Otter()override {
 		}
@@ -535,7 +545,7 @@ namespace game_framework {
 	};
 	class Ox :public Pet {
 	public:
-		Ox() :Pet({ "resources/pets/Ox.bmp" },"Ox", 28, 3, 1, 3) {
+		Ox() :Pet({ "resources/pets_info/Ox_info.bmp" }, { "resources/pets/Ox.bmp" },"Ox", 28, 3, 1, 3) {
 		}
 		~Ox()override {
 		}
@@ -548,7 +558,7 @@ namespace game_framework {
 	};
 	class Parrot :public Pet {
 	public:
-		Parrot() :Pet({ "resources/pets/Parrot.bmp" },"Parrot", 40, 4, 4, 2) {
+		Parrot() :Pet({ "resources/pets_info/Parrot_info.bmp" }, { "resources/pets/Parrot.bmp" },"Parrot", 40, 4, 4, 2) {
 		}
 		~Parrot()override {
 		}
@@ -561,7 +571,7 @@ namespace game_framework {
 	};
 	class Peacock :public Pet {
 	public:
-		Peacock() :Pet({ "resources/pets/Peacock.bmp" },"Peacock", 16, 2, 2, 5) {
+		Peacock() :Pet({ "resources/pets_info/Peacock_info.bmp" }, { "resources/pets/Peacock.bmp" },"Peacock", 16, 2, 2, 5) {
 		}
 		~Peacock()override {
 		}
@@ -574,7 +584,7 @@ namespace game_framework {
 	};
 	class Penguin :public Pet {
 	public:
-		Penguin() :Pet({ "resources/pets/Penguin.bmp" },"Penguin", 37, 4, 1, 3) {
+		Penguin() :Pet({ "resources/pets_info/Penguin_info.bmp" }, { "resources/pets/Penguin.bmp" },"Penguin", 37, 4, 1, 3) {
 		}
 		~Penguin()override {
 		}
@@ -587,7 +597,7 @@ namespace game_framework {
 	};
 	class Pig :public Pet {
 	public:
-		Pig() :Pet({ "resources/pets/Pig.bmp" },"Pig", 5, 1, 4, 1) {
+		Pig() :Pet({ "resources/pets_info/Pig_info.bmp" }, { "resources/pets/Pig.bmp" },"Pig", 5, 1, 4, 1) {
 		}
 		~Pig()override {
 		}
@@ -600,7 +610,7 @@ namespace game_framework {
 	};
 	class Pigeon :public Pet {
 	public:
-		Pigeon() :Pet({ "resources/pets/Pigeon.bmp" },"Pigeon", 3, 1, 3, 1) {
+		Pigeon() :Pet({ "resources/pets_info/Pigeon_info.bmp" }, { "resources/pets/Pigeon.bmp" },"Pigeon", 3, 1, 3, 1) {
 		}
 		~Pigeon()override {
 		}
@@ -613,7 +623,7 @@ namespace game_framework {
 	};
 	class Rabbit :public Pet {
 	public:
-		Rabbit() :Pet({ "resources/pets/Rabbit.bmp" },"Rabbit", 27, 3, 1, 2) {
+		Rabbit() :Pet({ "resources/pets_info/Rabbit_info.bmp" }, { "resources/pets/Rabbit.bmp" },"Rabbit", 27, 3, 1, 2) {
 		}
 		~Rabbit()override {
 		}
@@ -626,7 +636,7 @@ namespace game_framework {
 	};
 	class Rat :public Pet {
 	public:
-		Rat() :Pet({ "resources/pets/Rat.bmp" },"Rat", 14, 2, 3, 6) {
+		Rat() :Pet({ "resources/pets_info/Rat_info.bmp" }, { "resources/pets/Rat.bmp" },"Rat", 14, 2, 3, 6) {
 		}
 		~Rat()override {
 		}
@@ -639,7 +649,7 @@ namespace game_framework {
 	};
 	class Rhino :public Pet {
 	public:
-		Rhino() :Pet({ "resources/pets/Rhino.bmp" },"Rhino", 43, 5, 6, 9) {
+		Rhino() :Pet({ "resources/pets_info/Rhino_info.bmp" }, { "resources/pets/Rhino.bmp" },"Rhino", 43, 5, 6, 9) {
 		}
 		~Rhino()override {
 		}
@@ -652,7 +662,7 @@ namespace game_framework {
 	};
 	class Rooster :public Pet {
 	public:
-		Rooster() :Pet({ "resources/pets/Rooster.bmp" },"Rooster", 48, 5, 6, 4) {
+		Rooster() :Pet({ "resources/pets_info/Rooster_info.bmp" }, { "resources/pets/Rooster.bmp" },"Rooster", 48, 5, 6, 4) {
 		}
 		~Rooster()override {
 		}
@@ -665,7 +675,7 @@ namespace game_framework {
 	};
 	class Scorpion :public Pet {
 	public:
-		Scorpion() :Pet({ "resources/pets/Scorpion.bmp" },"Scorpion", 41, 5, 1, 1) {
+		Scorpion() :Pet({ "resources/pets_info/Scorpion_info.bmp" }, { "resources/pets/Scorpion.bmp" },"Scorpion", 41, 5, 1, 1) {
 		}
 		~Scorpion()override {
 		}
@@ -678,7 +688,7 @@ namespace game_framework {
 	};
 	class Seal :public Pet {
 	public:
-		Seal() :Pet({ "resources/pets/Seal.bmp" },"Seal", 47, 5, 3, 8) {
+		Seal() :Pet({ "resources/pets_info/Seal_info.bmp" }, { "resources/pets/Seal.bmp" },"Seal", 47, 5, 3, 8) {
 		}
 		~Seal()override {
 		}
@@ -691,7 +701,7 @@ namespace game_framework {
 	};
 	class Shark :public Pet {
 	public:
-		Shark() :Pet({ "resources/pets/Shark.bmp" },"Shark", 49, 5, 2, 2) {
+		Shark() :Pet({ "resources/pets_info/Shark_info.bmp" }, { "resources/pets/Shark.bmp" },"Shark", 49, 5, 2, 2) {
 		}
 		~Shark()override {
 		}
@@ -704,7 +714,7 @@ namespace game_framework {
 	};
 	class Sheep :public Pet {
 	public:
-		Sheep() :Pet({ "resources/pets/Sheep.bmp" },"Sheep", 30, 3, 2, 2) {
+		Sheep() :Pet({ "resources/pets_info/Sheep_info.bmp" }, { "resources/pets/Sheep.bmp" },"Sheep", 30, 3, 2, 2) {
 		}
 		~Sheep()override {
 		}
@@ -717,7 +727,7 @@ namespace game_framework {
 	};
 	class Skunk :public Pet {
 	public:
-		Skunk() :Pet({ "resources/pets/Skunk.bmp" },"Skunk", 31, 4, 3, 5) {
+		Skunk() :Pet({ "resources/pets_info/Skunk_info.bmp" }, { "resources/pets/Skunk.bmp" },"Skunk", 31, 4, 3, 5) {
 		}
 		~Skunk()override {
 		}
@@ -730,7 +740,7 @@ namespace game_framework {
 	};
 	class Snail :public Pet {
 	public:
-		Snail() :Pet({ "resources/pets/Snail.bmp" },"Snail", 11, 2, 2, 2) {
+		Snail() :Pet({ "resources/pets_info/Snail_info.bmp" }, { "resources/pets/Snail.bmp" },"Snail", 11, 2, 2, 2) {
 		}
 		~Snail()override {
 		}
@@ -743,7 +753,7 @@ namespace game_framework {
 	};
 	class Snake :public Pet {
 	public:
-		Snake() :Pet({ "resources/pets/Snake.bmp" },"Snake", 59, 6, 6, 6) {
+		Snake() :Pet({ "resources/pets_info/Snake_info.bmp" }, { "resources/pets/Snake.bmp" },"Snake", 59, 6, 6, 6) {
 		}
 		~Snake()override {
 		}
@@ -756,7 +766,7 @@ namespace game_framework {
 	};
 	class Spider :public Pet {
 	public:
-		Spider() :Pet({ "resources/pets/Spider.bmp" },"Spider", 20, 2, 2, 2) {
+		Spider() :Pet({ "resources/pets_info/Spider_info.bmp" }, { "resources/pets/Spider.bmp" },"Spider", 20, 2, 2, 2) {
 		}
 		~Spider()override {
 		}
@@ -769,7 +779,7 @@ namespace game_framework {
 	};
 	class Squirrel :public Pet {
 	public:
-		Squirrel() :Pet({ "resources/pets/Squirrel.bmp" },"Squirrel", 36, 4, 2, 5) {
+		Squirrel() :Pet({ "resources/pets_info/Squirrel_info.bmp" }, { "resources/pets/Squirrel.bmp" },"Squirrel", 36, 4, 2, 5) {
 		}
 		~Squirrel()override {
 		}
@@ -782,7 +792,7 @@ namespace game_framework {
 	};
 	class Swan :public Pet {
 	public:
-		Swan() :Pet({ "resources/pets/Swan.bmp" },"Swan", 13, 2, 1, 2) {
+		Swan() :Pet({ "resources/pets_info/Swan_info.bmp" }, { "resources/pets/Swan.bmp" },"Swan", 13, 2, 1, 2) {
 		}
 		~Swan()override {
 		}
@@ -795,7 +805,7 @@ namespace game_framework {
 	};
 	class Tiger :public Pet {
 	public:
-		Tiger() :Pet({ "resources/pets/Tiger.bmp" },"Tiger", 53, 6, 6, 4) {
+		Tiger() :Pet({ "resources/pets_info/Tiger_info.bmp" }, { "resources/pets/Tiger.bmp" },"Tiger", 53, 6, 6, 4) {
 		}
 		~Tiger()override {
 		}
@@ -808,7 +818,7 @@ namespace game_framework {
 	};
 	class Turkey :public Pet {
 	public:
-		Turkey() :Pet({ "resources/pets/Turkey.bmp" },"Turkey", 50, 5, 3, 4) {
+		Turkey() :Pet({ "resources/pets_info/Turkey_info.bmp" }, { "resources/pets/Turkey.bmp" },"Turkey", 50, 5, 3, 4) {
 		}
 		~Turkey()override {
 		}
@@ -821,7 +831,7 @@ namespace game_framework {
 	};
 	class Turtle :public Pet {
 	public:
-		Turtle() :Pet({ "resources/pets/Turtle.bmp" },"Turtle", 35, 4, 2, 5) {
+		Turtle() :Pet({ "resources/pets_info/Turtle_info.bmp" }, { "resources/pets/Turtle.bmp" },"Turtle", 35, 4, 2, 5) {
 		}
 		~Turtle()override {
 		}
@@ -834,7 +844,7 @@ namespace game_framework {
 	};
 	class Whale :public Pet {
 	public:
-		Whale() :Pet({ "resources/pets/Whale.bmp" },"Whale", 39, 4, 4, 10) {
+		Whale() :Pet({ "resources/pets_info/Whale_info.bmp" }, { "resources/pets/Whale.bmp" },"Whale", 39, 4, 4, 10) {
 		}
 		~Whale()override {
 		}
@@ -847,7 +857,7 @@ namespace game_framework {
 	};
 	class Wolverine :public Pet {
 	public:
-		Wolverine() :Pet({ "resources/pets/Wolverine.bmp" },"Wolverine", 55, 6, 5, 4) {
+		Wolverine() :Pet({ "resources/pets_info/Wolverine_info.bmp" }, { "resources/pets/Wolverine.bmp" },"Wolverine", 55, 6, 5, 4) {
 		}
 		~Wolverine()override {
 		}
@@ -860,7 +870,7 @@ namespace game_framework {
 	};
 	class Worm :public Pet {
 	public:
-		Worm() :Pet({ "resources/pets/Worm.bmp" },"Worm", 18, 2, 1, 3) {
+		Worm() :Pet({ "resources/pets_info/Worm_info.bmp" }, { "resources/pets/Worm.bmp" },"Worm", 18, 2, 1, 3) {
 		}
 		~Worm()override {
 		}

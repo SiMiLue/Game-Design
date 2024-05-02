@@ -38,10 +38,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-
 	
-	ant.Load_img();
-	ant.get_img().SetTopLeft(100,500);
 	
 	background.LoadBitmapByString({ "resources/initialize_background.bmp","resources/atk_background.bmp" });
 	background.SetTopLeft(0, 0);
@@ -52,7 +49,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	money.SetTopLeft(0, 0);
 	heart.LoadBitmapByString({ "resources/heart.bmp" });
 	heart.SetTopLeft(150, 0);
-	round.LoadBitmapByString({ "resources/round.bmp" });
+	round.LoadBitmapByString({ "resources/round.bmp" }, RGB(0, 0, 0));
 	round.SetTopLeft(300, 0);
 	win.LoadBitmapByString({ "resources/game_win.bmp" });
 	win.SetTopLeft(450, 0);
@@ -74,7 +71,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	
 	if (nChar == VK_ESCAPE) {
-		if (phases == ATKPHASE) { phases = BUYPHASE; }
+		if (phases == ATKPHASE){ 
+			phases = BUYPHASE; }
 	}
 	
 }
@@ -156,7 +154,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 		for (unsigned int i = 0; i < atk.size(); i++) {
 			if (atk[i] != nullptr) {
 				
-				if (CMovingBitmap::IsOverlap(atk[i]->get_img(), Csell)) {
+				if (CMovingBitmap::IsOverlap(atk[i]->get_img(), Csell)) { //動物移到賣出鍵那
 					int money=atkcell.sell_by_index(i);
 				}
 				else {
@@ -174,7 +172,7 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 	test = point.x;
 	test1 = point.y;
-	if (nFlags == MK_LBUTTON) {
+	if (nFlags == MK_LBUTTON) { //按下滑鼠左鍵
 		vector<shared_ptr<Pet>> item = shop.get_shop_item();
 		for (unsigned int i = 0; i < item.size(); i++) {
 			CMovingBitmap img = item[i]->get_img();
@@ -218,7 +216,7 @@ void CGameStateRun::OnShow()
 		roundEnd.ShowBitmap();
 		drawDice.ShowBitmap();
 		if (selected == 1) {
-			Csell.ShowBitmap();
+			Csell.ShowBitmap(); //賣出鍵
 		}
 		shop.show_img();
 		atkcell.show_pets();
