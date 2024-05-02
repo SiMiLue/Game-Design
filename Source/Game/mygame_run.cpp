@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "../Core/Resource.h"
 #include <mmsystem.h>
+#include <chrono>
+#include <thread>
 #include <ddraw.h>
 #include "../Library/audio.h"
 #include "../Library/gameutil.h"
@@ -25,17 +27,18 @@ void CGameStateRun::OnBeginState()
 {
 }
 
-void CGameStateRun::OnMove()							// 移動遊戲元素
-{
-	
-}
+
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	background.LoadBitmapByString({"Resources/initialize_background.bmp" });
 	background.SetTopLeft(0, 0);
-
-
+	Wolverine.LoadBitmapByString({ "resources/pets/Wolverine.bmp" }, RGB(255, 255, 255));
+	Wolverine.SetTopLeft(320, 630);
+	Gorilla.LoadBitmapByString({ "resources/pets/Gorilla.bmp" }, RGB(255, 255, 255));
+	Gorilla.SetTopLeft(380, 610);
+	
+	
 	/*
 	pill.LoadBitmapByString({ "resources/Sleeping_Pill.bmp " });
 	pill.SetTopLeft(1000, 150);
@@ -88,13 +91,67 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 void CGameStateRun::OnShow()
 {
 	background.ShowBitmap();
+	show_text_by_phase();
+	Wolverine.ShowBitmap();
+	Gorilla.ShowBitmap();
 	
 }
 
+void CGameStateRun::OnMove()
+{
+	
+	int x = 2;
+	int y = 2;
+	
+	
+	Wolverine.SetTopLeft(Wolverine.GetLeft() + x, Wolverine.GetTop() - y);
 
+	
+		
+		
+
+
+		
+	
+	
+	
+
+}
 
 void CGameStateRun::show_text_by_phase() {
-	CDC *pDC = CDDraw::GetBackCDC();
-	CTextDraw::ChangeFontLog(pDC, 36, "微軟正黑體", RGB(255, 255, 255));
-	CTextDraw::Print(pDC, 79, 228, "Game Framework Practice");
+	/*if (win) {
+		CDC *pDC = CDDraw::GetBackCDC();
+		CTextDraw::ChangeFontLog(pDC, 120, "微軟正黑體", RGB(238, 104, 37),1500);
+		CTextDraw::Print(pDC, 340, 270, "恭喜獲勝");
+		CDDraw::ReleaseBackCDC();
+	}
+	else
+	{
+		CDC *pDC = CDDraw::GetBackCDC();
+		CTextDraw::ChangeFontLog(pDC, 120, "微軟正黑體", RGB(238, 104, 37), 1500);
+		CTextDraw::Print(pDC, 340, 270, "遊戲失敗");
+		CDDraw::ReleaseBackCDC();*/
+	}
+	
+void CGameStateRun::attack() 
+{
+	//while (game->fight_step()) {
+	
+	
+	if ()
+	
+	
+	
+	
+	
+	//}
+	//return game->end_fight();
+
+
+
+
+
+
+
 }
+

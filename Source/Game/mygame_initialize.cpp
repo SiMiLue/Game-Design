@@ -54,7 +54,24 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 }
 void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point) 
 {
+	if (point.x > 350 && point.y > 560 && point.x < 800 && point.y < 650) {
+			petchange = true;
+	}
+	else
+	{
+		petchange = false;
+	}
+	if (point.x > 400 && point.y > 420 && point.x < 750 && point.y < 551) {
+		startchange = true;
+	}
+	else
+	{
+		startchange = false;
+	}
+
+
 	if (food_load == true) {
+		
 		bool foundFood = false; 
 		for (size_t i = 0; i < food_array.size(); i++ ) {
 			if (point.x > food_array[i].GetLeft() && point.x < food_array[i].GetLeft() + food_array[i].GetWidth() && point.y > food_array[i].GetTop() && point.y < food_array[i].GetTop() + food_array[i].GetHeight()) {
@@ -80,11 +97,11 @@ void CGameStateInit::OnMouseMove(UINT nFlags, CPoint point)
 }
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	if (point.x > 400 && point.y > 420 && point.x < 702 && point.y < 556) {
+	if (point.x > 400 && point.y > 420 && point.x < 702 && point.y < 556 && food_Button == false) {
 		//CAudio::Instance()->Play(AUDIO_MENUTOGAME, false);
 		GotoGameState(GAME_STATE_RUN);		// ¤Á´«¦ÜGAME_STATE_RUN
 	}
-	else if (point.x > 400 && point.y > 560 && point.x < 830 && point.y < 635) {
+	else if (point.x > 350 && point.y > 560 && point.x < 800 && point.y < 650) {
 		food_Button = true;
 	}
 }
@@ -103,10 +120,10 @@ void CGameStateInit::load_background() {
 
 	brand.LoadBitmapByString({ "resources/Brand.bmp" }, RGB(0, 0, 0));
 	brand.SetTopLeft(0, 0);
-	StartGame.LoadBitmapByString({ "resources/StartGame.bmp" });
+	StartGame.LoadBitmapByString({ "resources/StartGame1.bmp", "resources/StartGame.bmp" }, RGB(255, 255, 255));
 	StartGame.SetTopLeft(400, 420);
-	Pets_Button.LoadBitmapByString({ "resources/Pets_Button.bmp" });
-	Pets_Button.SetTopLeft(400, 560);
+	Pets_Button.LoadBitmapByString({ "resources/PetButton.bmp" ,"resources/PetButton2.bmp"}, RGB(255, 255, 255));
+	Pets_Button.SetTopLeft(350, 560);
 	
 }
 void CGameStateInit::load_food() {
@@ -164,40 +181,40 @@ void CGameStateInit::load_food() {
 
 void CGameStateInit::load_pet() {
 	Duck.LoadBitmapByString({ "resources/pets/Duck.bmp" }, RGB(255, 255, 255));
-	Duck.SetTopLeft(140, 35);
+	Duck.SetTopLeft(140, 40);
 	pets_array.push_back(Duck);
 	Beaver.LoadBitmapByString({ "resources/pets/Beaver.bmp" }, RGB(255, 255, 255));
-	Beaver.SetTopLeft(200, 35);
+	Beaver.SetTopLeft(200, 43);
 	pets_array.push_back(Beaver);
 	Pigeon.LoadBitmapByString({ "resources/pets/Pigeon.bmp" }, RGB(255, 255, 255));
-	Pigeon.SetTopLeft(260, 35);
+	Pigeon.SetTopLeft(260, 40);
 	pets_array.push_back(Pigeon);
 	Otter.LoadBitmapByString({ "resources/pets/Otter.bmp" }, RGB(255, 255, 255));
-	Otter.SetTopLeft(320, 35);
+	Otter.SetTopLeft(320, 44);
 	pets_array.push_back(Otter);
 	Pig.LoadBitmapByString({ "resources/pets/Pig.bmp" }, RGB(255, 255, 255));
-	Pig.SetTopLeft(380, 35);
+	Pig.SetTopLeft(380, 44);
 	pets_array.push_back(Pig);
 	Ant.LoadBitmapByString({ "resources/pets/Ant.bmp" }, RGB(255, 255, 255));
-	Ant.SetTopLeft(440, 35);
+	Ant.SetTopLeft(440, 46);
 	pets_array.push_back(Ant);
 	Mosquito.LoadBitmapByString({ "resources/pets/Mosquito.bmp" }, RGB(255, 255, 255));
-	Mosquito.SetTopLeft(500, 35);
+	Mosquito.SetTopLeft(500, 48);
 	pets_array.push_back(Mosquito);
 	Fish.LoadBitmapByString({ "resources/pets/Fish.bmp" }, RGB(255, 255, 255));
-	Fish.SetTopLeft(560, 35);
+	Fish.SetTopLeft(560, 50);
 	pets_array.push_back(Fish);
 	Cricket.LoadBitmapByString({ "resources/pets/Cricket.bmp" }, RGB(255, 255, 255));
-	Cricket.SetTopLeft(620, 35);
+	Cricket.SetTopLeft(620, 50);
 	pets_array.push_back(Cricket);
 	Horse.LoadBitmapByString({ "resources/pets/Horse.bmp" }, RGB(255, 255, 255));
-	Horse.SetTopLeft(680, 35);
+	Horse.SetTopLeft(680, 47);
 	pets_array.push_back(Horse);
 	Snail.LoadBitmapByString({ "resources/pets/Snail.bmp" }, RGB(255, 255, 255));
-	Snail.SetTopLeft(140, 155);
+	Snail.SetTopLeft(140, 160);
 	pets_array.push_back(Snail);
 	Crab.LoadBitmapByString({ "resources/pets/Crab.bmp" }, RGB(255, 255, 255));
-	Crab.SetTopLeft(200, 155);
+	Crab.SetTopLeft(200, 165);
 	pets_array.push_back(Crab);
 	Swan.LoadBitmapByString({ "resources/pets/Swan.bmp" }, RGB(255, 255, 255));
 	Swan.SetTopLeft(260, 155);
@@ -206,22 +223,22 @@ void CGameStateInit::load_pet() {
 	Rat.SetTopLeft(320, 155);
 	pets_array.push_back(Rat);
 	Hedgehog.LoadBitmapByString({ "resources/pets/Hedgehog.bmp" }, RGB(255, 255, 255));
-	Hedgehog.SetTopLeft(380, 155);
+	Hedgehog.SetTopLeft(380, 165);
 	pets_array.push_back(Hedgehog);
 	Peacock.LoadBitmapByString({ "resources/pets/Peacock.bmp" }, RGB(255, 255, 255));
 	Peacock.SetTopLeft(440, 155);
 	pets_array.push_back(Peacock);
 	Flamingo.LoadBitmapByString({ "resources/pets/Flamingo.bmp" }, RGB(255, 255, 255));
-	Flamingo.SetTopLeft(500, 155);
+	Flamingo.SetTopLeft(500, 150);
 	pets_array.push_back(Flamingo);
 	Worm.LoadBitmapByString({ "resources/pets/Worm.bmp" }, RGB(255, 255, 255));
 	Worm.SetTopLeft(560, 155);
 	pets_array.push_back(Worm);
 	Kangaroo.LoadBitmapByString({ "resources/pets/Kangaroo.bmp" }, RGB(255, 255, 255));
-	Kangaroo.SetTopLeft(620, 155);
+	Kangaroo.SetTopLeft(620, 165);
 	pets_array.push_back(Kangaroo);
 	Spider.LoadBitmapByString({ "resources/pets/Spider.bmp" }, RGB(255, 255, 255));
-	Spider.SetTopLeft(680, 155);
+	Spider.SetTopLeft(680, 165);
 	pets_array.push_back(Spider);
 	Fir.LoadBitmapByString({ "resources/pets_info/Duck_info.bmp" , "resources/pets_info/Beaver_info.bmp" , "resources/pets_info/Pigeon_info.bmp" ,"resources/pets_info/Otter_info.bmp"
 		,"resources/pets_info/Pig_info.bmp","resources/pets_info/Ant_info.bmp" ,"resources/pets_info/Mosquito_info.bmp","resources/pets_info/Fish_info.bmp" ,"resources/pets_info/Cricket_info.bmp" 
@@ -233,10 +250,10 @@ void CGameStateInit::load_pet() {
 	Dodo.SetTopLeft(140, 275);
 	pets_array.push_back(Dodo);
 	Badger.LoadBitmapByString({ "resources/pets/Badger.bmp" }, RGB(255, 255, 255));
-	Badger.SetTopLeft(200, 275);
+	Badger.SetTopLeft(200, 285);
 	pets_array.push_back(Badger);
 	Dolphin.LoadBitmapByString({ "resources/pets/Dolphin.bmp" }, RGB(255, 255, 255));
-	Dolphin.SetTopLeft(260, 275);
+	Dolphin.SetTopLeft(260, 280);
 	pets_array.push_back(Dolphin);
 	Giraffe.LoadBitmapByString({ "resources/pets/Giraffe.bmp" }, RGB(255, 255, 255));
 	Giraffe.SetTopLeft(320, 275);
@@ -248,7 +265,7 @@ void CGameStateInit::load_pet() {
 	Camel.SetTopLeft(440, 275);
 	pets_array.push_back(Camel);
 	Rabbit.LoadBitmapByString({ "resources/pets/Rabbit.bmp" }, RGB(255, 255, 255));
-	Rabbit.SetTopLeft(500, 275);
+	Rabbit.SetTopLeft(500, 265);
 	pets_array.push_back(Rabbit);
 	Ox.LoadBitmapByString({ "resources/pets/Ox.bmp" }, RGB(255, 255, 255));
 	Ox.SetTopLeft(560, 275);
@@ -269,10 +286,10 @@ void CGameStateInit::load_pet() {
 		,"resources/pets_info/Sheep_info.bmp" });
 	Thr.SetTopLeft(20, 510);
 	Skunk.LoadBitmapByString({ "resources/pets/Skunk.bmp" }, RGB(255, 255, 255));
-	Skunk.SetTopLeft(140, 395);
+	Skunk.SetTopLeft(140, 390);
 	pets_array.push_back(Skunk);
 	Hippo.LoadBitmapByString({ "resources/pets/Hippo.bmp" }, RGB(255, 255, 255));
-	Hippo.SetTopLeft(200, 395);
+	Hippo.SetTopLeft(200, 400);
 	pets_array.push_back(Hippo);
 	Bison.LoadBitmapByString({ "resources/pets/Bison.bmp" }, RGB(255, 255, 255));
 	Bison.SetTopLeft(260, 395);
@@ -281,19 +298,19 @@ void CGameStateInit::load_pet() {
 	Blowfish.SetTopLeft(320, 395);
 	pets_array.push_back(Blowfish);
 	Turtle.LoadBitmapByString({ "resources/pets/Turtle.bmp" }, RGB(255, 255, 255));
-	Turtle.SetTopLeft(380, 395);
+	Turtle.SetTopLeft(380, 400);
 	pets_array.push_back(Turtle);
 	Squirrel.LoadBitmapByString({ "resources/pets/Squirrel.bmp" }, RGB(255, 255, 255));
 	Squirrel.SetTopLeft(440, 395);
 	pets_array.push_back(Squirrel);
 	Penguin.LoadBitmapByString({ "resources/pets/Penguin.bmp" }, RGB(255, 255, 255));
-	Penguin.SetTopLeft(500, 395);
+	Penguin.SetTopLeft(500, 385);
 	pets_array.push_back(Penguin);
 	Deer.LoadBitmapByString({ "resources/pets/Deer.bmp" }, RGB(255, 255, 255));
-	Deer.SetTopLeft(560, 395);
+	Deer.SetTopLeft(560, 385);
 	pets_array.push_back(Deer);
 	Whale.LoadBitmapByString({ "resources/pets/Whale.bmp" }, RGB(255, 255, 255));
-	Whale.SetTopLeft(620, 395);
+	Whale.SetTopLeft(620, 410);
 	pets_array.push_back(Whale);
 	Parrot.LoadBitmapByString({ "resources/pets/Parrot.bmp" }, RGB(255, 255, 255));
 	Parrot.SetTopLeft(680, 395);
@@ -303,34 +320,34 @@ void CGameStateInit::load_pet() {
 		,"resources/pets_info/Parrot_info.bmp" });
 	For.SetTopLeft(20, 0);
 	Scorpion.LoadBitmapByString({ "resources/pets/Scorpion.bmp" }, RGB(255, 255, 255));
-	Scorpion.SetTopLeft(140, 515);
+	Scorpion.SetTopLeft(140, 490);
 	pets_array.push_back(Scorpion);
 	Crocodile.LoadBitmapByString({ "resources/pets/Crocodile.bmp" }, RGB(255, 255, 255));
-	Crocodile.SetTopLeft(200, 515);
+	Crocodile.SetTopLeft(200, 500);
 	pets_array.push_back(Crocodile);
 	Rhino.LoadBitmapByString({ "resources/pets/Rhino.bmp" }, RGB(255, 255, 255));
-	Rhino.SetTopLeft(260, 515);
+	Rhino.SetTopLeft(260, 500);
 	pets_array.push_back(Rhino);
 	Monkey.LoadBitmapByString({ "resources/pets/Monkey.bmp" }, RGB(255, 255, 255));
-	Monkey.SetTopLeft(320, 515);
+	Monkey.SetTopLeft(320, 500);
 	pets_array.push_back(Monkey);
 	Armadillo.LoadBitmapByString({ "resources/pets/Armadillo.bmp" }, RGB(255, 255, 255));
-	Armadillo.SetTopLeft(380, 515);
+	Armadillo.SetTopLeft(380, 500);
 	pets_array.push_back(Armadillo);
 	Cow.LoadBitmapByString({ "resources/pets/Cow.bmp" }, RGB(255, 255, 255));
-	Cow.SetTopLeft(440, 515);
+	Cow.SetTopLeft(440, 500);
 	pets_array.push_back(Cow);
 	Seal.LoadBitmapByString({ "resources/pets/Seal.bmp" }, RGB(255, 255, 255));
-	Seal.SetTopLeft(500, 515);
+	Seal.SetTopLeft(500, 500);
 	pets_array.push_back(Seal);
 	Rooster.LoadBitmapByString({ "resources/pets/Rooster.bmp" }, RGB(255, 255, 255));
-	Rooster.SetTopLeft(560, 515);
+	Rooster.SetTopLeft(560, 500);
 	pets_array.push_back(Rooster);
 	Shark.LoadBitmapByString({ "resources/pets/Shark.bmp" }, RGB(255, 255, 255));
-	Shark.SetTopLeft(620, 515);
+	Shark.SetTopLeft(620, 500);
 	pets_array.push_back(Shark);
 	Turkey.LoadBitmapByString({ "resources/pets/Turkey.bmp" }, RGB(255, 255, 255));
-	Turkey.SetTopLeft(680, 515);
+	Turkey.SetTopLeft(680, 500);
 	pets_array.push_back(Turkey);
 	Fiv.LoadBitmapByString({ "resources/pets_info/Scorpion_info.bmp" , "resources/pets_info/Crocodile_info.bmp" , "resources/pets_info/Rhino_info.bmp" ,"resources/pets_info/Monkey_info.bmp"
 		,"resources/pets_info/Armadillo_info.bmp","resources/pets_info/Cow_info.bmp" ,"resources/pets_info/Seal_info.bmp","resources/pets_info/Rooster_info.bmp" ,"resources/pets_info/Shark_info.bmp"
@@ -346,7 +363,7 @@ void CGameStateInit::load_pet() {
 	Tiger.SetTopLeft(260, 610);
 	pets_array.push_back(Tiger);
 	Wolverine.LoadBitmapByString({ "resources/pets/Wolverine.bmp" }, RGB(255, 255, 255));
-	Wolverine.SetTopLeft(320, 610);
+	Wolverine.SetTopLeft(320, 630);
 	pets_array.push_back(Wolverine);
 	Gorilla.LoadBitmapByString({ "resources/pets/Gorilla.bmp" }, RGB(255, 255, 255));
 	Gorilla.SetTopLeft(380, 610);
@@ -446,9 +463,26 @@ void CGameStateInit::show_image_by_phase() {
 	else if (food_Button == false) {
 		background.SetFrameIndexOfBitmap(0);
 		background.ShowBitmap();
-		StartGame.ShowBitmap();
 		brand.ShowBitmap();
-		Pets_Button.ShowBitmap();
+		if (!petchange) {
+			Pets_Button.SetFrameIndexOfBitmap(0);
+			Pets_Button.ShowBitmap();
+		}
+		else if(petchange)
+		{
+			Pets_Button.SetFrameIndexOfBitmap(1);
+			Pets_Button.ShowBitmap();
+			
+		}
+		if (!startchange) {
+			StartGame.SetFrameIndexOfBitmap(0);
+			StartGame.ShowBitmap();
+		}
+		else if (startchange) {
+			StartGame.SetFrameIndexOfBitmap(1);
+			StartGame.ShowBitmap();
+		}
+		
 	}
 
 }

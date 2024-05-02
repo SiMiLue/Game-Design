@@ -76,6 +76,8 @@ namespace game_framework {
 		bool showpetinfo = false;
 		bool food_Button = false;
 		bool food_load = false;
+		bool petchange = false;
+		bool startchange = false;
 		int food_info;
 		unsigned int pet_info;
 		CMovingBitmap check_food;
@@ -192,6 +194,7 @@ namespace game_framework {
 		void show_pet();
 		void show_image_by_phase();
 		void show_food_info();
+		
 		void show_pet_info();
 		vector<CMovingBitmap> food_array;
 		vector<CMovingBitmap> food_info_array;
@@ -217,6 +220,7 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();			                        // 顯示這個狀態的遊戲畫面
@@ -224,9 +228,12 @@ namespace game_framework {
 		int phase = 1;
 		int sub_phase = 1;
 		CMovingBitmap background;
+		CMovingBitmap Wolverine;
+		CMovingBitmap Gorilla;
+		bool stack = true;
 		//void show_image_by_phase();
 		void show_text_by_phase();
-		
+		void attack();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

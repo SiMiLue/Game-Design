@@ -39,6 +39,13 @@ protected:
 	int m_xp;
 	//Object* m_object;
 
+	int get_attack() const;
+	int get_life() const;
+	int get_xp() const;
+	int get_level() const;
+	bool is_alive() const;
+
+
 	int m_attack_buff;
 	int m_life_buff;
 
