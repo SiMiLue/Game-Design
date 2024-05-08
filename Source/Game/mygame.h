@@ -40,7 +40,7 @@
 #include "attackCell.h"
 #include "Shop.h"
 #include "Pets.h"
-#include "Object.h"
+#include "object.h"
 #include "atkSystem.h"
 
 namespace game_framework {
@@ -94,41 +94,7 @@ namespace game_framework {
 		int food_info;
 		unsigned int pet_info;
 		
-		CMovingBitmap check_food;
-		CMovingBitmap apple;
-		CMovingBitmap apple_info;
-		CMovingBitmap honey;
-		CMovingBitmap honey_info;
-		CMovingBitmap pill;
-		CMovingBitmap pill_info;
-		CMovingBitmap meatbone;
-		CMovingBitmap meatbone_info;
-		CMovingBitmap cupcake;
-		CMovingBitmap cupcake_info;
-		CMovingBitmap salad;
-		CMovingBitmap salad_info;
-		CMovingBitmap garlic;
-		CMovingBitmap garlic_info;
-		CMovingBitmap Canned;
-		CMovingBitmap Canned_info;
-		CMovingBitmap Pear;
-		CMovingBitmap Pear_info;
-		CMovingBitmap Chili;
-		CMovingBitmap Chili_info;
-		CMovingBitmap Chocolate;
-		CMovingBitmap Chocolate_info;
-		CMovingBitmap Sushi;
-		CMovingBitmap Sushi_info;
-		CMovingBitmap Steak;
-		CMovingBitmap Steak_info;
-		CMovingBitmap Melon;
-		CMovingBitmap Melon_info;
-		CMovingBitmap Mushroom;
-		CMovingBitmap Mushroom_info;
-		CMovingBitmap Pizza;
-		CMovingBitmap Pizza_info;
-
-	
+		
 		void load_background();
 		void load_food();
 		void load_food_info();
@@ -139,11 +105,8 @@ namespace game_framework {
 		void show_image_by_phase();
 		void show_food_info();
 		void show_pet_info();
-		vector<CMovingBitmap> food_array;
-
-		vector<CMovingBitmap> food_info_array;
-		//vector<CMovingBitmap> pets_array;
 		
+
 
 	};
 
@@ -195,17 +158,21 @@ namespace game_framework {
 		bool draw_clicked=false;
 		void show_image_by_phase();
 		void show_text_by_phase();
-
+		void show_info();
 		void show_money_text();
 		void show_heart_text(int test);
 		void show_wins_text();
 		void show_round_text(int test);
-	
+		GenPets pets;
+		GenObject objects;
+		vector<shared_ptr<Pet>> pet = pets.get_pets();
+		vector<shared_ptr<Object>> object = objects.get_Object();
 		int test=0;
 		int test1 = 0;
 		Ant ant;
+		int info = 1;
 		
-
+		bool showinfo = false;
 		Shop shop;
 		vector<shared_ptr<Pet>> tst;
 		

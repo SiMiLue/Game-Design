@@ -38,8 +38,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
-	
-	
+
+
 	background.LoadBitmapByString({ "resources/initialize_background.bmp","resources/atk_background.bmp" });
 	background.SetTopLeft(0, 0);
 
@@ -61,7 +61,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	Cfreeze.LoadBitmapByString({ "resources/freeze.bmp" });
 	Cfreeze.SetTopLeft(0, 400);
 	Csell.LoadBitmapByString({ "resources/sell.bmp" });
-	Csell.SetTopLeft(1000,328);
+	Csell.SetTopLeft(1000, 328);
 	shop.init();
 	atkcell.init();
 	shop.get_random_pet(current_round);
@@ -69,12 +69,13 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	
+
 	if (nChar == VK_ESCAPE) {
-		if (phases == ATKPHASE){ 
-			phases = BUYPHASE; }
+		if (phases == ATKPHASE) {
+			phases = BUYPHASE;
+		}
 	}
-	
+
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -84,11 +85,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
+	showinfo = false;
 	if (point.x >= resume.GetLeft() && point.x <= resume.GetLeft() + resume.GetWidth() && point.y >= resume.GetTop() && point.y <= resume.GetTop() + resume.GetHeight()) {
 		phases = BUYPHASE;
 	}
 
-	
+
 	isdrag = true;
 	if (current_money > 0) {
 		if (point.x >= drawDice.GetLeft() && point.x <= drawDice.GetLeft() + drawDice.GetWidth() && point.y >= drawDice.GetTop() && point.y <= drawDice.GetTop() + drawDice.GetHeight()) {
@@ -97,7 +99,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 			draw_clicked = true;
 		}
 	}
-	
+
 	if (point.x >= roundEnd.GetLeft() && point.x <= roundEnd.GetLeft() + roundEnd.GetWidth() && point.y >= roundEnd.GetTop() && point.y <= roundEnd.GetTop() + roundEnd.GetHeight()) {
 		phases = ATKPHASE;
 		shared_ptr<Pet> ant = make_shared<Ant>();
@@ -111,32 +113,32 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 		current_round += 1;
 		current_money = 10;
 		shop.get_random_pet(current_round);
-		
-		
+
+
 		if (result == 0) { current_heart -= 1; }
 		if (result == 1) { current_win += 1; }
-		
+
 	}
-	
+
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	
+
 	vector<shared_ptr<Pet>> item = shop.get_shop_item();
 	for (unsigned int i = 0; i < item.size(); i++) {
-		tuple<bool, int> buything= atkcell.isbuying(item[i]->get_img().GetLeft(), item[i]->get_img().GetTop());
+		tuple<bool, int> buything = atkcell.isbuying(item[i]->get_img().GetLeft(), item[i]->get_img().GetTop());
 		int atk_idx = get<1>(buything);
 		shared_ptr<Pet> current_atk_pet;
-		if(get<0>(buything)){ current_atk_pet = atkcell.get_pets_by_idx(atk_idx); }
+		if (get<0>(buything)) { current_atk_pet = atkcell.get_pets_by_idx(atk_idx); }
 		else { current_atk_pet = nullptr; }
-		if (get<0>(buything) && current_atk_pet == nullptr && current_money>=3) {
+		if (get<0>(buything) && current_atk_pet == nullptr && current_money >= 3) {
 			current_money -= 3;
-			atkcell.buy_by_index(get<1>(buything),item[i]->clone());
+			atkcell.buy_by_index(get<1>(buything), item[i]->clone());
 			item[i]->set_locate(0, 0);
 			shop.set_buy_by_index(i);
 		}
-		else if(get<0>(buything) && CMovingBitmap::IsOverlap(item[i]->get_img(),current_atk_pet->get_img())&& current_money >= 3){
+		else if (get<0>(buything) && CMovingBitmap::IsOverlap(item[i]->get_img(), current_atk_pet->get_img()) && current_money >= 3) {
 			current_money -= 3;
 			current_atk_pet->set_atk(current_atk_pet->get_attack() + 1);
 			current_atk_pet->set_life(current_atk_pet->get_life() + 1);
@@ -145,23 +147,23 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 			shop.set_buy_by_index(i);
 		}
 		else {
-			item[i]->set_locate(shop.get_cordinate(i,"x"), shop.get_cordinate(i, "y"));
-			
+			item[i]->set_locate(shop.get_cordinate(i, "x"), shop.get_cordinate(i, "y"));
+
 		}
 	}
 	if (selected == 1) {
 		vector<shared_ptr<Pet>> atk = atkcell.get_pets();
 		for (unsigned int i = 0; i < atk.size(); i++) {
 			if (atk[i] != nullptr) {
-				
+
 				if (CMovingBitmap::IsOverlap(atk[i]->get_img(), Csell)) { //動物移到賣出鍵那
-					int money=atkcell.sell_by_index(i);
+					int money = atkcell.sell_by_index(i);
 				}
 				else {
 					atk[i]->set_locate(atkcell.get_cordinate(i, "x"), atkcell.get_cordinate(i, "y"));
 				}
-				
-				
+
+
 			}
 
 		}
@@ -172,14 +174,19 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 	test = point.x;
 	test1 = point.y;
-	if (nFlags == MK_LBUTTON) { //按下滑鼠左鍵
+	bool foundFood = false;
+	
+		
 		vector<shared_ptr<Pet>> item = shop.get_shop_item();
 		for (unsigned int i = 0; i < item.size(); i++) {
 			CMovingBitmap img = item[i]->get_img();
 			if (point.x > img.GetLeft() && point.x < img.GetLeft() + img.GetWidth() && point.y > img.GetTop() && point.y < img.GetTop() + img.GetHeight()) {
-				item[i]->set_locate(point.x - 20, point.y - 20);
+				if (nFlags == MK_LBUTTON)item[i]->set_locate(point.x - 20, point.y - 20);
+				info = item[i]->get_id();
+				showinfo = true;
+				foundFood = true;
 			}
-			
+
 		}
 		vector<shared_ptr<Pet>> atk = atkcell.get_pets();
 		for (unsigned int i = 0; i < atk.size(); i++) {
@@ -187,12 +194,20 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 				CMovingBitmap img = atk[i]->get_img();
 				if (point.x > img.GetLeft() && point.x < img.GetLeft() + img.GetWidth() && point.y > img.GetTop() && point.y < img.GetTop() + img.GetHeight()) {
 					selected = 1;
-					atk[i]->set_locate(point.x - 20, point.y - 20);
+					if (nFlags == MK_LBUTTON) atk[i]->set_locate(point.x - 20, point.y - 20);
+					info = atk[i]->get_id();
+					showinfo = true;
+					foundFood = true;
 				}
-			
+
 			}
 		}
-	}
+		if (!foundFood) {
+			showinfo = false;
+		}
+	
+	
+
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -224,6 +239,7 @@ void CGameStateRun::OnShow()
 		show_heart_text(test);
 		show_round_text(test1);
 		show_wins_text();
+		show_info();
 	}
 	else if (phases == ATKPHASE) {
 		background.SetFrameIndexOfBitmap(1);
@@ -233,11 +249,20 @@ void CGameStateRun::OnShow()
 		show_heart_text(test);
 		show_round_text(test1);
 	}
-	
-	
-	
-}
 
+
+
+}
+void CGameStateRun::show_info() {
+	for (auto item : pet) {
+		item->Load_img();
+	}
+	
+	if (showinfo == true) {
+		pet[info - 1]->get_info().SetFrameIndexOfBitmap(1);
+		pet[info - 1]->get_info().ShowBitmap();
+	}
+}
 void CGameStateRun::show_image_by_phase() {
 
 }
@@ -280,5 +305,3 @@ void CGameStateRun::show_wins_text() {
 		GotoGameState(GAME_STATE_OVER);
 	}
 }
-
-

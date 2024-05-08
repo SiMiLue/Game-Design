@@ -145,6 +145,7 @@ void CGameStateInit::load_food() {
 
 void CGameStateInit::load_pet() {
 
+
 	for (auto item :pet) {
 		item->Load_img();
 	}
@@ -187,8 +188,11 @@ void CGameStateInit::load_food_info() {
 		}
 		infoidx++;
 	}
-}
 
+
+	
+	
+}
 
 void CGameStateInit::show_food() {
 	if (food_Button == true) {
@@ -235,13 +239,19 @@ void CGameStateInit::show_image_by_phase() {
 	}
 
 }
+
 void CGameStateInit::show_food_info() {
 	if (food_Button == true && showinfo == true) {
+		//object[food_info]->get_info().;
+
 		object[food_info]->get_info().ShowBitmap();
+		
+
 	}
 }
 void CGameStateInit::show_pet_info() {
 	if (food_Button == true && showpetinfo == true) {
+		pet[pet_info]->get_info().SetFrameIndexOfBitmap(1);
 		pet[pet_info]->get_info().ShowBitmap();
 	}
 }
