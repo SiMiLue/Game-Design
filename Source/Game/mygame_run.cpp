@@ -71,13 +71,104 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
+<<<<<<< Updated upstream
+=======
+
+	vector<shared_ptr<Pet>> item = shop.get_shop_item();
+	for (unsigned int i = 0; i < item.size(); i++) {
+		tuple<bool, int> buything = atkcell.isbuying(item[i]->get_img().GetLeft(), item[i]->get_img().GetTop());
+		int atk_idx = get<1>(buything);
+		shared_ptr<Pet> current_atk_pet;
+		if (get<0>(buything)) { current_atk_pet = atkcell.get_pets_by_idx(atk_idx); }
+		else { current_atk_pet = nullptr; }
+		if (get<0>(buything) && current_atk_pet == nullptr && current_money >= 3) {
+			current_money -= 3;
+			atkcell.buy_by_index(get<1>(buything), item[i]->clone());
+			item[i]->set_locate(0, 0);
+			shop.set_buy_by_index(i);
+		}
+		else if (get<0>(buything) && CMovingBitmap::IsOverlap(item[i]->get_img(), current_atk_pet->get_img()) && current_money >= 3) {
+			current_money -= 3;
+			current_atk_pet->set_atk(current_atk_pet->get_attack() + 1);
+			current_atk_pet->set_life(current_atk_pet->get_life() + 1);
+			item[i]->set_locate(0, 0);
+			atkcell.set_level_by_idx(atk_idx);
+			shop.set_buy_by_index(i);
+		}
+		else {
+			item[i]->set_locate(shop.get_cordinate(i, "x"), shop.get_cordinate(i, "y"));
+
+		}
+	}
+	if (selected == 1) {
+		vector<shared_ptr<Pet>> atk = atkcell.get_pets();
+		for (unsigned int i = 0; i < atk.size(); i++) {
+			if (atk[i] != nullptr) {
+
+				if (CMovingBitmap::IsOverlap(atk[i]->get_img(), Csell)) { //動物移到賣出鍵那
+					int money = atkcell.sell_by_index(i);
+				}
+				else {
+					atk[i]->set_locate(atkcell.get_cordinate(i, "x"), atkcell.get_cordinate(i, "y"));
+				}
+			}
+		}
+	}
+>>>>>>> Stashed changes
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
+<<<<<<< Updated upstream
 	
 	
 
+=======
+	test = point.x;
+	test1 = point.y;
+	bool foundFood = false;
+		vector<shared_ptr<Pet>> item = shop.get_shop_item();
+		for (unsigned int i = 0; i < item.size(); i++) {
+			CMovingBitmap img = item[i]->get_img();
+			if (point.x > img.GetLeft() && point.x < img.GetLeft() + img.GetWidth() && point.y > img.GetTop() && point.y < img.GetTop() + img.GetHeight()) {
+				if (nFlags == MK_LBUTTON) { 
+					item[i]->set_locate(point.x - 20, point.y - 20); 
+					showinfo = false;
+					}
+				else {
+					info =i;
+					showinfo = true;
+					foundFood = true;
+					item[i]->showii(shop.get_cordinate(i, "x"), shop.get_cordinate(i, "y") );
+				}
+				
+			}
+		}
+		vector<shared_ptr<Pet>> atk = atkcell.get_pets();
+		for (unsigned int i = 0; i < atk.size(); i++) {
+			if (atk[i] != nullptr) {
+				CMovingBitmap img = atk[i]->get_img();
+				if (point.x > img.GetLeft() && point.x < img.GetLeft() + img.GetWidth() && point.y > img.GetTop() && point.y < img.GetTop() + img.GetHeight()) {
+					selected = 1;
+					if (nFlags == MK_LBUTTON) { 
+						atk[i]->set_locate(point.x - 20, point.y - 20); 
+						atkinfo = false;
+					}
+					else {
+						info = i;
+						atkinfo = true;
+						foundFood = true;
+						atk[i]->showii(atkcell.get_cordinate(i, "x"), atkcell.get_cordinate(i, "y"));
+					}
+				}
+
+			}
+		}
+		if (!foundFood) {
+			showinfo = false;
+			atkinfo = false;
+		}
+>>>>>>> Stashed changes
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -96,6 +187,7 @@ void CGameStateRun::OnShow()
 	Gorilla.ShowBitmap();
 	
 }
+<<<<<<< Updated upstream
 
 void CGameStateRun::OnMove()
 {
@@ -115,6 +207,21 @@ void CGameStateRun::OnMove()
 	
 	
 	
+=======
+void CGameStateRun::show_info() {
+
+	vector<shared_ptr<Pet>> item = shop.get_shop_item();
+	vector<shared_ptr<Pet>> atk = atkcell.get_pets();
+	if (showinfo == true) {
+		item[info]->get_info().ShowBitmap();
+	}
+	else if (atkinfo == true) {
+
+		atk[info]->get_info().ShowBitmap();
+	}
+}
+void CGameStateRun::show_image_by_phase() {
+>>>>>>> Stashed changes
 
 }
 

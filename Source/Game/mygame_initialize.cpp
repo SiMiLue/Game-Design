@@ -457,6 +457,7 @@ void CGameStateInit::show_pet() {
 }
 void CGameStateInit::show_image_by_phase() {
 	if (food_Button == true) {
+		
 		background.SetFrameIndexOfBitmap(1);
 		background.ShowBitmap();
 	}
@@ -488,11 +489,16 @@ void CGameStateInit::show_image_by_phase() {
 }
 void CGameStateInit::show_food_info() {
 	if (food_Button == true && showinfo == true) {
+<<<<<<< Updated upstream
 		food_info_array[food_info].ShowBitmap();
+=======
+		object[food_info]->get_info().ShowBitmap();
+>>>>>>> Stashed changes
 	}
 }
 void CGameStateInit::show_pet_info() {
 	if (food_Button == true && showpetinfo == true) {
+<<<<<<< Updated upstream
 		if (pet_info < 10) {
 			Fir.SetFrameIndexOfBitmap(pet_info);
 			Fir.ShowBitmap();
@@ -518,6 +524,10 @@ void CGameStateInit::show_pet_info() {
 			Six.ShowBitmap();
 		}
 		
+=======
+		
+		pet[pet_info]->get_info().ShowBitmap();
+>>>>>>> Stashed changes
 	}
 
 

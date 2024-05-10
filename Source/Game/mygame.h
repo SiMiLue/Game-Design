@@ -228,12 +228,47 @@ namespace game_framework {
 		int phase = 1;
 		int sub_phase = 1;
 		CMovingBitmap background;
+<<<<<<< Updated upstream
 		CMovingBitmap Wolverine;
 		CMovingBitmap Gorilla;
 		bool stack = true;
 		//void show_image_by_phase();
 		void show_text_by_phase();
 		void attack();
+=======
+		CMovingBitmap money;
+		CMovingBitmap heart;
+		CMovingBitmap win;
+		CMovingBitmap round;
+		CMovingBitmap Cfreeze;
+		CMovingBitmap Csell;
+		CMovingBitmap roundEnd;
+		CMovingBitmap drawDice;
+		PHASE phases{BUYPHASE};
+		
+		bool isdrag = false;
+		bool draw_clicked=false;
+		void show_image_by_phase();
+		void show_text_by_phase();
+		void show_info();
+		void show_money_text();
+		void show_heart_text(int test);
+		void show_wins_text();
+		void show_round_text(int test);
+		AttackCell atkcell;
+		Atksystem atksystem;
+		
+		int test=0;
+		int test1 = 0;
+		Ant ant;
+		int info = 1;
+		
+		bool showinfo = false;
+		bool atkinfo = false;
+		Shop shop;
+		vector<shared_ptr<Pet>> tst;
+		
+>>>>>>> Stashed changes
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
