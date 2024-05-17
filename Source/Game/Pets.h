@@ -31,6 +31,11 @@ namespace game_framework {
 			tiers.SetTopLeft(cx-20, cy-70);
 			tiers.ShowBitmap();
 		}
+		void showii(int cx, int cy) {
+			pet_info.SetFrameIndexOfBitmap(1);
+			pet_info.SetTopLeft(cx-180,cy-165);
+			pet_info.ShowBitmap();
+		}
 		void set_Stats(int cx,int cy) {
 			status.SetTopLeft(cx-20, cy);
 			status.ShowBitmap();
@@ -100,7 +105,7 @@ namespace game_framework {
 	};
 	class Ant :public Pet {
 	public:
-		Ant() :Pet({ "resources/pets_info/Ant_info.bmp",  "resources/Ability/AntAB.bmp" }, {"resources/pets/Ant.bmp"}, "Ant", 6, 1, 2, 2) {
+		Ant() :Pet({ "resources/pets_info/Ant_info.bmp", "resources/Ability/AntAB.bmp" }, {"resources/pets/Ant.bmp"}, "Ant", 6, 1, 2, 2) {
 			
 		}
 		~Ant() override {

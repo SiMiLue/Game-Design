@@ -211,6 +211,7 @@ void CGameStateInit::show_pet() {
 }
 void CGameStateInit::show_image_by_phase() {
 	if (food_Button == true) {
+		
 		background.SetFrameIndexOfBitmap(1);
 		background.ShowBitmap();
 	}
@@ -242,16 +243,12 @@ void CGameStateInit::show_image_by_phase() {
 
 void CGameStateInit::show_food_info() {
 	if (food_Button == true && showinfo == true) {
-		//object[food_info]->get_info().;
-
 		object[food_info]->get_info().ShowBitmap();
-		
-
 	}
 }
 void CGameStateInit::show_pet_info() {
 	if (food_Button == true && showpetinfo == true) {
-		pet[pet_info]->get_info().SetFrameIndexOfBitmap(1);
+		
 		pet[pet_info]->get_info().ShowBitmap();
 	}
 }

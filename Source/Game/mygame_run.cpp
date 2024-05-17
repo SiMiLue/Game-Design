@@ -33,7 +33,14 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
+	if (phases == ATKPHASE) {
+		
+		atksystem.mainLoop();
+}
 
+	//vector<shared_ptr<Pet>> item = shop.get_shop_item();
+	//item[0]->set_locate(item[0]->get_img().GetLeft()+10, item[0]->get_img().GetTop());
+	
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -89,8 +96,6 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	if (point.x >= resume.GetLeft() && point.x <= resume.GetLeft() + resume.GetWidth() && point.y >= resume.GetTop() && point.y <= resume.GetTop() + resume.GetHeight()) {
 		phases = BUYPHASE;
 	}
-
-
 	isdrag = true;
 	if (current_money > 0) {
 		if (point.x >= drawDice.GetLeft() && point.x <= drawDice.GetLeft() + drawDice.GetWidth() && point.y >= drawDice.GetTop() && point.y <= drawDice.GetTop() + drawDice.GetHeight()) {
@@ -108,15 +113,16 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 		ant->set_life(20);
 		ant2->set_life(20);
 		ant3->set_life(20);
+		atksystem.startBattle();
 		atksystem.set_fight_combination(atkcell.get_pets(), { ant,ant2,ant3 });
-		int result = atksystem.atk();
+		//int result = atksystem.atk();
 		current_round += 1;
 		current_money = 10;
 		shop.get_random_pet(current_round);
 
 
-		if (result == 0) { current_heart -= 1; }
-		if (result == 1) { current_win += 1; }
+		//if (result == 0) { current_heart -= 1; }
+		//if (result == 1) { current_win += 1; }
 
 	}
 
@@ -155,17 +161,13 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 		vector<shared_ptr<Pet>> atk = atkcell.get_pets();
 		for (unsigned int i = 0; i < atk.size(); i++) {
 			if (atk[i] != nullptr) {
-
 				if (CMovingBitmap::IsOverlap(atk[i]->get_img(), Csell)) { //動物移到賣出鍵那
 					int money = atkcell.sell_by_index(i);
 				}
 				else {
 					atk[i]->set_locate(atkcell.get_cordinate(i, "x"), atkcell.get_cordinate(i, "y"));
 				}
-
-
 			}
-
 		}
 	}
 }
@@ -175,18 +177,22 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 	test = point.x;
 	test1 = point.y;
 	bool foundFood = false;
-	
-		
 		vector<shared_ptr<Pet>> item = shop.get_shop_item();
 		for (unsigned int i = 0; i < item.size(); i++) {
 			CMovingBitmap img = item[i]->get_img();
 			if (point.x > img.GetLeft() && point.x < img.GetLeft() + img.GetWidth() && point.y > img.GetTop() && point.y < img.GetTop() + img.GetHeight()) {
-				if (nFlags == MK_LBUTTON)item[i]->set_locate(point.x - 20, point.y - 20);
-				info = item[i]->get_id();
-				showinfo = true;
-				foundFood = true;
+				if (nFlags == MK_LBUTTON) { 
+					item[i]->set_locate(point.x - 20, point.y - 20); 
+					showinfo = false;
+					}
+				else {
+					info =i;
+					showinfo = true;
+					foundFood = true;
+					item[i]->showii(shop.get_cordinate(i, "x"), shop.get_cordinate(i, "y") );
+				}
+				
 			}
-
 		}
 		vector<shared_ptr<Pet>> atk = atkcell.get_pets();
 		for (unsigned int i = 0; i < atk.size(); i++) {
@@ -194,20 +200,24 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 				CMovingBitmap img = atk[i]->get_img();
 				if (point.x > img.GetLeft() && point.x < img.GetLeft() + img.GetWidth() && point.y > img.GetTop() && point.y < img.GetTop() + img.GetHeight()) {
 					selected = 1;
-					if (nFlags == MK_LBUTTON) atk[i]->set_locate(point.x - 20, point.y - 20);
-					info = atk[i]->get_id();
-					showinfo = true;
-					foundFood = true;
+					if (nFlags == MK_LBUTTON) { 
+						atk[i]->set_locate(point.x - 20, point.y - 20); 
+						atkinfo = false;
+					}
+					else {
+						info = i;
+						atkinfo = true;
+						foundFood = true;
+						atk[i]->showii(atkcell.get_cordinate(i, "x"), atkcell.get_cordinate(i, "y"));
+					}
 				}
 
 			}
 		}
 		if (!foundFood) {
 			showinfo = false;
+			atkinfo = false;
 		}
-	
-	
-
 }
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -254,13 +264,15 @@ void CGameStateRun::OnShow()
 
 }
 void CGameStateRun::show_info() {
-	for (auto item : pet) {
-		item->Load_img();
-	}
-	
+
+	vector<shared_ptr<Pet>> item = shop.get_shop_item();
+	vector<shared_ptr<Pet>> atk = atkcell.get_pets();
 	if (showinfo == true) {
-		pet[info - 1]->get_info().SetFrameIndexOfBitmap(1);
-		pet[info - 1]->get_info().ShowBitmap();
+		item[info]->get_info().ShowBitmap();
+	}
+	else if (atkinfo == true) {
+
+		atk[info]->get_info().ShowBitmap();
 	}
 }
 void CGameStateRun::show_image_by_phase() {

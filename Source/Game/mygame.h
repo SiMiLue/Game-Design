@@ -152,8 +152,7 @@ namespace game_framework {
 		CMovingBitmap roundEnd;
 		CMovingBitmap drawDice;
 		PHASE phases{BUYPHASE};
-		AttackCell atkcell;
-		Atksystem atksystem;
+		
 		bool isdrag = false;
 		bool draw_clicked=false;
 		void show_image_by_phase();
@@ -163,16 +162,16 @@ namespace game_framework {
 		void show_heart_text(int test);
 		void show_wins_text();
 		void show_round_text(int test);
-		GenPets pets;
-		GenObject objects;
-		vector<shared_ptr<Pet>> pet = pets.get_pets();
-		vector<shared_ptr<Object>> object = objects.get_Object();
+		AttackCell atkcell;
+		Atksystem atksystem;
+		
 		int test=0;
 		int test1 = 0;
 		Ant ant;
 		int info = 1;
 		
 		bool showinfo = false;
+		bool atkinfo = false;
 		Shop shop;
 		vector<shared_ptr<Pet>> tst;
 		
