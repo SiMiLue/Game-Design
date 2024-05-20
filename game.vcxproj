@@ -251,7 +251,6 @@
     <ClCompile Include="Source\Library\gameutil.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Object.h" />
     <ClInclude Include="shop_system.h" />
     <ClInclude Include="Source\Core\Game.h" />
     <ClInclude Include="Source\Core\gameDoc.h" />
@@ -263,6 +262,7 @@
     <ClInclude Include="Source\Game\attackCell.h" />
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\mygame.h" />
+    <ClInclude Include="Source\Game\object.h" />
     <ClInclude Include="Source\Game\Pets.h" />
     <ClInclude Include="Source\Game\Shop.h" />
     <ClInclude Include="Source\Library\audio.h" />

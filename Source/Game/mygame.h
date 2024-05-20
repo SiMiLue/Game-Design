@@ -40,7 +40,7 @@
 #include "attackCell.h"
 #include "Shop.h"
 #include "atkSystem.h"
-
+#include "object.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -75,6 +75,10 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		GenPets pets;
+		GenObject objects;
+		vector<shared_ptr<Pet>> pet = pets.get_pets();
+		vector<shared_ptr<Object>> object = objects.get_Object();
 		CMovingBitmap background;		// csie的logo
 		CMovingBitmap StartGame;
 		CMovingBitmap brand;
@@ -83,113 +87,14 @@ namespace game_framework {
 		bool showpetinfo = false;
 		bool food_Button = false;
 		bool food_load = false;
+		bool petchange = false;
+		bool startchange = false;
 		int food_info;
 		unsigned int pet_info;
+
 		CMovingBitmap check_food;
-		CMovingBitmap apple;
-		CMovingBitmap apple_info;
-		CMovingBitmap honey;
-		CMovingBitmap honey_info;
-		CMovingBitmap pill;
-		CMovingBitmap pill_info;
-		CMovingBitmap meatbone;
-		CMovingBitmap meatbone_info;
-		CMovingBitmap cupcake;
-		CMovingBitmap cupcake_info;
-		CMovingBitmap salad;
-		CMovingBitmap salad_info;
-		CMovingBitmap garlic;
-		CMovingBitmap garlic_info;
-		CMovingBitmap Canned;
-		CMovingBitmap Canned_info;
-		CMovingBitmap Pear;
-		CMovingBitmap Pear_info;
-		CMovingBitmap Chili;
-		CMovingBitmap Chili_info;
-		CMovingBitmap Chocolate;
-		CMovingBitmap Chocolate_info;
-		CMovingBitmap Sushi;
-		CMovingBitmap Sushi_info;
-		CMovingBitmap Steak;
-		CMovingBitmap Steak_info;
-		CMovingBitmap Melon;
-		CMovingBitmap Melon_info;
-		CMovingBitmap Mushroom;
-		CMovingBitmap Mushroom_info;
-		CMovingBitmap Pizza;
-		CMovingBitmap Pizza_info;
 
-		CMovingBitmap Duck;
-		CMovingBitmap Beaver;
-		CMovingBitmap Pigeon;
-		CMovingBitmap Otter;
-		CMovingBitmap Pig;
-		CMovingBitmap Ant;
-		CMovingBitmap Mosquito;
-		CMovingBitmap Fish;
-		CMovingBitmap Cricket;
-		CMovingBitmap Horse;
-		CMovingBitmap Fir;
 
-		CMovingBitmap Snail;
-		CMovingBitmap Crab;
-		CMovingBitmap Swan;
-		CMovingBitmap Rat;
-		CMovingBitmap Hedgehog;
-		CMovingBitmap Peacock;
-		CMovingBitmap Flamingo;
-		CMovingBitmap Worm;
-		CMovingBitmap Kangaroo;
-		CMovingBitmap Spider;
-		CMovingBitmap Sec;
-
-		CMovingBitmap Dodo;
-		CMovingBitmap Badger;
-		CMovingBitmap Dolphin;
-		CMovingBitmap Giraffe;
-		CMovingBitmap Elephant;
-		CMovingBitmap Camel;
-		CMovingBitmap Rabbit;
-		CMovingBitmap Ox;
-		CMovingBitmap Dog;
-		CMovingBitmap Sheep;
-		CMovingBitmap Thr;
-
-		CMovingBitmap Skunk;
-		CMovingBitmap Hippo;
-		CMovingBitmap Bison;
-		CMovingBitmap Blowfish;
-		CMovingBitmap Turtle;
-		CMovingBitmap Squirrel;
-		CMovingBitmap Penguin;
-		CMovingBitmap Deer;
-		CMovingBitmap Whale;
-		CMovingBitmap Parrot;
-		CMovingBitmap For;
-
-		CMovingBitmap Scorpion;
-		CMovingBitmap Crocodile;
-		CMovingBitmap Rhino;
-		CMovingBitmap Monkey;
-		CMovingBitmap Armadillo;
-		CMovingBitmap Cow;
-		CMovingBitmap Seal;
-		CMovingBitmap Rooster;
-		CMovingBitmap Shark;
-		CMovingBitmap Turkey;
-		CMovingBitmap Fiv;
-
-		CMovingBitmap Leopard;
-		CMovingBitmap Boar;
-		CMovingBitmap Tiger;
-		CMovingBitmap Wolverine;
-		CMovingBitmap Gorilla;
-		CMovingBitmap Dragon;
-		CMovingBitmap Mammoth;
-		CMovingBitmap Cat;
-		CMovingBitmap Snake;
-		CMovingBitmap Fly;
-		CMovingBitmap Six;
 		void load_background();
 		void load_food();
 		void load_food_info();
@@ -201,8 +106,10 @@ namespace game_framework {
 		void show_food_info();
 		void show_pet_info();
 		vector<CMovingBitmap> food_array;
+
 		vector<CMovingBitmap> food_info_array;
-		vector<CMovingBitmap> pets_array;
+		//vector<CMovingBitmap> pets_array;
+
 
 	};
 
@@ -250,7 +157,7 @@ namespace game_framework {
 		PHASE phases{BUYPHASE};
 		AttackCell atkcell;
 		Atksystem atksystem;
-		bool isdrag = false;
+		bool shop_item_drag = false;
 		bool draw_clicked=false;
 		void show_image_by_phase();
 		void show_text_by_phase();
@@ -259,11 +166,14 @@ namespace game_framework {
 		void show_heart_text(int test);
 		void show_wins_text();
 		void show_round_text(int test);
-	
+		void show_info();
 		int test=0;
 		int test1 = 0;
+		int info = 1;
 		Ant ant;
-		
+		bool showinfo=false;
+		bool atkinfo = false;
+
 
 		Shop shop;
 		vector<shared_ptr<Pet>> tst;

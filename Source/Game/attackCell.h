@@ -30,14 +30,34 @@ namespace game_framework {
 			}
 			
 		}
-		int sell_by_index(int index, int  sell_item_level) {
+		void sell_by_index(int index, int  sell_item_level,int* current_money) {
 			shared_ptr<Pet> test;
-
+			int current_level = get_level_by_idx(index);
 			atkcells[index] = test;
-			return 1;
+			if (current_level == 1) {
+				*current_money += 1;
+			}
+			else if (current_level == 2) {
+				*current_money += 2;
+			}
+			else if (current_level==3){ *current_money += 3; }
+			levels[index] = 0;
+			
 		}
 		void set_level_by_idx(int index) {
-			levels[index] = levels[index] + 1;
+			if (levels[index] <= 5) {
+				levels[index] = levels[index] + 1;
+			}
+			
+		}
+		int get_level_by_idx(int index) {
+			if (levels[index] < 2) {
+				return 1;
+			}
+			else if (levels[index] < 4) {
+				return 2;
+			}
+			else { return 3; }
 		}
 		tuple<bool,int> isbuying(int cx,int cy) {
 			
@@ -65,9 +85,23 @@ namespace game_framework {
 			else if (xy == "y") { return get<1>(cordinate[index]); }
 			return 0;
 		}
+		int get_current_pet_num() {
+			int current_pet_num = 0;
+			for (unsigned int i = 0; i < atkcells.size(); i++) {
+				if (atkcells[i] != nullptr) { current_pet_num += 1; }
+			}
+			return current_pet_num;
+		}
+		void set_touched(int index, bool stats) {
+			touched[index] = stats;
+		}
+		bool get_touched_by_index(int index) {
+			return touched[index];
+		}
 	private:
 		vector<shared_ptr<Pet>> atkcells;
 		vector<bool> item_exist{ false,false,false,false,false };
+		vector<bool> touched{ false,false,false,false,false};
 		vector<int> levels{ 0,0,0,0,0 };
 		vector<tuple<int, int>> cordinate{ {725,330},{600,330},{480,330},{377,330},{270,330} };
 	};
