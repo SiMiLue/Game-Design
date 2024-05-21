@@ -45,13 +45,14 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
 	/////////////////////////////////////////////////////////////////////////////
-	
+	/*
 	enum AUDIO_ID {// 定義各種音效的編號
 		AUDIO_Main,
 		AUDIO_DING,				// 0
 		AUDIO_LAKE,				// 1
 		AUDIO_NTUT				// 2
 	};
+	*/
 	enum PHASE {
 		INTROPHASE,
 		BUYPHASE,
@@ -131,6 +132,7 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();			                        // 顯示這個狀態的遊戲畫面
@@ -167,13 +169,14 @@ namespace game_framework {
 		void show_wins_text();
 		void show_round_text(int test);
 		void show_info();
+		void choose_item(shared_ptr<Pet> &current_pet);
 		int test=0;
 		int test1 = 0;
 		int info = 1;
 		Ant ant;
 		bool showinfo=false;
 		bool atkinfo = false;
-
+		vector<shared_ptr<Pet>> select_item;
 
 		Shop shop;
 		vector<shared_ptr<Pet>> tst;

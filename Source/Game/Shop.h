@@ -14,7 +14,7 @@ namespace game_framework {
 			for (size_t i = 0; i < shop_item.size();i++) {
 				int x = get_cordinate(i, "x");
 				int y = get_cordinate(i, "y");
-				//if (!isbought[i]) {
+				if (!isbought[i]) {
 					if (isfreezed[i]) {
 						shop_item[i]->show_ice(x - 20, y - 30);
 					}
@@ -22,7 +22,7 @@ namespace game_framework {
 					shop_item[i]->set_Stats(x, y + 50);
 					shop_item[i]->show_tiers(x, y + 50);
 					
-				//}	
+				}	
 			}
 			for (unsigned int i = 0; i < food_item.size(); i++) {
 				food_item[i]->get_img().ShowBitmap();
@@ -154,7 +154,9 @@ namespace game_framework {
 		bool get_touched_by_index(int index) {
 			return touched[index];
 		}
-		
+		bool get_isbought_by_index(int index) {
+			return isbought[index];
+		}
 		int get_cordinate(int index,string xy) {
 			if(xy == "x"){ return get<0>(cordinate[index]); }
 			else if (xy == "y") { return get<1>(cordinate[index]); }
