@@ -93,9 +93,33 @@ namespace game_framework {
 		int get_test() {
 			return test;
 		}
+		size_t get_petSize(vector<shared_ptr<Pet>>& vectorPet) {
+			size_t petN=0;
+			for (size_t i = 0; i < vectorPet.size(); i++) {
+				if (vectorPet[i] != nullptr) { petN += 1; }
+			}
+			return petN;
+		}
+		set<int> get_rands(vector<shared_ptr<Pet>>& vectorPet,size_t blocks,int selfidx) {
+			srand((unsigned int)time(NULL));
+			set<int> rands = {};
+			while (rands.size() < blocks) {
+				int randN = rand() % 5;
+				if (randN != selfidx && vectorPet[randN] != nullptr) {
+					rands.insert(randN);
+				}
+			}
+			return rands;
+		}
 		virtual void onSell(int* current_money, vector<shared_ptr<Pet>>& shopPet, vector<shared_ptr<Pet>>& atkPet, int power) {
 		}
-		virtual void onBuy(vector<shared_ptr<Pet>>& atkPet, int power) {
+		virtual void onBuy(vector<shared_ptr<Pet>>& atkPet, int power, int selfidx) {
+		}
+		virtual void onFaint(vector<shared_ptr<Pet>>& friendPet,vector<shared_ptr<Pet>>& enemyPet,int power, int selfidx) {
+		}
+		virtual void onHurt(shared_ptr<Pet> pet, int power) {
+		}
+		virtual void onLevelup(vector<shared_ptr<Pet>>& atkcells, int level, int selfidx) {
 		}
 		virtual shared_ptr<Pet> clone() = 0;
 	private:
@@ -120,6 +144,21 @@ namespace game_framework {
 
 		}
 		~Ant() override {
+		}
+		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) override{
+			srand((unsigned int)time(NULL));
+			int randN = rand() % 5;
+			if (friendPet.size()==0) {
+				return;
+			}
+			else {
+				while (randN == selfidx || friendPet[randN] == nullptr) {
+					randN = rand() % 5;
+				}
+				friendPet[randN]->set_atk(friendPet[randN]->get_attack() + power);
+				friendPet[randN]->set_life(friendPet[randN]->get_life() + power);
+			}
+			
 		}
 		shared_ptr<Pet> clone() { return make_shared<Ant>(); }
 	private:
@@ -163,7 +202,6 @@ namespace game_framework {
 		~Beaver()override {
 		}
 		void onSell(int* current_money, vector<shared_ptr<Pet>>& shopPet, vector<shared_ptr<Pet>>& atkPet, int power) override {
-			srand((unsigned int)time(NULL));
 			int max = 0;
 			set<int> petrands = {};
 			for (unsigned int i = 0; i < atkPet.size(); i++) {
@@ -176,13 +214,7 @@ namespace game_framework {
 				}
 			}
 			else {
-				while (petrands.size() < 2) {
-					int positions = rand() % 5;
-					if (atkPet[positions] != nullptr) {
-						petrands.insert(positions);
-					}
-
-				};
+				petrands = get_rands(atkPet, 2, 6);
 			}
 
 			for (int current_pet : petrands) {
@@ -215,6 +247,18 @@ namespace game_framework {
 		}
 		~Blowfish()override {
 		}
+		void onLevelup(vector<shared_ptr<Pet>>& atkcells, int level, int selfidx) override {
+			size_t petNum = get_petSize(atkcells)-1;
+			size_t basic_blocks = 2;
+			set<int> petRands = {};
+			if (petNum < basic_blocks) { basic_blocks = petNum; }
+			petRands = get_rands(atkcells, basic_blocks, selfidx);
+			for (int m : petRands) {
+				atkcells[m]->set_atk(atkcells[m]->get_attack() + level);
+				atkcells[m]->set_life(atkcells[m]->get_life() + level);
+			}
+		}
+		
 		shared_ptr<Pet> clone() { return make_shared<Blowfish>(); }
 	private:
 		int m_id = 34;
@@ -292,6 +336,12 @@ namespace game_framework {
 		Cricket() :Pet({ "resources/pets_info/Cricket_info.bmp", "resources/Ability/CricketAb.bmp" }, { "resources/pets/Cricket.bmp" }, "Cricket", 9, 1, 1, 3) {
 		}
 		~Cricket()override {
+		}
+		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) override {
+			shared_ptr<Pet> pet = clone();
+			pet->set_atk(power);
+			pet->set_life(power);
+			friendPet[0] = pet;
 		}
 		shared_ptr<Pet> clone() { return make_shared<Cricket>(); }
 	private:
@@ -429,6 +479,9 @@ namespace game_framework {
 		}
 		~Flamingo()override {
 		}
+		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) {
+			
+		}
 		shared_ptr<Pet> clone() { return make_shared<Flamingo>(); }
 	private:
 		int m_id = 17;
@@ -480,6 +533,14 @@ namespace game_framework {
 		Hedgehog() :Pet({ "resources/pets_info/Hedgehog_info.bmp", "resources/Ability/Hedgehog.bmp" }, { "resources/pets/Hedgehog.bmp" }, "Hedgehog", 15, 2, 4, 2) {
 		}
 		~Hedgehog()override {
+		}
+		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) {
+			for (size_t i = 0; i < friendPet.size(); i++) {
+				friendPet[i]->set_life(friendPet[i] ->get_life()-2*power);
+			}
+			for (size_t i = 0; i < enemyPet.size(); i++) {
+				enemyPet[i]->set_life(enemyPet[i]->get_life() - 2 * power);
+			}
 		}
 		shared_ptr<Pet> clone() { return make_shared<Hedgehog>(); }
 	private:
@@ -585,19 +646,23 @@ namespace game_framework {
 		}
 		~Otter()override {
 		}
-		/*
-		void onBuy(vector<shared_ptr<Pet>>& atkPet, int power) override {
-			srand((unsigned int)time(NULL));
+		
+		void onBuy(vector<shared_ptr<Pet>>& atkPet, int power,int selfidx) override {
 			int max = 0;
 			set<int> rands{};
 			for (unsigned int i = 0; i < atkPet.size(); i++) {
 				if (atkPet[i] != nullptr) { max += 1; }
 			}
-			int blocks = 0;
+			unsigned int blocks = 0;
+			if (atkPet[selfidx] != nullptr) { max = max - 1; }
 			if (max < power) { blocks = max; }
 			else { blocks = power; }
+			rands = get_rands(atkPet, blocks,selfidx);
+			for (auto m : rands) {
+				atkPet[m]->set_life(atkPet[m]->get_life() + 1);
+			}
 		}
-		*/
+		
 		shared_ptr<Pet> clone() { return make_shared<Otter>(); }
 	private:
 		int m_id = 4;
@@ -636,6 +701,9 @@ namespace game_framework {
 		Peacock() :Pet({ "resources/pets_info/Peacock_info.bmp", "resources/Ability/Peacock.bmp" }, { "resources/pets/Peacock.bmp" }, "Peacock", 16, 2, 2, 5) {
 		}
 		~Peacock()override {
+		}
+		void onHurt(shared_ptr<Pet> pet,int power) override {
+			pet->set_atk(pet->get_attack() + 4 * power);
 		}
 		shared_ptr<Pet> clone() { return make_shared<Peacock>(); }
 	private:
@@ -704,6 +772,16 @@ namespace game_framework {
 		Rat() :Pet({ "resources/pets_info/Rat_info.bmp" , "resources/Ability/Rat.bmp" }, { "resources/pets/Rat.bmp" }, "Rat", 14, 2, 3, 6) {
 		}
 		~Rat()override {
+		}
+		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) {
+			shared_ptr<Pet> temp;
+			if (enemyPet.size() < 5) {
+				enemyPet.push_back(nullptr);
+				for (size_t i = enemyPet.size(); i >= 0; i--) {
+					enemyPet[i + 1] = enemyPet[i];
+				}
+				enemyPet[0] = clone();
+			}
 		}
 		shared_ptr<Pet> clone() { return make_shared<Rat>(); }
 	private:

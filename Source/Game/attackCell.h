@@ -59,6 +59,9 @@ namespace game_framework {
 			}
 			else { return 3; }
 		}
+		int get_vectorlevel(int index) {
+			return levels[index];
+		}
 		tuple<bool,int> isbuying(int cx,int cy) {
 			
 			for (int j = 0; j < 5; j++) {

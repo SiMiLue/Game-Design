@@ -18,7 +18,7 @@ using namespace game_framework;
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
 
-CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
+ CGameStateRun::CGameStateRun(CGame *g) : CGameState(g)
 {
 
 }
@@ -161,17 +161,26 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 			shop.set_freeze_by_idx(i, false);
 			if (current_atk_pet == nullptr) {
 				current_money -= 3;
+				item[i]->onBuy(atkcell.get_pets(), 1, atk_idx);
 				atkcell.buy_by_index(get<1>(buything), item[i]->clone());
 				item[i]->set_locate(0,0);
 				shop.set_buy_by_index(i);
 			}
 			else if (CMovingBitmap::IsOverlap(item[i]->get_img(), current_atk_pet->get_img())&&current_atk_pet->get_id()==item[i]->get_id()) {
 				current_money -= 3;
+				
 				current_atk_pet->set_atk(current_atk_pet->get_attack() + 1);
 				current_atk_pet->set_life(current_atk_pet->get_life() + 1);
 				item[i]->set_locate(0, 0);
 				atkcell.set_level_by_idx(atk_idx);
+				item[i]->onBuy(atkcell.get_pets(), atkcell.get_level_by_idx(atk_idx), atk_idx);
+				if (atkcell.get_vectorlevel(atk_idx) == 2 || atkcell.get_vectorlevel(atk_idx) == 4) {
+					item[i]->onLevelup(atkcell.get_pets(), atkcell.get_vectorlevel(i), atk_idx);
+				}
 				shop.set_buy_by_index(i);
+			}
+			else {
+				item[i]->set_locate(shop.get_cordinate(i, "x"), shop.get_cordinate(i, "y"));
 			}
 		}
 		else {
