@@ -7,6 +7,7 @@
 #include "../Library/audio.h"
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
+#include "attackCell.h"
 namespace game_framework {
 	class Object{
 	public:
@@ -53,6 +54,11 @@ namespace game_framework {
 			pet_info.SetTopLeft(x, y);
 		}
 		virtual shared_ptr<Object> clone() = 0;
+
+		virtual void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) {}
+		//virtual void attackenemy(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet);
+		//virtual void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx);
+		virtual void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx) {};
 	private:
 		
 		string m_name;
@@ -74,6 +80,14 @@ namespace game_framework {
 		~Apple() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Apple>(); }
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override{
+			if (idx < 0 || idx >= friendPet.size() || !friendPet[idx]) {
+				return;
+			}
+			friendPet[idx]->set_atk(friendPet[idx]->get_attack() + 1);
+			friendPet[idx]->set_life(friendPet[idx]->get_life() + 1);
+		}
+
 	};
 	class Honey :public Object {
 	public:
@@ -82,6 +96,18 @@ namespace game_framework {
 		~Honey() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Honey>(); }
+		void onFaintSummonBee(vector<shared_ptr<Pet>>& friendPet) {
+			if (friendPet.size() >= 5) {
+				return;
+			}
+
+			shared_ptr<Pet> bee = make_shared<Dog>();  
+			bee->set_atk(1);
+			bee->set_life(1);
+			friendPet.push_back(bee);
+
+
+		}
 	};
 	class Pill :public Object {
 	public:
@@ -90,6 +116,12 @@ namespace game_framework {
 		~Pill() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Pill>(); }
+		void FaintPet(vector<shared_ptr<Pet>>& friendPet, unsigned int idx) {
+			if (idx < 0 || idx >= friendPet.size() || !friendPet[idx]) {
+				return;
+			}
+			friendPet[idx]->setFainted(true);
+		}
 	};
 	class Meatbone :public Object {
 	public:
@@ -98,6 +130,9 @@ namespace game_framework {
 		~Meatbone() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Meatbone>(); }
+		void Buff(vector<shared_ptr<Pet>>& friendPet, int idx, int power) {
+			friendPet[idx]->set_atk(friendPet[idx]->get_attack() + power);
+		}
 	};
 	class Cupcake :public Object {
 	public:
@@ -106,6 +141,14 @@ namespace game_framework {
 		~Cupcake() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Cupcake>(); }
+
+		void Boost(vector<shared_ptr<Pet>>& friendPet,unsigned int idx, int power) override {
+			if (idx < 0 || idx >= friendPet.size() || !friendPet[idx]) {
+				return;
+			}
+			friendPet[idx]->set_atk(friendPet[idx]->get_attack() + 3);
+			friendPet[idx]->set_life(friendPet[idx]->get_life() + 3);
+		}
 	};
 	class Salad :public Object {
 	public:
@@ -114,6 +157,25 @@ namespace game_framework {
 		~Salad() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Salad>(); }
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
+			srand((unsigned int)time(NULL));
+			if (friendPet.size() == 0) {
+				return;
+			}
+			vector<int> selectedPets;
+			for (int i = 0; i < 2; ++i) {
+				bool selected = false;
+				while (!selected) {
+					int randN = rand() % 5;
+					if (randN != idx && (!friendPet[randN]) && find(selectedPets.begin(), selectedPets.end(), randN) == selectedPets.end()) {
+						friendPet[randN]->set_atk(friendPet[randN]->get_attack() + 1);
+						friendPet[randN]->set_life(friendPet[randN]->get_life() + 1);
+						selectedPets.push_back(randN);
+						selected = true;
+					}
+				}
+			}
+		}
 	};
 	class Garlic :public Object {
 	public:
@@ -138,6 +200,14 @@ namespace game_framework {
 		~Pear() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Pear>(); }
+
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
+			if (idx < 0 || idx >= friendPet.size() || !friendPet[idx]) {
+				return;
+			}
+			friendPet[idx]->set_atk(friendPet[idx]->get_attack() + 2);
+			friendPet[idx]->set_life(friendPet[idx]->get_life() + 2);
+		}
 	};
 	class Chili :public Object {
 	public:
@@ -154,6 +224,11 @@ namespace game_framework {
 		~Chocolate() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Chocolate>(); }
+
+		void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx)  {
+		
+		}	
+		
 	};
 	class Sushi :public Object {
 	public:
@@ -162,6 +237,25 @@ namespace game_framework {
 		~Sushi() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Sushi>(); }
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
+			srand((unsigned int)time(NULL));
+			if (friendPet.size() == 0) {
+				return;
+			}
+			vector<int> selectedPets;
+			for (int i = 0; i < 3; ++i) {
+				bool selected = false;
+				while (!selected) {
+					int randN = rand() % 5;
+					if (randN != idx && (!friendPet[randN]) && find(selectedPets.begin(), selectedPets.end(), randN) == selectedPets.end()) {
+						friendPet[randN]->set_atk(friendPet[randN]->get_attack() + 1);
+						friendPet[randN]->set_life(friendPet[randN]->get_life() + 1);
+						selectedPets.push_back(randN);
+						selected = true;
+					}
+				}
+			}
+		}
 	};
 	class Steak :public Object {
 	public:
@@ -194,6 +288,25 @@ namespace game_framework {
 		~Pizza() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Pizza>(); }
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
+			srand((unsigned int)time(NULL));
+			if (friendPet.size() == 0) {
+				return;
+			}
+			vector<int> selectedPets;
+			for (int i = 0; i < 2; ++i) {
+				bool selected = false;
+				while (!selected) {
+					int randN = rand() % 5;
+					if (randN != idx && (!friendPet[randN]) && find(selectedPets.begin(), selectedPets.end(), randN) == selectedPets.end()) {
+						friendPet[randN]->set_atk(friendPet[randN]->get_attack() + 2);
+						friendPet[randN]->set_life(friendPet[randN]->get_life() + 2);
+						selectedPets.push_back(randN);
+						selected = true;
+					}
+				}
+			}
+		}
 	};
 	class GenObject{
 	public:

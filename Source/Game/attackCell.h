@@ -2,6 +2,7 @@
 #define ATKCELL_H
 #include "Pets.h"
 #include "Shop.h"
+#include "object.h"
 namespace game_framework {
 	class AttackCell {
 	public:
@@ -15,7 +16,7 @@ namespace game_framework {
 		void show_pets() {
 			for (int i = 0; i < 5; i++) {
 				if (!(atkcells[i] == nullptr)) {
-					atkcells[i]->get_img().ShowBitmap();
+					atkcells[i]->get_img().ShowBitmap(1.2);
 					atkcells[i]->set_Stats(get<0>(cordinate[i]), get<1>(cordinate[i])+50);
 					atkcells[i]->show_levels(levels[i], get<0>(cordinate[i]), get<1>(cordinate[i]));
 				}
@@ -63,7 +64,6 @@ namespace game_framework {
 			return levels[index];
 		}
 		tuple<bool,int> isbuying(int cx,int cy) {
-			
 			for (int j = 0; j < 5; j++) {
 				int x = get<0>(cordinate[j]);
 				int y = get<1>(cordinate[j]);

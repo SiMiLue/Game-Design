@@ -1,3 +1,4 @@
+
 /*
  * mygame.h: 本檔案儲遊戲本身的class的interface
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
@@ -41,6 +42,7 @@
 #include "Shop.h"
 #include "atkSystem.h"
 #include "object.h"
+#include "leavel.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -146,6 +148,7 @@ namespace game_framework {
 		int current_pets = 0;
 		int selected = 0;
 		
+		unsigned int levelIndex = 0;
 		CMovingBitmap resume;
 		CMovingBitmap background;
 		CMovingBitmap money;
@@ -156,31 +159,32 @@ namespace game_framework {
 		CMovingBitmap Csell;
 		CMovingBitmap roundEnd;
 		CMovingBitmap drawDice;
-		PHASE phases{BUYPHASE};
+		PHASE phases{ BUYPHASE };
 		AttackCell atkcell;
 		Atksystem atksystem;
 		bool shop_item_drag = false;
-		bool draw_clicked=false;
+		bool draw_clicked = false;
 		void show_image_by_phase();
 		void show_text_by_phase();
-
+		void handleItems(const POINT& point, const UINT nFlags, bool& shop_item_drag, bool& showinfo, CMovingBitmap& Cfreeze, int& info, bool& foundFood);
 		void show_money_text();
 		void show_heart_text(int test);
 		void show_wins_text();
 		void show_round_text(int test);
 		void show_info();
 		void choose_item(shared_ptr<Pet> &current_pet);
-		int test=0;
+		void choose_item(shared_ptr<Object> &current_food);
+		void toggleFreezeStatusIfOverlap(shared_ptr<Pet> item, int index);
+		int test = 0;
 		int test1 = 0;
 		int info = 1;
-		Ant ant;
-		bool showinfo=false;
+		bool showinfo = false;
 		bool atkinfo = false;
 		vector<shared_ptr<Pet>> select_item;
 
 		Shop shop;
 		vector<shared_ptr<Pet>> tst;
-		
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

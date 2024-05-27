@@ -25,6 +25,7 @@ namespace game_framework {
 			}
 
 		}
+
 		void drawPets(vector<shared_ptr<Pet>>& pets, const vector<tuple<int, int>>& coordinates) {
 			for (unsigned int i = 0; i < pets.size(); i++) {
 				if (pets[i] != nullptr) {
@@ -54,27 +55,20 @@ namespace game_framework {
 
 
 		void doBattleRound() {
-			if (m_friendly.empty() || m_enemy.empty()) {
-				isBattling = false;
+			auto friendlyPet = m_friendly[0];
+			auto enemyPet = m_enemy[0];
+
+			friendlyPet->set_life(friendlyPet->get_life() - enemyPet->get_attack());
+			enemyPet->set_life(enemyPet->get_life() - friendlyPet->get_attack());
+			if (friendlyPet->get_life() <= 0) {
+				//friendlyPet->set_locate(friendlyPet->get_img().GetLeft() - 45, friendlyPet->get_img().GetTop()-45);
+				m_friendly.erase(m_friendly.begin());
 			}
-			else {
-				auto friendlyPet = m_friendly[0];
-				auto enemyPet = m_enemy[0];
-
-				friendlyPet->set_life(friendlyPet->get_life() - enemyPet->get_attack());
-				enemyPet->set_life(enemyPet->get_life() - friendlyPet->get_attack());
-				if (friendlyPet->get_life() <= 0) {
-					m_friendly.erase(m_friendly.begin());
-				}
-				if (enemyPet->get_life() <= 0) {
-					m_enemy.erase(m_enemy.begin());
-				}
+			if (enemyPet->get_life() <= 0) {
+				m_enemy.erase(m_enemy.begin());
 			}
-
-
-
 		}
-		void set_fight_combination(vector<shared_ptr<Pet>> friendly, vector<shared_ptr<Pet>> enemy) {
+		void set_fight_combination(vector<shared_ptr<Pet>>& friendly, vector<shared_ptr<Pet>>& enemy) {
 			m_enemy = enemy;
 			m_friendly = {};
 			for (unsigned int i = 0; i < friendly.size(); i++) {
@@ -86,13 +80,34 @@ namespace game_framework {
 				}
 			}
 		}
+
+		bool checklife() {
+			return m_friendly.empty() || m_enemy.empty();
+		}
+		bool friendly_life() {
+			return m_friendly.empty();
+		}
+		bool  m_enemy_life() {
+			return m_enemy.empty();
+		}
+		void resetGame() {
+			isBattling = false;
+			startBattleDelay = 3.0f; 
+		}
 		void mainLoop() {
 			std::chrono::high_resolution_clock::time_point thisTime = std::chrono::high_resolution_clock::now();
-
 			float deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(thisTime - lastTime).count();
 			lastTime = thisTime;
+			if (!isBattling) {
+				startBattleDelay -= 0.5;
+				if (startBattleDelay <= 0) {
+					startBattle();
+
+				}
+			}
 			if (isBattling) {
 				updateGame(deltaTime);
+
 			}
 		}
 		void updateGame(float deltaTime) {
@@ -114,11 +129,13 @@ namespace game_framework {
 		vector<shared_ptr<Pet>> m_friendly;
 		vector<shared_ptr<Pet>> m_enemy;
 		float timer = 0.0f;
-		float battleInterval = 1.0f;
+		float battleInterval = 1.2f;
+		float startBattleDelay = 3.0f;
 		vector<tuple<int, int>> friend_coordinate{ {520,460},{420,460},{320,460},{220,460},{110,460} };
 		vector<tuple<int, int>> enemy_coordinate{ {650,460},{750,460},{850,460},{950,460},{1050,460} };
 		AttackCell cells;
 		bool isBattling = false;
+		
 	};
 }
 
