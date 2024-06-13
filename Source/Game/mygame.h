@@ -159,6 +159,7 @@ namespace game_framework {
 		CMovingBitmap Csell;
 		CMovingBitmap roundEnd;
 		CMovingBitmap drawDice;
+	
 		PHASE phases{ BUYPHASE };
 		AttackCell atkcell;
 		Atksystem atksystem;

@@ -13,6 +13,12 @@ namespace game_framework {
 		}
 		~Atksystem() {
 		}
+		void init() {
+			smoke.LoadBitmapByString({ "resources/boom/1.bmp","resources/boom/2.bmp" ,"resources/boom/3.bmp" ,"resources/boom/4.bmp" ,"resources/boom/5.bmp" }, RGB(0, 0, 0));
+			smoke.SetTopLeft(death_x - 10, death_y - 8);
+			smoke.SetAnimation(120, false);
+			smoke.ShowBitmap();
+		}
 		void show() {
 			CDC *pDC = CDDraw::GetBackCDC();
 			pDC->MoveTo(600, 0);
@@ -22,6 +28,16 @@ namespace game_framework {
 			drawPets(m_friendly, friend_coordinate);
 			if (!m_friendly.empty()) {
 				printattak();
+			}
+			if (smokei) {
+				auto now = std::chrono::high_resolution_clock::now();
+				if (std::chrono::duration_cast<std::chrono::seconds>(now - smoke_start) < smoke_duration) {
+					init();
+				}
+				else {
+					smokei = false;
+					m_friendly.erase(m_friendly.begin());
+				}
 			}
 
 		}
@@ -44,29 +60,25 @@ namespace game_framework {
 		void startBattle() {
 			isBattling = true;
 		}
-		int atk() {
-			/*while (m_friendly.size() != 0 && m_enemy.size() != 0) {
-				if (m_friendly.size() <= friend_idx && m_enemy.size() <= enemy_idx) { return 2; }
-				else if (m_friendly.size() == friend_idx && m_enemy.size() >= enemy_idx) { return 0; }
-				else if (m_friendly.size() >= friend_idx && m_enemy.size() == enemy_idx) { return 1; }
-			}
-			return 0;*/
-		}
-
 
 		void doBattleRound() {
 			auto friendlyPet = m_friendly[0];
 			auto enemyPet = m_enemy[0];
-
 			friendlyPet->set_life(friendlyPet->get_life() - enemyPet->get_attack());
 			enemyPet->set_life(enemyPet->get_life() - friendlyPet->get_attack());
 			if (friendlyPet->get_life() <= 0) {
-				//friendlyPet->set_locate(friendlyPet->get_img().GetLeft() - 45, friendlyPet->get_img().GetTop()-45);
-				m_friendly.erase(m_friendly.begin());
+				death_x = friendlyPet->get_img().GetLeft();
+				death_y = friendlyPet->get_img().GetTop();
+				smokei = true;
+
+				smoke_start = std::chrono::high_resolution_clock::now();
 			}
 			if (enemyPet->get_life() <= 0) {
 				m_enemy.erase(m_enemy.begin());
 			}
+
+
+
 		}
 		void set_fight_combination(vector<shared_ptr<Pet>>& friendly, vector<shared_ptr<Pet>>& enemy) {
 			m_enemy = enemy;
@@ -92,7 +104,7 @@ namespace game_framework {
 		}
 		void resetGame() {
 			isBattling = false;
-			startBattleDelay = 3.0f; 
+			startBattleDelay = 3.0f;
 		}
 		void mainLoop() {
 			std::chrono::high_resolution_clock::time_point thisTime = std::chrono::high_resolution_clock::now();
@@ -121,21 +133,28 @@ namespace game_framework {
 		void printattak() {
 			CDC *pDC = CDDraw::GetBackCDC();
 			CTextDraw::ChangeFontLog(pDC, 100, "FranxurterTotallyMedium", RGB(255, 0, 0));
-			CTextDraw::Print(pDC, 520, 300, to_string(m_friendly[0]->get_attack()));
+			CTextDraw::Print(pDC, 520, 300, to_string(-m_friendly[0]->get_attack()));
 			CDDraw::ReleaseBackCDC();
 		}
 	private:
 		std::chrono::high_resolution_clock::time_point lastTime = std::chrono::high_resolution_clock::now();
 		vector<shared_ptr<Pet>> m_friendly;
 		vector<shared_ptr<Pet>> m_enemy;
+		CMovingBitmap smoke;
+		bool smokei = false;
 		float timer = 0.0f;
 		float battleInterval = 1.2f;
 		float startBattleDelay = 3.0f;
+		std::chrono::high_resolution_clock::time_point smoke_start;
+		std::chrono::duration<double> smoke_duration{ 0.6 };
 		vector<tuple<int, int>> friend_coordinate{ {520,460},{420,460},{320,460},{220,460},{110,460} };
 		vector<tuple<int, int>> enemy_coordinate{ {650,460},{750,460},{850,460},{950,460},{1050,460} };
 		AttackCell cells;
 		bool isBattling = false;
-		
+		int death_x;
+		int death_y;
+
+
 	};
 }
 

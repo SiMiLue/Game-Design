@@ -1,4 +1,3 @@
-
 #include "stdafx.h"
 #include "../Core/Resource.h"
 #include <mmsystem.h>
@@ -99,9 +98,10 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 		if (atksystem.m_enemy_life()) {
 			current_win++;
 		}
-		else if (atksystem.checklife()) {
+		else if (atksystem.friendly_life()) {
 			current_heart--;
 		}
+		
 		phases = BUYPHASE;
 	}
 
@@ -117,12 +117,29 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	if (point.x >= roundEnd.GetLeft() && point.x <= roundEnd.GetLeft() + roundEnd.GetWidth() && point.y >= roundEnd.GetTop() && point.y <= roundEnd.GetTop() + roundEnd.GetHeight()) {
 		phases = ATKPHASE;
 		vector<Level> levels;
-		levels.push_back(Level(1, { make_shared<Ant>(), make_shared<Ant>(), make_shared<Ant>(), make_shared<Ant>() ,make_shared<Ant>()}));
-		levels.push_back(Level(2, { make_shared<Rat>(), make_shared<Pigeon>(), make_shared<Snail>() }));
-		levels.push_back(Level(3, { make_shared<Cat>(), make_shared<Swan>(), make_shared<Cat>() }));
-		levels.push_back(Level(4, { make_shared<Spider>(), make_shared<Swan>(), make_shared<Skunk>() }));
-		levels.push_back(Level(5, { make_shared<Cat>(), make_shared<Swan>(), make_shared<Cat>() }));
-		levels.push_back(Level(6, { make_shared<Cat>(), make_shared<Swan>(), make_shared<Cat>() }));
+		levels.push_back(Level(1, { make_shared<Otter>(), make_shared<Otter>(), make_shared<Otter>()}));
+		levels.push_back(Level(2, { make_shared<Ant>(), make_shared<Ant>(), make_shared<Ant>(),make_shared<Ant>(),make_shared<Ant>() }));
+
+		levels.push_back(Level(3, { make_shared<Horse>(), make_shared<Snail>(), make_shared<Rat>(),make_shared<Fish>(),make_shared<Swan>() }));
+		levels.push_back(Level(4, { make_shared<Spider>(), make_shared<Swan>(), make_shared<Duck>(),make_shared<Worm>(),make_shared<Crab>() }));
+
+		levels.push_back(Level(5, { make_shared<Sheep>(), make_shared<Peacock>(), make_shared<Dodo>(),make_shared<Hedgehog>(),make_shared<Ox>() }));
+		levels.push_back(Level(6, { make_shared<Dolphin>(), make_shared<Pig>(), make_shared<Rabbit>(),make_shared<Elephant>(),make_shared<Dog>() }));
+
+		levels.push_back(Level(7, { make_shared<Hippo>(), make_shared<Whale>(), make_shared<Skunk>(),make_shared<Turtle>(),make_shared<Dog>() }));
+		levels.push_back(Level(8, { make_shared<Bison>(), make_shared<Penguin>(), make_shared<Deer>(),make_shared<Squirrel>(),make_shared<Blowfish>() }));
+
+		levels.push_back(Level(9, { make_shared<Crocodile>(), make_shared<Rooster>(), make_shared<Cow>(),make_shared<Armadillo>(),make_shared<Monkey>() }));
+		levels.push_back(Level(10, { make_shared<Turkey>(), make_shared<Shark>(), make_shared<Crocodile>(),make_shared<Rhino>(),make_shared<Seal>() }));
+
+		levels.push_back(Level(11, { make_shared<Snake>(), make_shared<Shark>(), make_shared<Parrot>(),make_shared<Scorpion>(),make_shared<Monkey>() }));
+		levels.push_back(Level(12, { make_shared<Tiger>(), make_shared<Leopard>(), make_shared<Gorilla>(),make_shared<Dragon>(),make_shared<Mammoth>() }));
+		
+		levels.push_back(Level(13, { make_shared<Cat>(), make_shared<Cat>(), make_shared<Cat>(),make_shared<Cat>(),make_shared<Cat>() }));
+		levels.push_back(Level(14, { make_shared<Mammoth>(), make_shared<Gorilla>(), make_shared<Cat>(),make_shared<Leopard>(),make_shared<Dragon>() }));
+		levels.push_back(Level(15, { make_shared<Boar>(), make_shared<Boar>(), make_shared<Boar>(),make_shared<Boar>(),make_shared<Boar>() }));
+
+
 		levels[current_win].startLevel(atksystem, atkcell, shop, current_round, current_money, current_win, current_heart);
 	}
 
@@ -278,7 +295,7 @@ void CGameStateRun::OnShow()
 		win.ShowBitmap();
 		roundEnd.ShowBitmap();
 		drawDice.ShowBitmap();
-
+		
 		Csell.ShowBitmap();
 
 		if (shop_item_drag) {
