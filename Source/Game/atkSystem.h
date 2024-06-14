@@ -36,10 +36,9 @@ namespace game_framework {
 				}
 				else {
 					smokei = false;
-					m_friendly.erase(m_friendly.begin());
+					
 				}
 			}
-
 		}
 
 		void drawPets(vector<shared_ptr<Pet>>& pets, const vector<tuple<int, int>>& coordinates) {
@@ -61,11 +60,39 @@ namespace game_framework {
 			isBattling = true;
 		}
 
+		void checkpetsLife(vector<shared_ptr<Pet>>& current_vecPet, vector<int> current_levels, int friendorenemy) {
+			for (auto it = current_vecPet.begin(); it != current_vecPet.end();) {
+				if ((*it)->get_life() <= 0) {
+					//friendlyPet->set_locate(friendlyPet->get_img().GetLeft() - 45, friendlyPet->get_img().GetTop()-45);
+					if (friendorenemy == 0) {
+						if (current_levels.size() > 0) {
+							(*it)->onFaint(m_friendly, m_enemy, current_levels[0], 0);
+							current_levels.erase(current_levels.begin());
+						}
+					}
+					else {
+
+						(*it)->onFaint(m_enemy, m_friendly, 0, 0);
+					}
+
+					it = current_vecPet.erase(it);
+				}
+				else {
+
+					++it;
+				}
+			}
+		}
+
 		void doBattleRound() {
+
 			auto friendlyPet = m_friendly[0];
 			auto enemyPet = m_enemy[0];
 			friendlyPet->set_life(friendlyPet->get_life() - enemyPet->get_attack());
+			friendlyPet->onHurt(friendlyPet, levels[0]);
 			enemyPet->set_life(enemyPet->get_life() - friendlyPet->get_attack());
+			checkpetsLife(m_friendly, levels, 0);
+			checkpetsLife(m_enemy, levels, 1);
 			if (friendlyPet->get_life() <= 0) {
 				death_x = friendlyPet->get_img().GetLeft();
 				death_y = friendlyPet->get_img().GetTop();
@@ -73,28 +100,36 @@ namespace game_framework {
 
 				smoke_start = std::chrono::high_resolution_clock::now();
 			}
+			/*
 			if (enemyPet->get_life() <= 0) {
+				enemyPet->onFaint(m_enemy, m_friendly, 1, 0);
 				m_enemy.erase(m_enemy.begin());
 			}
-
-
-
+			*/
 		}
-		void set_fight_combination(vector<shared_ptr<Pet>>& friendly, vector<shared_ptr<Pet>>& enemy) {
+
+		void set_fight_combination(vector<shared_ptr<Pet>>& friendly, vector<shared_ptr<Pet>>& enemy, AttackCell& atkcell) {
 			m_enemy = enemy;
 			m_friendly = {};
+			levels = {};
 			for (unsigned int i = 0; i < friendly.size(); i++) {
 				if (friendly[i] != nullptr) {
 					shared_ptr<Pet> temp = friendly[i]->clone();
 					temp->set_atk(friendly[i]->get_attack());
 					temp->set_life(friendly[i]->get_life());
 					m_friendly.push_back(temp);
+					levels.push_back(atkcell.get_level_by_idx(i));
 				}
 			}
+
 		}
 
 		bool checklife() {
 			return m_friendly.empty() || m_enemy.empty();
+		}
+		void get_result(int& current_heart, int& current_win) {
+			if (!m_friendly.empty() && m_enemy.empty()) { current_win = current_win + 1; }
+			else if (m_friendly.empty() && !m_enemy.empty()) { current_heart = current_heart - 1; }
 		}
 		bool friendly_life() {
 			return m_friendly.empty();
@@ -114,7 +149,9 @@ namespace game_framework {
 				startBattleDelay -= 0.5;
 				if (startBattleDelay <= 0) {
 					startBattle();
-
+					for (size_t i = 0; i < m_friendly.size(); i++) {
+						m_friendly[i]->OnStartBattle(m_friendly, m_enemy, levels[i], m_friendly[i]);
+					}
 				}
 			}
 			if (isBattling) {
@@ -133,27 +170,27 @@ namespace game_framework {
 		void printattak() {
 			CDC *pDC = CDDraw::GetBackCDC();
 			CTextDraw::ChangeFontLog(pDC, 100, "FranxurterTotallyMedium", RGB(255, 0, 0));
-			CTextDraw::Print(pDC, 520, 300, to_string(-m_friendly[0]->get_attack()));
+			CTextDraw::Print(pDC, 520, 300, to_string(m_friendly[0]->get_attack()));
 			CDDraw::ReleaseBackCDC();
 		}
 	private:
 		std::chrono::high_resolution_clock::time_point lastTime = std::chrono::high_resolution_clock::now();
 		vector<shared_ptr<Pet>> m_friendly;
 		vector<shared_ptr<Pet>> m_enemy;
-		CMovingBitmap smoke;
-		bool smokei = false;
 		float timer = 0.0f;
 		float battleInterval = 1.2f;
 		float startBattleDelay = 3.0f;
 		std::chrono::high_resolution_clock::time_point smoke_start;
 		std::chrono::duration<double> smoke_duration{ 0.6 };
+		CMovingBitmap smoke;
+		bool smokei = false;
 		vector<tuple<int, int>> friend_coordinate{ {520,460},{420,460},{320,460},{220,460},{110,460} };
 		vector<tuple<int, int>> enemy_coordinate{ {650,460},{750,460},{850,460},{950,460},{1050,460} };
 		AttackCell cells;
+		vector<int>levels;
 		bool isBattling = false;
 		int death_x;
 		int death_y;
-
 
 	};
 }

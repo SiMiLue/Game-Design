@@ -24,6 +24,11 @@ namespace game_framework {
 		CMovingBitmap get_info() {
 			return pet_info;
 		}
+		void showabiltyinfo() {
+			animate.SetAnimation(500,true);
+			animate.ToggleAnimation();
+		}
+		
 		void set_img(vector<string> s_img) {
 			m_img.LoadBitmapByString(s_img);
 		}
@@ -55,6 +60,10 @@ namespace game_framework {
 			levels.SetTopLeft(cx - 50, cy - 70);
 			levels.ShowBitmap();
 		}
+		void show_select(int cx,int cy) {
+			target.SetTopLeft(cx, cy);
+			target.ShowBitmap();
+		}
 		string get_name() {
 			return m_name;
 		}
@@ -65,6 +74,14 @@ namespace game_framework {
 			tiers.LoadBitmapByString({ "resources/Tier1.bmp","resources/Tier2.bmp","resources/Tier3.bmp","resources/Tier4.bmp","resources/Tier5.bmp", "resources/Tier6.bmp" });
 			levels.LoadBitmapByString({ "resources/Level0.bmp","resources/Level1.bmp" ,"resources/Level2.bmp" ,"resources/Level3.bmp" ,"resources/Level4.bmp" ,"resources/final.bmp" }, RGB(255, 255, 255));
 			icebox.LoadBitmapByString({ "resources/Icecube.bmp" }, RGB(255, 255, 255));
+			target.LoadBitmapByString({ "resources/selected.bmp"},RGB(255,255,255));
+			/*
+			vector<string> temp = {};
+			for (size_t i = 0; i < 10; i++) {
+				temp.push_back(s_info[1]);
+			}
+			animate.LoadBitmapByString(temp);
+			*/
 		}
 		void set_locate(int x, int y) {
 			m_img.SetTopLeft(x, y);
@@ -118,6 +135,14 @@ namespace game_framework {
 			}
 			return rands;
 		}
+		set<int> get_normal_rands(size_t blocks, int max) {
+			srand((unsigned int)time(NULL));
+			set<int> rands = {};
+			while (rands.size() < blocks) {
+				rands.insert(rand() % max);
+			}
+			return rands;
+		}
 		virtual void onSell(int* current_money, vector<shared_ptr<Pet>>& shopPet, vector<shared_ptr<Pet>>& atkPet, int power) {
 		}
 		virtual void onBuy(vector<shared_ptr<Pet>>& atkPet, int power, int selfidx) {
@@ -127,6 +152,8 @@ namespace game_framework {
 		virtual void onHurt(shared_ptr<Pet> pet, int power) {
 		}
 		virtual void onLevelup(vector<shared_ptr<Pet>>& atkcells, int level, int selfidx) {
+		}
+		virtual void OnStartBattle(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, shared_ptr<Pet> self) {
 		}
 		virtual shared_ptr<Pet> clone() = 0;
 	private:
@@ -139,6 +166,8 @@ namespace game_framework {
 		CMovingBitmap tiers;
 		CMovingBitmap levels;
 		CMovingBitmap icebox;
+		CMovingBitmap animate;
+		CMovingBitmap target;
 		bool fainted;
 		int m_id;
 		int m_tier;
@@ -155,17 +184,20 @@ namespace game_framework {
 		}
 		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) override {
 			srand((unsigned int)time(NULL));
-			int randN = rand() % 5;
-			if (friendPet.size() == 0) {
-				return;
-			}
-			else {
-				while (randN == selfidx || friendPet[randN] == nullptr) {
-					randN = rand() % 5;
+			if (friendPet.size() > 1) {
+				int randN = rand() % friendPet.size();
+				if (friendPet.size() == 0) {
+					return;
 				}
-				friendPet[randN]->set_atk(friendPet[randN]->get_attack() + power);
-				friendPet[randN]->set_life(friendPet[randN]->get_life() + power);
+				else {
+					while (randN == selfidx || friendPet[randN] == nullptr) {
+						randN = rand() % friendPet.size();
+					}
+					friendPet[randN]->set_atk(friendPet[randN]->get_attack() + power);
+					friendPet[randN]->set_life(friendPet[randN]->get_life() + power);
+				}
 			}
+
 
 		}
 		shared_ptr<Pet> clone() { return make_shared<Ant>(); }
@@ -255,18 +287,6 @@ namespace game_framework {
 		}
 		~Blowfish()override {
 		}
-		void onLevelup(vector<shared_ptr<Pet>>& atkcells, int level, int selfidx) override {
-			size_t petNum = get_petSize(atkcells) - 1;
-			size_t basic_blocks = 2;
-			set<int> petRands = {};
-			if (petNum < basic_blocks) { basic_blocks = petNum; }
-			petRands = get_rands(atkcells, basic_blocks, selfidx);
-			for (int m : petRands) {
-				atkcells[m]->set_atk(atkcells[m]->get_attack() + level);
-				atkcells[m]->set_life(atkcells[m]->get_life() + level);
-			}
-		}
-
 		shared_ptr<Pet> clone() { return make_shared<Blowfish>(); }
 	private:
 		int m_id = 34;
@@ -332,6 +352,17 @@ namespace game_framework {
 		}
 		~Crab()override {
 		}
+		void OnStartBattle(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, shared_ptr<Pet> self) override {
+			int max_life = 0;
+			double percentage = 0;
+			for (size_t i = 0; i < friendPet.size(); i++) {
+				if (friendPet[i]->get_life() > max_life) { max_life = friendPet[i]->get_life(); }
+			}
+			if (power == 1) { percentage = 0.5; }
+			else if (power == 2) { percentage = 1; }
+			else { percentage = 1.5; }
+			self->set_life(self->get_life() + (int)(percentage * max_life));
+		}
 		shared_ptr<Pet> clone() { return make_shared<Crab>(); }
 	private:
 		int m_id = 12;
@@ -349,7 +380,14 @@ namespace game_framework {
 			shared_ptr<Pet> pet = clone();
 			pet->set_atk(power);
 			pet->set_life(power);
-			friendPet[0] = pet;
+			friendPet.push_back(pet);
+			/*
+			for (size_t i = friendPet.size() - 2; i > 0; i--) {
+				shared_ptr<Pet> temp = friendPet[i+1];
+				friendPet[i + 1] = friendPet[i];
+				friendPet[i] = temp;
+			}
+			*/
 		}
 		shared_ptr<Pet> clone() { return make_shared<Cricket>(); }
 	private:
@@ -358,6 +396,7 @@ namespace game_framework {
 		int m_attack = 1;
 		int m_life = 3;
 	};
+
 	class Crocodile :public Pet {
 	public:
 		Crocodile() :Pet({ "resources/pets_info/Crocodile_info.bmp", "resources/Ability/Crocodile.bmp" }, { "resources/pets/Crocodile.bmp" }, "Crocodile", 42, 5, 8, 4) {
@@ -399,7 +438,7 @@ namespace game_framework {
 	};
 	class Dog :public Pet {
 	public:
-		Dog() :Pet({ "resources/pets_info/Dog_info.bmp", "resources/Ability/Dog.bmp" }, { "resources/pets/Dog.bmp" }, "Dog", 29, 3, 3, 2) {
+		Dog() :Pet({ "resources/pets_info/Dog_info.bmp" ,"resources/Ability/Dodo.bmp"}, { "resources/pets/Dog.bmp" }, "Dog", 29, 3, 3, 2) {
 		}
 		~Dog()override {
 		}
@@ -412,7 +451,7 @@ namespace game_framework {
 	};
 	class Dolphin :public Pet {
 	public:
-		Dolphin() :Pet({ "resources/pets_info/Dolphin_info.bmp" ,"resources/Ability/Dolphin.bmp" }, { "resources/pets/Dolphin.bmp" }, "Dolphin", 23, 3, 4, 3) {
+		Dolphin() :Pet({ "resources/pets_info/Dolphin_info.bmp","resources/Ability/Dolphin.bmp" }, { "resources/pets/Dolphin.bmp" }, "Dolphin", 23, 3, 4, 3) {
 		}
 		~Dolphin()override {
 		}
@@ -474,6 +513,17 @@ namespace game_framework {
 		}
 		~Fish()override {
 		}
+		void onLevelup(vector<shared_ptr<Pet>>& atkcells, int level, int selfidx) override {
+			size_t petNum = get_petSize(atkcells) - 1;
+			size_t basic_blocks = 2;
+			set<int> petRands = {};
+			if (petNum < basic_blocks) { basic_blocks = petNum; }
+			petRands = get_rands(atkcells, basic_blocks, selfidx);
+			for (int m : petRands) {
+				atkcells[m]->set_atk(atkcells[m]->get_attack() + (level / 2));
+				atkcells[m]->set_life(atkcells[m]->get_life() + (level / 2));
+			}
+		}
 		shared_ptr<Pet> clone() { return make_shared<Fish>(); }
 	private:
 		int m_id = 8;
@@ -483,7 +533,7 @@ namespace game_framework {
 	};
 	class Flamingo :public Pet {
 	public:
-		Flamingo() :Pet({ "resources/pets_info/Flamigo_info.bmp" , "resources/Ability/Flamingo.bmp" }, { "resources/pets/Flamingo.bmp" }, "Flamingo", 17, 2, 3, 2) {
+		Flamingo() :Pet({ "resources/pets_info/Flamigo_info.bmp","resources/Ability/Flamingo.bmp" }, { "resources/pets/Flamingo.bmp" }, "Flamingo", 17, 2, 3, 2) {
 		}
 		~Flamingo()override {
 		}
@@ -641,6 +691,13 @@ namespace game_framework {
 		}
 		~Mosquito()override {
 		}
+		void OnStartBattle(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, shared_ptr<Pet> self) override {
+			set<int> rands = {};
+			rands = get_normal_rands(power, enemyPet.size());
+			for (int m : rands) {
+				enemyPet[m]->set_life(enemyPet[m]->get_life() - 1);
+			}
+		}
 		shared_ptr<Pet> clone() { return make_shared<Mosquito>(); }
 	private:
 		int m_id = 7;
@@ -782,13 +839,19 @@ namespace game_framework {
 		~Rat()override {
 		}
 		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) {
-			shared_ptr<Pet> temp;
-			if (enemyPet.size() < 5) {
-				enemyPet.push_back(nullptr);
-				for (size_t i = enemyPet.size(); i >= 0; i--) {
+			Rabbit rb;
+			shared_ptr<Pet> temp = rb.clone();
+			for (int i = 0; i < power; i++) {
+				
+				if (enemyPet.size() < 5) {
+					enemyPet.push_back(nullptr);
+				}
+
+				for (size_t i = enemyPet.size() - 2; i > 0; i--) {
 					enemyPet[i + 1] = enemyPet[i];
 				}
-				enemyPet[0] = clone();
+				enemyPet[1] = temp;
+
 			}
 		}
 		shared_ptr<Pet> clone() { return make_shared<Rat>(); }
@@ -797,6 +860,14 @@ namespace game_framework {
 		int m_tier = 2;
 		int m_attack = 3;
 		int m_life = 6;
+	};
+	class AbRat :public Pet {
+	public:
+		AbRat() :Pet({ "resources/pets_info/Rat_info.bmp" , "resources/Ability/Rat.bmp" }, { "resources/pets/Rat.bmp" }, "AbRat", 61, 2, 1, 1) {
+		}
+		~AbRat()override {
+		}
+		shared_ptr<Pet> clone() { return make_shared<AbRat>(); }
 	};
 	class Rhino :public Pet {
 	public:

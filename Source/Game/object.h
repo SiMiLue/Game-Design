@@ -9,7 +9,7 @@
 #include "../Library/gamecore.h"
 #include "attackCell.h"
 namespace game_framework {
-	class Object{
+	class Object {
 	public:
 		Object(vector<string> info, vector<string> img, string name, int cost, int tier) :s_info(info), s_img(img), m_name(name), m_cost(cost), m_tier(tier) {};
 		virtual ~Object() {};
@@ -20,12 +20,18 @@ namespace game_framework {
 			return m_img;
 		}
 		CMovingBitmap get_info() {
+			pet_info.SetFrameIndexOfBitmap(0);
 			return pet_info;
 		}
 		void show_tiers(int cx, int cy) {
 			tiers.SetFrameIndexOfBitmap(get_tier() - 1);
 			tiers.SetTopLeft(cx - 20, cy - 70);
 			tiers.ShowBitmap();
+		}
+		void showAB(int cx,int cy) {
+			pet_info.SetFrameIndexOfBitmap(1);
+			pet_info.SetTopLeft(cx - 180, cy - 165);
+			pet_info.ShowBitmap();
 		}
 		int get_id() {
 			return m_id;
@@ -44,8 +50,13 @@ namespace game_framework {
 		}
 		void Load_img() {
 			pet_info.LoadBitmapByString(s_info);
-			m_img.LoadBitmapByString(s_img, RGB(255, 255, 255));
+			m_img.LoadBitmapByString(s_img, RGB(0, 0, 0));
 			tiers.LoadBitmapByString({ "resources/Tier1.bmp","resources/Tier2.bmp","resources/Tier3.bmp","resources/Tier4.bmp","resources/Tier5.bmp", "resources/Tier6.bmp" });
+			freeze.LoadBitmapByString({ "resources/Icecube.bmp" },RGB(255,255,255));
+		}
+		void show_ice(int cx, int cy) {
+			freeze.SetTopLeft(cx, cy);
+			freeze.ShowBitmap();
 		}
 		void set_locate(int x, int y) {
 			m_img.SetTopLeft(x, y);
@@ -60,13 +71,14 @@ namespace game_framework {
 		//virtual void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx);
 		virtual void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx) {};
 	private:
-		
+
 		string m_name;
 		vector<string> s_info;
 		vector<string> s_img;
 		CMovingBitmap pet_info;
 		CMovingBitmap m_img;
 		CMovingBitmap tiers;
+		CMovingBitmap freeze;
 		int m_id;
 		int m_tier;
 		int m_attack;
@@ -75,12 +87,12 @@ namespace game_framework {
 	};
 	class Apple :public Object {
 	public:
-		Apple() : Object({"resources/food_info/Apple_info.bmp " }, { "resources/food/Apple.bmp " }, "Apple", 3, 1) {
+		Apple() : Object({ "resources/food_info/Apple_info.bmp " ,"Resources/Ability/Apple.bmp"}, { "resources/food/Apple.bmp " }, "Apple", 3, 1) {
 		}
 		~Apple() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Apple>(); }
-		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override{
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
 			if (idx < 0 || idx >= friendPet.size() || !friendPet[idx]) {
 				return;
 			}
@@ -91,7 +103,7 @@ namespace game_framework {
 	};
 	class Honey :public Object {
 	public:
-		Honey() : Object({ "resources/food_info/Honey_info.bmp " }, { "resources/food/Honey.bmp " }, "Honey", 3, 1) {
+		Honey() : Object({ "resources/food_info/Honey_info.bmp ","Resources/Ability/Honey.bmp" }, { "resources/food/Honey.bmp " }, "Honey", 3, 1) {
 		}
 		~Honey() override {
 		}
@@ -101,7 +113,7 @@ namespace game_framework {
 				return;
 			}
 
-			shared_ptr<Pet> bee = make_shared<Dog>();  
+			shared_ptr<Pet> bee = make_shared<Dog>();
 			bee->set_atk(1);
 			bee->set_life(1);
 			friendPet.push_back(bee);
@@ -111,7 +123,7 @@ namespace game_framework {
 	};
 	class Pill :public Object {
 	public:
-		Pill() : Object({ "resources/food_info/Pill_info.bmp " }, { "resources/food/Sleeping_Pill.bmp " }, "Pill", 1, 2) {
+		Pill() : Object({ "resources/food_info/Pill_info.bmp " ,"Resources/Ability/Pill.bmp" }, { "resources/food/Sleeping_Pill.bmp " }, "Pill", 1, 2) {
 		}
 		~Pill() override {
 		}
@@ -125,7 +137,7 @@ namespace game_framework {
 	};
 	class Meatbone :public Object {
 	public:
-		Meatbone() : Object({ "resources/food_info/Meat_info.bmp " }, { "resources/food/Meat_Bone.bmp " }, "Meatbone", 3, 2) {
+		Meatbone() : Object({ "resources/food_info/Meat_info.bmp ","Resources/Ability/Meat_bone.bmp" }, { "resources/food/Meat_Bone.bmp " }, "Meatbone", 3, 2) {
 		}
 		~Meatbone() override {
 		}
@@ -136,13 +148,13 @@ namespace game_framework {
 	};
 	class Cupcake :public Object {
 	public:
-		Cupcake() : Object({ "resources/food_info/Cupcake_info.bmp " }, { "resources/food/Cupcake.bmp " }, "Cupcake", 3, 2) {
+		Cupcake() : Object({ "resources/food_info/Cupcake_info.bmp " ,"Resources/Ability/Cupcake.bmp" }, { "resources/food/Cupcake.bmp " }, "Cupcake", 3, 2) {
 		}
 		~Cupcake() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Cupcake>(); }
 
-		void Boost(vector<shared_ptr<Pet>>& friendPet,unsigned int idx, int power) override {
+		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
 			if (idx < 0 || idx >= friendPet.size() || !friendPet[idx]) {
 				return;
 			}
@@ -152,7 +164,7 @@ namespace game_framework {
 	};
 	class Salad :public Object {
 	public:
-		Salad() : Object({ "resources/food_info/Salad_info.bmp " }, { "resources/food/Salad_Bowl.bmp " }, "Salad", 3, 3) {
+		Salad() : Object({ "resources/food_info/Salad_info.bmp " ,"Resources/Ability/Salad.bmp" }, { "resources/food/Salad_Bowl.bmp " }, "Salad", 3, 3) {
 		}
 		~Salad() override {
 		}
@@ -179,7 +191,7 @@ namespace game_framework {
 	};
 	class Garlic :public Object {
 	public:
-		Garlic() : Object({ "resources/food_info/Garlic_info.bmp " }, { "resources/food/Garlic.bmp " }, "Garlic", 3, 3) {
+		Garlic() : Object({ "resources/food_info/Garlic_info.bmp ", "Resources/Ability/Garlic.bmp" }, { "resources/food/Garlic.bmp " }, "Garlic", 3, 3) {
 		}
 		~Garlic() override {
 		}
@@ -187,7 +199,7 @@ namespace game_framework {
 	};
 	class Canned :public Object {
 	public:
-		Canned() : Object({ "resources/food_info/Canned_info.bmp " }, { "resources/food/Canned_Food.bmp " }, "Canned", 3, 4) {
+		Canned() : Object({ "resources/food_info/Canned_info.bmp ","Resources/Ability/Canned.bmp" }, { "resources/food/Canned_Food.bmp " }, "Canned", 3, 4) {
 		}
 		~Canned() override {
 		}
@@ -195,7 +207,7 @@ namespace game_framework {
 	};
 	class Pear :public Object {
 	public:
-		Pear() : Object({ "resources/food_info/Pear_info.bmp " }, { "resources/food/Pear.bmp " }, "Pear", 3, 4) {
+		Pear() : Object({ "resources/food_info/Pear_info.bmp ","Resources/Ability/Pear.bmp" }, { "resources/food/Pear.bmp " }, "Pear", 3, 4) {
 		}
 		~Pear() override {
 		}
@@ -211,7 +223,7 @@ namespace game_framework {
 	};
 	class Chili :public Object {
 	public:
-		Chili() : Object({ "resources/food_info/Chili_info.bmp " }, { "resources/food/Chili.bmp " }, "Chili", 3, 5) {
+		Chili() : Object({ "resources/food_info/Chili_info.bmp ","Resources/Ability/Chili.bmp" }, { "resources/food/Chili.bmp " }, "Chili", 3, 5) {
 		}
 		~Chili() override {
 		}
@@ -219,20 +231,20 @@ namespace game_framework {
 	};
 	class Chocolate :public Object {
 	public:
-		Chocolate() : Object({ "resources/food_info/Chocolat_info.bmp " }, { "resources/food/Chocolate.bmp " }, "Chocolate", 3, 5) {
+		Chocolate() : Object({ "resources/food_info/Chocolat_info.bmp " ,"Resources/Ability/Chocolate.bmp" }, { "resources/food/Chocolate.bmp " }, "Chocolate", 3, 5) {
 		}
 		~Chocolate() override {
 		}
 		shared_ptr<Object> clone() { return make_shared<Chocolate>(); }
 
-		void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx)  {
-		
-		}	
-		
+		void LevelUp(vector<shared_ptr<Pet>>& atkcells, int idx) {
+
+		}
+
 	};
 	class Sushi :public Object {
 	public:
-		Sushi() : Object({ "resources/food_info/Sushi_info.bmp " }, { "resources/food/Sushi.bmp " }, "Sushi", 3, 5) {
+		Sushi() : Object({ "resources/food_info/Sushi_info.bmp " ,"Resources/Ability/Sushi.bmp" }, { "resources/food/Sushi.bmp " }, "Sushi", 3, 5) {
 		}
 		~Sushi() override {
 		}
@@ -259,7 +271,7 @@ namespace game_framework {
 	};
 	class Steak :public Object {
 	public:
-		Steak() : Object({ "resources/food_info/Steak_info.bmp " }, { "resources/food/Steak.bmp " }, "Steak", 3, 6) {
+		Steak() : Object({ "resources/food_info/Steak_info.bmp " ,"Resources/Ability/Steak.bmp" }, { "resources/food/Steak.bmp " }, "Steak", 3, 6) {
 		}
 		~Steak() override {
 		}
@@ -267,7 +279,7 @@ namespace game_framework {
 	};
 	class Melon :public Object {
 	public:
-		Melon() : Object({ "resources/food_info/Melon_info.bmp " }, { "resources/food/Melon.bmp " }, "Melon", 3, 6) {
+		Melon() : Object({ "resources/food_info/Melon_info.bmp ","Resources/Ability/Melon.bmp" }, { "resources/food/Melon.bmp " }, "Melon", 3, 6) {
 		}
 		~Melon() override {
 		}
@@ -275,7 +287,7 @@ namespace game_framework {
 	};
 	class Mushroom :public Object {
 	public:
-		Mushroom() : Object({ "resources/food_info/Mushroom_info.bmp " }, { "resources/food/Mushroom.bmp " }, "Mushroom", 3, 6) {
+		Mushroom() : Object({ "resources/food_info/Mushroom_info.bmp " ,"Resources/Ability/Mushroom.bmp" }, { "resources/food/Mushroom.bmp " }, "Mushroom", 3, 6) {
 		}
 		~Mushroom() override {
 		}
@@ -283,7 +295,7 @@ namespace game_framework {
 	};
 	class Pizza :public Object {
 	public:
-		Pizza() : Object({ "resources/food_info/Pizza_info.bmp " }, { "resources/food/Pizza.bmp " }, "Pizza", 3, 6 ){
+		Pizza() : Object({ "resources/food_info/Pizza_info.bmp " ,"Resources/Ability/Pizza.bmp" }, { "resources/food/Pizza.bmp " }, "Pizza", 3, 6) {
 		}
 		~Pizza() override {
 		}
@@ -308,7 +320,7 @@ namespace game_framework {
 			}
 		}
 	};
-	class GenObject{
+	class GenObject {
 	public:
 		GenObject() {
 			food_array.push_back(make_shared<Apple>());
@@ -327,8 +339,8 @@ namespace game_framework {
 			food_array.push_back(make_shared<Melon>());
 			food_array.push_back(make_shared<Mushroom>());
 			food_array.push_back(make_shared<Pizza>());
-		
-		
+
+
 		};
 		void init() {
 			for (auto item : food_array) {
@@ -341,6 +353,6 @@ namespace game_framework {
 		vector<shared_ptr<Object>> food_array;
 	};
 
-	
+
 }
 #endif  //HEADER_OBJECT
