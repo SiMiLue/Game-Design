@@ -215,6 +215,10 @@ namespace game_framework {
 		}
 		~Armadillo() override {
 		}
+		void OnStartBattle(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, shared_ptr<Pet> self)override {
+			for (auto item : friendPet) { item->set_life(item->get_life() + 8 * power); }
+			for (auto item : enemyPet) { item->set_life(item->get_life() + 8 * power); }
+		}
 		shared_ptr<Pet> clone() { return make_shared<Armadillo>(); }
 	private:
 		int m_id = 45;
@@ -457,6 +461,19 @@ namespace game_framework {
 		}
 		~Dolphin()override {
 		}
+		void OnStartBattle(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, shared_ptr<Pet> self) override{
+			int  lowestH = enemyPet[0]->get_life();
+			int index = 0;
+			for (size_t i = 1; i < enemyPet.size(); i++) {
+				if (enemyPet[i]->get_life() < lowestH) {
+					lowestH = enemyPet[i]->get_life();
+					index = i;
+				}
+			}
+			for (int i = 0; i < power; i++) {
+				enemyPet[index]->set_life(enemyPet[index]->get_life() - 4);
+			}
+		}
 		shared_ptr<Pet> clone() { return make_shared<Dolphin>(); }
 	private:
 		int m_id = 23;
@@ -666,6 +683,14 @@ namespace game_framework {
 		Mammoth() :Pet({ "resources/pets_info/Mammoth_info.bmp", "resources/Ability/Mammoth.bmp" }, { "resources/pets/Mammoth.bmp" }, "Mammoth", 57, 6, 4, 12) {
 		}
 		~Mammoth()override {
+		}
+		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) override {
+			for (size_t i = 0; i < friendPet.size(); i++) {
+				if (i != selfidx) {
+					friendPet[i]->set_atk(friendPet[i]->get_attack()+2*power );
+					friendPet[i]->set_life(friendPet[i]->get_life() + 2 * power);
+				}
+			}
 		}
 		shared_ptr<Pet> clone() { return make_shared<Mammoth>(); }
 	private:
@@ -955,6 +980,7 @@ namespace game_framework {
 		}
 		~Skunk()override {
 		}
+		
 		shared_ptr<Pet> clone() { return make_shared<Skunk>(); }
 	private:
 		int m_id = 31;

@@ -64,6 +64,17 @@ namespace game_framework {
 		void setinfo_locate(int x, int y) {
 			pet_info.SetTopLeft(x, y);
 		}
+		set<int> get_rands(vector<shared_ptr<Pet>>& vectorPet, size_t blocks, int selfidx) {
+			srand((unsigned int)time(NULL));
+			set<int> rands = {};
+			while (rands.size() < blocks) {
+				int randN = rand() % 5;
+				if (randN != selfidx && vectorPet[randN] != nullptr) {
+					rands.insert(randN);
+				}
+			}
+			return rands;
+		}
 		virtual shared_ptr<Object> clone() = 0;
 
 		virtual void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) {}
@@ -171,21 +182,15 @@ namespace game_framework {
 		shared_ptr<Object> clone() { return make_shared<Salad>(); }
 		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
 			srand((unsigned int)time(NULL));
-			if (friendPet.size() == 0) {
-				return;
-			}
-			vector<int> selectedPets;
-			for (int i = 0; i < 2; ++i) {
-				bool selected = false;
-				while (!selected) {
-					int randN = rand() % 5;
-					if (randN != idx && (!friendPet[randN]) && find(selectedPets.begin(), selectedPets.end(), randN) == selectedPets.end()) {
-						friendPet[randN]->set_atk(friendPet[randN]->get_attack() + 1);
-						friendPet[randN]->set_life(friendPet[randN]->get_life() + 1);
-						selectedPets.push_back(randN);
-						selected = true;
-					}
-				}
+			int max = 2;
+			int count = 0;
+			set<int> petrands{};
+			for (auto item : friendPet) { if (item != nullptr) { count += 1; } }
+			if (count < max) { max = count; }
+			petrands = get_rands(friendPet, max, 6);
+			for(int rand:petrands){
+				friendPet[rand]->set_atk (friendPet[rand]->get_attack() + 1);
+				friendPet[rand]->set_life(friendPet[rand]->get_life() + 1);
 			}
 		}
 	};
@@ -251,22 +256,17 @@ namespace game_framework {
 		shared_ptr<Object> clone() { return make_shared<Sushi>(); }
 		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
 			srand((unsigned int)time(NULL));
-			if (friendPet.size() == 0) {
-				return;
+			int max = 3;
+			int count = 0;
+			set<int> petrands{};
+			for (auto item : friendPet) { if (item != nullptr) { count += 1; } }
+			if (count < max) { max = count; }
+			petrands = get_rands(friendPet, max, 6);
+			for (int rand : petrands) {
+				friendPet[rand]->set_atk(friendPet[rand]->get_attack() + 1);
+				friendPet[rand]->set_life(friendPet[rand]->get_life() + 1);
 			}
-			vector<int> selectedPets;
-			for (int i = 0; i < 3; ++i) {
-				bool selected = false;
-				while (!selected) {
-					int randN = rand() % 5;
-					if (randN != idx && (!friendPet[randN]) && find(selectedPets.begin(), selectedPets.end(), randN) == selectedPets.end()) {
-						friendPet[randN]->set_atk(friendPet[randN]->get_attack() + 1);
-						friendPet[randN]->set_life(friendPet[randN]->get_life() + 1);
-						selectedPets.push_back(randN);
-						selected = true;
-					}
-				}
-			}
+			
 		}
 	};
 	class Steak :public Object {
@@ -302,22 +302,17 @@ namespace game_framework {
 		shared_ptr<Object> clone() { return make_shared<Pizza>(); }
 		void Boost(vector<shared_ptr<Pet>>& friendPet, unsigned int idx, int power) override {
 			srand((unsigned int)time(NULL));
-			if (friendPet.size() == 0) {
-				return;
+			int max = 2;
+			int count = 0;
+			set<int> petrands{};
+			for (auto item : friendPet) { if (item != nullptr) { count += 1; } }
+			if (count < max) { max = count; }
+			petrands = get_rands(friendPet, max, 6);
+			for (int rand : petrands) {
+				friendPet[rand]->set_atk(friendPet[rand]->get_attack() + 2);
+				friendPet[rand]->set_life(friendPet[rand]->get_life() + 2);
 			}
-			vector<int> selectedPets;
-			for (int i = 0; i < 2; ++i) {
-				bool selected = false;
-				while (!selected) {
-					int randN = rand() % 5;
-					if (randN != idx && (!friendPet[randN]) && find(selectedPets.begin(), selectedPets.end(), randN) == selectedPets.end()) {
-						friendPet[randN]->set_atk(friendPet[randN]->get_attack() + 2);
-						friendPet[randN]->set_life(friendPet[randN]->get_life() + 2);
-						selectedPets.push_back(randN);
-						selected = true;
-					}
-				}
-			}
+			
 		}
 	};
 	class GenObject {

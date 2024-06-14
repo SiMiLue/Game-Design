@@ -152,6 +152,9 @@ namespace game_framework {
 					for (size_t i = 0; i < m_friendly.size(); i++) {
 						m_friendly[i]->OnStartBattle(m_friendly, m_enemy, levels[i], m_friendly[i]);
 					}
+					for (size_t i = 0; i < m_enemy.size(); i++) {
+						m_enemy[i]->OnStartBattle( m_enemy, m_friendly, 1, m_enemy[i]);
+					}
 				}
 			}
 			if (isBattling) {
