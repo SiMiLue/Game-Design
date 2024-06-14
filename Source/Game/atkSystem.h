@@ -170,7 +170,7 @@ namespace game_framework {
 		void printattak() {
 			CDC *pDC = CDDraw::GetBackCDC();
 			CTextDraw::ChangeFontLog(pDC, 100, "FranxurterTotallyMedium", RGB(255, 0, 0));
-			CTextDraw::Print(pDC, 520, 300, to_string(m_friendly[0]->get_attack()));
+			CTextDraw::Print(pDC, 520, 300, to_string(-m_enemy[0]->get_attack()));
 			CDDraw::ReleaseBackCDC();
 		}
 	private:

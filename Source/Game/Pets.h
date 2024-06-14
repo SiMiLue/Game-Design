@@ -155,6 +155,7 @@ namespace game_framework {
 		}
 		virtual void OnStartBattle(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, shared_ptr<Pet> self) {
 		}
+		
 		virtual shared_ptr<Pet> clone() = 0;
 	private:
 		string m_name;
@@ -377,11 +378,12 @@ namespace game_framework {
 		~Cricket()override {
 		}
 		void onFaint(vector<shared_ptr<Pet>>& friendPet, vector<shared_ptr<Pet>>& enemyPet, int power, int selfidx) override {
+			/*
 			shared_ptr<Pet> pet = clone();
 			pet->set_atk(power);
 			pet->set_life(power);
 			friendPet.push_back(pet);
-			/*
+			
 			for (size_t i = friendPet.size() - 2; i > 0; i--) {
 				shared_ptr<Pet> temp = friendPet[i+1];
 				friendPet[i + 1] = friendPet[i];
@@ -967,6 +969,7 @@ namespace game_framework {
 		~Snail()override {
 		}
 		shared_ptr<Pet> clone() { return make_shared<Snail>(); }
+		
 	private:
 		int m_id = 11;
 		int m_tier = 2;

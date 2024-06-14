@@ -138,7 +138,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	
 	for (size_t i = 0; i < foods.size(); i++) {
 		CMovingBitmap food = foods[i]->get_img();
-		if (point.x >= food.GetLeft() && point.x <= food.GetLeft() + food.GetWidth() && point.y >= food.GetTop() && point.y <= food.GetTop() + food.GetHeight()&&!shop.get_food_bought(i)) {
+		if (point.x >= food.GetLeft() && point.x <= food.GetLeft() + food.GetWidth() && point.y >= food.GetTop() && point.y <= food.GetTop() + food.GetHeight()&&!shop.get_food_bought(i)&&phases==BUYPHASE) {
 			shop.check_food_select(i);
 		}
 		else {
@@ -170,6 +170,7 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 	}
 
 	if (point.x >= roundEnd.GetLeft() && point.x <= roundEnd.GetLeft() + roundEnd.GetWidth() && point.y >= roundEnd.GetTop() && point.y <= roundEnd.GetTop() + roundEnd.GetHeight()) {
+		
 		phases = ATKPHASE;
 		game_done = false;
 		vector<Level> levels;
